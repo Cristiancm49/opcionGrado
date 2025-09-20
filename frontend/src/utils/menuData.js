@@ -1,0 +1,49 @@
+export const menuItems = [
+  {
+    title: 'Casos',
+    iconName: 'FileText',
+    color: 'bg-blue-500',
+    subItems: [
+      'Registrar Incidencia',
+      'Mis Incidencias Activas',
+      'Mis Incidencias Resueltas',
+      'Casos Asignados',
+      'Casos Resueltos'
+    ]
+  },
+  {
+    title: 'Administración',
+    iconName: 'Settings',
+    color: 'bg-purple-500',
+    subItems: [
+      'Gestión de Incidencias',
+      'Gestión de Usuarios',
+      'Gestión de Roles y Permisos',
+      'Revisión Administrativa',
+      'Configuración del Sistema'
+    ]
+  },
+  {
+    title: 'Inventario',
+    iconName: 'Package',
+    color: 'bg-green-500',
+    subItems: [
+      'Gestión de Activos',
+      'Gestión de Consumibles',
+      'Inventario de Salas',
+      'Disponibilidad de Salas',
+      'Reserva de Salas'
+    ]
+  },
+  {
+    title: 'Reportes',
+    iconName: 'BarChart3',
+    color: 'bg-orange-500',
+    subItems: [
+      'Dashboard Principal',
+      'Reportes de Casos',
+      'Encuestas de Calidad',
+      'Configuración del Sistema'
+    ]
+  }
+];

@@ -1,0 +1,84 @@
+########################################
+# Node / React
+########################################
+# Dependencias
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Builds
+frontend/build/
+frontend/dist/
+
+# Configuración local
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/package-lock.json
+frontend/yarn.lock
+
+########################################
+# .NET / Visual Studio
+########################################
+# Archivos de usuario
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de compilación
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+.vs/
+
+# Archivos de publicación
+*.Publish.xml
+publish/
+
+# Archivos de configuración local
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
+*.swp
+
+########################################
+# Logs generales
+########################################
+*.log
+*.tlog
+
+########################################
+# Archivos del sistema
+########################################
+.DS_Store
+Thumbs.db
+
+########################################
+# Otros
+########################################
+# Base de datos dumps
+database/*.sql
+database/*.dump
+
+# Documentos generados
+documentacion/*.pdf
+documentacion/*.docx
