@@ -5,10 +5,9 @@ export const menuItems = [
     color: 'bg-blue-500',
     subItems: [
       'Registrar Incidencia',
-      'Mis Incidencias Activas',
-      'Mis Incidencias Resueltas',
-      'Casos Asignados',
-      'Casos Resueltos'
+      'Mis Incidencias',
+      'Mis Casos'
+      
     ]
   },
   {
