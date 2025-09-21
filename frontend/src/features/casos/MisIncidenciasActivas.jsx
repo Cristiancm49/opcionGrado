@@ -575,7 +575,7 @@ const MisIncidenciasActivas = () => {
       <div className={`${themeClasses.sidebarBg} rounded-lg shadow-lg overflow-hidden`}>
         <div className="p-4 border-b border-gray-200">
           <h3 className={`text-lg font-semibold ${themeClasses.primaryText}`}>
-            Resultados ({incidenciasFiltradas.length} incidencias)
+            Lista de Incidencias Activas (Total: {incidenciasFiltradas.length})
           </h3>
         </div>
 
