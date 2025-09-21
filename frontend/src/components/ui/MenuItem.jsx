@@ -12,8 +12,7 @@ const MenuItem = ({
   item, 
   isExpanded, 
   onToggle, 
-  sidebarOpen, 
-  themeClasses,
+  sidebarOpen,
   onSubItemClick
 }) => {
   const IconComponent = iconMap[item.iconName];
@@ -22,14 +21,14 @@ const MenuItem = ({
     <div className="mb-2 px-3">
       <button
         onClick={onToggle}
-        className={`w-full p-4 flex items-center justify-between transition-all duration-200 rounded-xl group ${themeClasses.menuHover}`}
+        className="menu-item transition-all duration-200 group"
       >
         <div className="flex items-center space-x-4">
           <div className={`p-2 rounded-lg ${item.color} text-white shadow-md group-hover:scale-105 transition-transform duration-200`}>
             {IconComponent && <IconComponent className="w-5 h-5" />}
           </div>
           {sidebarOpen && (
-            <span className={`font-medium text-sm group-hover:scale-[1.02] transition-all ${themeClasses.menuText}`}>
+            <span className="text-menu font-medium text-sm group-hover:scale-[1.02] transition-all">
               {item.title}
             </span>
           )}
@@ -37,8 +36,8 @@ const MenuItem = ({
         {sidebarOpen && (
           <div className={`p-1 rounded-full transition-all duration-300 ${
             isExpanded 
-              ? `${themeClasses.chevronExpanded} rotate-90`
-              : themeClasses.chevronCollapsed
+              ? 'bg-blue-100 text-blue-600 rotate-90'
+              : 'bg-gray-100 text-gray-400'
           }`}>
             <ChevronRight className="w-4 h-4" />
           </div>
@@ -52,10 +51,10 @@ const MenuItem = ({
             <button
               key={subIndex}
               onClick={() => onSubItemClick && onSubItemClick(subItem)}
-              className={`w-full p-3 text-left text-sm rounded-lg transition-all duration-200 border-l-2 border-transparent ${themeClasses.subMenuText} ${themeClasses.subMenuHover}`}
+              className="submenu-item border-l-2 border-transparent"
             >
               <div className="flex items-center space-x-2">
-                <div className={`w-1.5 h-1.5 rounded-full ${themeClasses.bullet}`}></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
                 <span>{subItem}</span>
               </div>
             </button>
