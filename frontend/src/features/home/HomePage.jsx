@@ -1,19 +1,17 @@
-import useAppStore from '../../store/useAppStore';
 
 const HomePage = () => {
-  const { getThemeClasses } = useAppStore();
-  const themeClasses = getThemeClasses();
+
 
   return (
     <div className="flex items-center justify-center h-full">
       <div className="text-center max-w-2xl">
-        <div className={`w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg ${themeClasses.contentCircle}`}>
+        <div className={`content-circle w-32 h-32 mx-auto mb-8 `}>
           <div className="text-4xl">📞</div>
         </div>
-        <h1 className={`text-4xl font-bold mb-4 ${themeClasses.primaryText}`}>
+        <h1 className={`text-4xl font-bold mb-4`}>
           Mesa de Servicios
         </h1>
-        <p className={`text-lg mb-8 ${themeClasses.secondaryText}`}>
+        <p className={`text-lg mb-8 `}>
           Sistema integral de gestión de incidencias y servicios técnicos
         </p>
         <div className="flex space-x-4 justify-center">

@@ -1,4 +1,4 @@
-import ThemeToggle from './ThemeToggle';
+
 
 const SidebarHeader = ({ 
   sidebarOpen, 
@@ -11,12 +11,7 @@ const SidebarHeader = ({
       <div className={`transition-all duration-300 ${sidebarOpen ? 'block' : 'hidden'}`}>
         <div className="flex items-center justify-between mb-1">
           <h1 className="font-bold text-xl">Menú Principal</h1>
-          <ThemeToggle 
-            darkMode={darkMode}
-            toggleTheme={toggleTheme}
-            size="normal"
-            themeClasses={themeClasses}
-          />
+
         </div>
         <p className={`text-sm ${themeClasses.headerSubtitle}`}>
           Sistema de gestión de incidencias
@@ -28,12 +23,7 @@ const SidebarHeader = ({
           <div className={`w-8 h-8 rounded-lg flex items-center justify-center mx-auto ${themeClasses.logoCircle}`}>
             <span className="text-sm font-bold">MS</span>
           </div>
-          <ThemeToggle 
-            darkMode={darkMode}
-            toggleTheme={toggleTheme}
-            size="small"
-            themeClasses={themeClasses}
-          />
+
         </div>
       )}
     </div>
