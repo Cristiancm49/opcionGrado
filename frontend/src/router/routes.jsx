@@ -3,7 +3,8 @@ import MainLayout from '../layouts/MainLayout';
 import HomePage from '../features/home/HomePage';
 import RegistrarIncidencia from '../features/registrar/RegistrarIncidencia';
 import DisponibilidadSalas from '../features/inventory/DisponibilidadSalas';
-import MisCasos from '../features/casos/MisIncidencias';
+import MisIncidencias from '../features/casos/MisIncidencias';
+import MisCasos from '../features/casos/MisCasos';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       },
       {
         path: 'casos/mis-incidencias',
+        element: <MisIncidencias />
+      },
+      {
+        path: 'casos/mis-casos',
         element: <MisCasos />
       }
     ]
@@ -34,5 +39,6 @@ export const router = createBrowserRouter([
 export const menuRoutes = {
   'Registrar Incidencia': '/registrar/incidencia',
   'Disponibilidad de Salas': '/inventory/disponibilidad-salas',
-  'Mis Incidencias': '/casos/mis-incidencias'
+  'Mis Incidencias': '/casos/mis-incidencias',
+  'Mis Casos': '/casos/mis-casos'
 };
