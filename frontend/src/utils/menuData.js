@@ -17,7 +17,6 @@ export const menuItems = [
     subItems: [
       'Gestión de Incidencias',
       'Gestión de Usuarios',
-      'Gestión de Roles y Permisos',
       'Revisión Administrativa',
       'Configuración del Sistema'
     ]
