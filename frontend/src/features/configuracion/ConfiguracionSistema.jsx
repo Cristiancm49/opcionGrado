@@ -28,7 +28,7 @@ const ConfiguracionSistema = () => {
   
   const [seccionActiva, setSeccionActiva] = useState('dashboard');
 
-  // Datos de ejemplo para las estadísticas
+
   const estadisticas = {
     usuarios: {
       total: 45,
