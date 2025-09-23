@@ -687,7 +687,9 @@ const MisCasos = () => {
                 <select
                   value={nuevoEstado}
                   onChange={(e) => setNuevoEstado(e.target.value)}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                    bg-white border-gray-300
+                  }`}
                 >
                   <option value="Asignado">🔵 Asignado</option>
                   <option value="En Proceso">🟡 En Proceso</option>
@@ -706,7 +708,9 @@ const MisCasos = () => {
                   value={horasTrabajo}
                   onChange={(e) => setHorasTrabajo(e.target.value)}
                   placeholder="Ej: 2.5"
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                    bg-white border-gray-300
+                  }`}
                 />
               </div>
 
@@ -719,7 +723,9 @@ const MisCasos = () => {
                   onChange={(e) => setObservaciones(e.target.value)}
                   rows={4}
                   placeholder="Describa el trabajo realizado, problemas encontrados, etc..."
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none ${
+                    bg-white border-gray-300
+                  }`}
                 />
               </div>
 
@@ -812,7 +818,9 @@ const MisCasos = () => {
                   onChange={(e) => setDiagnostico(e.target.value)}
                   rows={4}
                   placeholder="Describa detalladamente el problema identificado..."
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none ${
+                    bg-white border-gray-300
+                  }`}
                 />
               </div>
 
@@ -825,7 +833,9 @@ const MisCasos = () => {
                   onChange={(e) => setSolucionPropuesta(e.target.value)}
                   rows={4}
                   placeholder="Describa la solución propuesta paso a paso..."
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none ${
+                    bg-white border-gray-300
+                  }`}
                 />
               </div>
 
@@ -850,7 +860,9 @@ const MisCasos = () => {
                   <textarea
                     rows={3}
                     placeholder="Liste los consumibles necesarios (uno por línea)..."
-                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none bg-white border-gray-300`}
+                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none ${
+                      bg-white border-gray-300
+                    }`}
                   />
                 </div>
               )}
@@ -1162,7 +1174,9 @@ const MisCasos = () => {
                 placeholder="Caso, problema, diagnóstico..."
                 value={filtros.busqueda}
                 onChange={(e) => setFiltros({...filtros, busqueda: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               />
             </div>
 
@@ -1176,7 +1190,9 @@ const MisCasos = () => {
               <select
                 value={filtros.prioridad}
                 onChange={(e) => setFiltros({...filtros, prioridad: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               >
                 <option value="">Todas</option>
                 <option value="Crítica">🔴 Crítica</option>
@@ -1196,7 +1212,9 @@ const MisCasos = () => {
               <select
                 value={filtros.slaStatus}
                 onChange={(e) => setFiltros({...filtros, slaStatus: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               >
                 <option value="">Todos</option>
                 <option value="Vencido">❌ Vencido</option>
@@ -1216,7 +1234,9 @@ const MisCasos = () => {
               <select
                 value={filtros.tipoTrabajo}
                 onChange={(e) => setFiltros({...filtros, tipoTrabajo: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               >
                 <option value="">Todos</option>
                 <option value="Reparación">🔧 Reparación</option>

@@ -132,7 +132,9 @@ const RegistrarIncidencia = () => {
                   type="text"
                   {...register('nombreSolicitante')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300 ${errors.nombreSolicitante ? 'border-red-500' : ''}`}
+                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
+                    bg-gray-100 border-gray-300
+                  } ${errors.nombreSolicitante ? 'border-red-500' : ''}`}
                   placeholder="Se completará automáticamente"
                 />
                 {errors.nombreSolicitante && (
@@ -148,7 +150,9 @@ const RegistrarIncidencia = () => {
                   type="text"
                   {...register('dependencia')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
+                    bg-gray-100 border-gray-300
+                  }`}
                   placeholder="Se completará automáticamente"
                 />
               </div>
@@ -161,7 +165,9 @@ const RegistrarIncidencia = () => {
                   type="text"
                   {...register('telefonoExtension')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
+                    bg-gray-100 border-gray-300
+                  }`}
                   placeholder="Se completará automáticamente"
                 />
               </div>
@@ -182,7 +188,9 @@ const RegistrarIncidencia = () => {
                   type="date"
                   {...register('fechaRegistro')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
+                    bg-gray-100 border-gray-300
+                  }`}
                 />
               </div>
 
@@ -192,7 +200,9 @@ const RegistrarIncidencia = () => {
                 </label>
                 <select 
                   {...register('tipoCaso')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.tipoCaso ? 'border-red-500' : ''}`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    bg-white border-gray-300
+                  } ${errors.tipoCaso ? 'border-red-500' : ''}`}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="INCIDENCIA">Incidencia</option>
@@ -213,7 +223,9 @@ const RegistrarIncidencia = () => {
                 </label>
                 <select 
                   {...register('areaTecnica')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.areaTecnica ? 'border-red-500' : ''}`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    bg-white border-gray-300
+                  } ${errors.areaTecnica ? 'border-red-500' : ''}`}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="HARDWARE">Hardware</option>
@@ -234,7 +246,9 @@ const RegistrarIncidencia = () => {
                 </label>
                 <select 
                   {...register('categoria')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    bg-white border-gray-300
+                  }`}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="HARDWARE_PC">Hardware PC</option>
@@ -252,7 +266,9 @@ const RegistrarIncidencia = () => {
                 </label>
                 <select 
                   {...register('tipoTrabajo')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    bg-white border-gray-300
+                  }`}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="REPARACION">Reparación</option>
@@ -271,7 +287,9 @@ const RegistrarIncidencia = () => {
                 </label>
                 <select 
                   {...register('prioridad')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.prioridad ? 'border-red-500' : ''}`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    bg-white border-gray-300
+                  } ${errors.prioridad ? 'border-red-500' : ''}`}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="1">1 - Crítica (Resolver inmediatamente)</option>
@@ -291,7 +309,9 @@ const RegistrarIncidencia = () => {
                 </label>
                 <select 
                   {...register('canalIngreso')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    bg-white border-gray-300
+                  }`}
                 >
                   <option value="WEB">Portal Web</option>
                   <option value="TELEFONO">Teléfono</option>
@@ -308,7 +328,9 @@ const RegistrarIncidencia = () => {
               <textarea 
                 {...register('descripcion')}
                 rows={4}
-                className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white border-gray-300 ${errors.descripcion ? 'border-red-500' : ''}`}
+                className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none ${
+                  bg-white border-gray-300
+                } ${errors.descripcion ? 'border-red-500' : ''}`}
                 placeholder="Describa detalladamente el problema o incidencia..."
               />
               {errors.descripcion && (
@@ -323,7 +345,9 @@ const RegistrarIncidencia = () => {
               <textarea 
                 {...register('observaciones')}
                 rows={3}
-                className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white border-gray-300`}
+                className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none ${
+                  bg-white border-gray-300
+                }`}
                 placeholder="Información adicional relevante..."
               />
             </div>
@@ -343,7 +367,9 @@ const RegistrarIncidencia = () => {
                   <input 
                     type="text"
                     {...register('codigoPatrimonial')}
-                    className={`flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                    className={`flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      bg-white border-gray-300
+                    }`}
                     placeholder="Código patrimonial o serie"
                   />
                   <button
@@ -365,7 +391,9 @@ const RegistrarIncidencia = () => {
                   type="text"
                   {...register('elementoAfectado')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
+                    bg-gray-100 border-gray-300
+                  }`}
                   placeholder="Se completará automáticamente"
                 />
               </div>
@@ -378,7 +406,9 @@ const RegistrarIncidencia = () => {
                   type="text"
                   {...register('ubicacionEspecifica')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
+                    bg-gray-100 border-gray-300
+                  }`}
                   placeholder="Se completará automáticamente al buscar elemento"
                 />
               </div>
@@ -401,7 +431,9 @@ const RegistrarIncidencia = () => {
                 accept="image/*,.pdf,.doc,.docx"
                 onChange={handleFileUpload}
                 disabled={uploadingFile}
-                className={`w-full p-3 border rounded-lg bg-white border-gray-300 ${uploadingFile ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full p-3 border rounded-lg ${
+                  bg-white border-gray-300
+                } ${uploadingFile ? 'opacity-50 cursor-not-allowed' : ''}`}
               />
               <p className={`text-sm mt-1 ${themeClasses.secondaryText}`}>
                 Formatos permitidos: Imágenes, PDF, Word. Tamaño máximo: 10MB por archivo.
@@ -422,7 +454,9 @@ const RegistrarIncidencia = () => {
                 {watchedValues.evidencias.map((evidencia) => (
                   <div 
                     key={evidencia.id} 
-                    className={`flex items-center justify-between p-3 border rounded-lg border-gray-300 bg-gray-50`}
+                    className={`flex items-center justify-between p-3 border rounded-lg ${
+                      border-gray-300 bg-gray-50
+                    }`}
                   >
                     <div className="flex items-center space-x-3">
                       <div className="text-blue-500">
@@ -452,7 +486,7 @@ const RegistrarIncidencia = () => {
           </div>
 
           {/* Información adicional */}
-          <div className={`p-4 rounded-lg bg-blue-50`}>
+          <div className={`p-4 rounded-lg ${bg-blue-50}`}>
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
                 <svg className="w-5 h-5 text-blue-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">

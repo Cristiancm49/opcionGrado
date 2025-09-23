@@ -234,7 +234,7 @@ const ConfiguracionSistema = () => {
 
       {/* Estadísticas Generales */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
               <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
@@ -253,7 +253,7 @@ const ConfiguracionSistema = () => {
           </div>
         </div>
 
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
               <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
@@ -272,7 +272,7 @@ const ConfiguracionSistema = () => {
           </div>
         </div>
 
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
               <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
@@ -291,7 +291,7 @@ const ConfiguracionSistema = () => {
           </div>
         </div>
 
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
               <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
@@ -315,7 +315,7 @@ const ConfiguracionSistema = () => {
         {/* Panel Izquierdo - Secciones Principales */}
         <div className="xl:col-span-2 space-y-6">
           {/* Secciones Principales */}
-          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'} overflow-hidden`}>
+          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border border-gray-200 overflow-hidden`}>
             <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
               <h3 className={`text-lg font-semibold ${themeClasses.primaryText} flex items-center space-x-2`}>
                 <Settings className="w-5 h-5" />
@@ -328,7 +328,7 @@ const ConfiguracionSistema = () => {
                 {secciones.map((seccion) => {
                   const IconoSeccion = seccion.icono;
                   return (
-                    <div key={seccion.id} className={`p-6 border rounded-xl transition-all duration-200 hover:shadow-md ${themeClasses.darkMode ? 'border-gray-600 hover:border-gray-500' : 'border-gray-200 hover:border-gray-300'}`}>
+                    <div key={seccion.id} className={`p-6 border rounded-xl transition-all duration-200 hover:shadow-md border-gray-200 hover:border-gray-300`}>
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center space-x-4">
                           <div className={`p-3 bg-gradient-to-r ${getColorClasses(seccion.color)} rounded-lg`}>
@@ -351,7 +351,7 @@ const ConfiguracionSistema = () => {
                               className={`px-4 py-2 text-sm rounded-lg transition-colors ${
                                 index === 0 
                                   ? `bg-gradient-to-r ${getColorClasses(seccion.color)} text-white`
-                                  : `${themeClasses.darkMode ? 'bg-gray-600 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`
+                                  : `bg-gray-100 text-gray-700 hover:bg-gray-200`
                               }`}
                             >
                               {accion}
@@ -365,7 +365,7 @@ const ConfiguracionSistema = () => {
                         {seccion.estadisticas.map((stat, index) => {
                           const IconoStat = stat.icono;
                           return (
-                            <div key={index} className={`p-3 rounded-lg ${themeClasses.darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+                            <div key={index} className={`p-3 rounded-lg bg-gray-50`}>
                               <div className="flex items-center space-x-2 mb-1">
                                 <IconoStat className={`w-4 h-4 ${stat.color ? `text-${stat.color}-500` : themeClasses.secondaryText}`} />
                                 <span className={`text-xs font-medium ${themeClasses.secondaryText}`}>
@@ -387,7 +387,7 @@ const ConfiguracionSistema = () => {
           </div>
 
           {/* Detalle de Catálogos */}
-          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'} overflow-hidden`}>
+          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border border-gray-200 overflow-hidden`}>
             <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
               <h3 className={`text-lg font-semibold ${themeClasses.primaryText} flex items-center space-x-2`}>
                 <Database className="w-5 h-5" />
@@ -400,7 +400,7 @@ const ConfiguracionSistema = () => {
                 {catalogosDetalle.map((catalogo) => {
                   const IconoCatalogo = catalogo.icono;
                   return (
-                    <div key={catalogo.tabla} className={`p-4 border rounded-lg transition-all duration-200 hover:shadow-md cursor-pointer ${themeClasses.darkMode ? 'border-gray-600 hover:border-gray-500' : 'border-gray-200 hover:border-gray-300'}`}>
+                    <div key={catalogo.tabla} className={`p-4 border rounded-lg transition-all duration-200 hover:shadow-md cursor-pointer border-gray-200 hover:border-gray-300`}>
                       <div className="flex items-center justify-between mb-3">
                         <div className={`p-2 bg-gradient-to-r ${getColorClasses(catalogo.color)} rounded-lg`}>
                           <IconoCatalogo className="w-4 h-4 text-white" />
@@ -415,7 +415,7 @@ const ConfiguracionSistema = () => {
                       <p className={`text-xs ${themeClasses.secondaryText} mb-2`}>
                         {catalogo.descripcion}
                       </p>
-                      <div className={`text-xs ${themeClasses.secondaryText} bg-opacity-50 px-2 py-1 rounded ${themeClasses.darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
+                      <div className={`text-xs ${themeClasses.secondaryText} bg-opacity-50 px-2 py-1 rounded bg-gray-100`}>
                         {catalogo.tabla}
                       </div>
                     </div>
@@ -429,7 +429,7 @@ const ConfiguracionSistema = () => {
         {/* Panel Derecho - Actividad Reciente */}
         <div className="space-y-6">
           {/* Actividad Reciente */}
-          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'} overflow-hidden`}>
+          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border border-gray-200 overflow-hidden`}>
             <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
               <h3 className={`text-lg font-semibold ${themeClasses.primaryText} flex items-center space-x-2`}>
                 <Clock className="w-5 h-5" />
@@ -473,7 +473,7 @@ const ConfiguracionSistema = () => {
           </div>
 
           {/* Estado del Sistema */}
-          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border ${themeClasses.darkMode ? 'border-gray-700' : 'border-gray-200'} overflow-hidden`}>
+          <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg border border-gray-200 overflow-hidden`}>
             <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
               <h3 className={`text-lg font-semibold ${themeClasses.primaryText} flex items-center space-x-2`}>
                 <Activity className="w-5 h-5" />

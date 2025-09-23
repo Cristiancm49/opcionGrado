@@ -923,7 +923,9 @@ const MisIncidencias = () => {
                 placeholder="Caso, descripción..."
                 value={filtros.busqueda}
                 onChange={(e) => setFiltros({...filtros, busqueda: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               />
             </div>
 
@@ -937,7 +939,9 @@ const MisIncidencias = () => {
               <select
                 value={filtros.prioridad}
                 onChange={(e) => setFiltros({...filtros, prioridad: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               >
                 <option value="">Todas</option>
                 <option value="Crítica">🔴 Crítica</option>
@@ -957,7 +961,9 @@ const MisIncidencias = () => {
               <select
                 value={filtros.areaTecnica}
                 onChange={(e) => setFiltros({...filtros, areaTecnica: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               >
                 <option value="">Todas</option>
                 <option value="Hardware">💻 Hardware</option>
@@ -977,7 +983,9 @@ const MisIncidencias = () => {
               <select
                 value={filtros.estadoEspecifico}
                 onChange={(e) => setFiltros({...filtros, estadoEspecifico: e.target.value})}
-                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300`}
+                className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                  bg-white border-gray-300
+                }`}
               >
                 <option value="">Todos</option>
                 {filtros.estadoGeneral === 'ACTIVOS' && (

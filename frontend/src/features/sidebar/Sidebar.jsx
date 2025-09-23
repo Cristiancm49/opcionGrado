@@ -11,10 +11,8 @@ const Sidebar = () => {
   
   const {
     sidebarOpen,
-    darkMode,
     expandedMenuItems,
     toggleSidebar,
-    toggleTheme,
     toggleMenuItem,
     getThemeClasses
   } = useAppStore();
@@ -41,8 +39,6 @@ const Sidebar = () => {
       
       <SidebarHeader
         sidebarOpen={sidebarOpen}
-        darkMode={darkMode}
-        toggleTheme={toggleTheme}
         themeClasses={themeClasses}
       />
 

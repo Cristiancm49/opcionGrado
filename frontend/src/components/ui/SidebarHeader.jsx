@@ -1,5 +1,5 @@
 
-const SidebarHeader = ({ sidebarOpen }) => {
+const SidebarHeader = ({ sidebarOpen, themeClasses }) => {
   return (
     <div className="app-header p-6">
       <div className={`transition-all duration-300 ${sidebarOpen ? 'block' : 'hidden'}`}>

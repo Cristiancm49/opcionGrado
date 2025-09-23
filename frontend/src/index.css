@@ -53,9 +53,6 @@ app-main {
     @apply px-8 py-3 rounded-lg transition-colors font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed;
   }
   
-  .btn-theme {
-    @apply rounded-lg transition-all duration-300 hover:scale-110 bg-white/20 hover:bg-white/30 text-white;
-  }
 
   /* ===== MENU COMPONENTS (nuevos) ===== */
   .menu-item {

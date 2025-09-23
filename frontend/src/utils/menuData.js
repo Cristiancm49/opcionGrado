@@ -16,7 +16,6 @@ export const menuItems = [
     color: 'bg-purple-500',
     subItems: [
       'Gestión de Incidencias',
-      'Gestión de Usuarios',
       'Revisión Administrativa',
       'Configuración del Sistema'
     ]
