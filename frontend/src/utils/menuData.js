@@ -25,11 +25,10 @@ export const menuItems = [
     iconName: 'Package',
     color: 'bg-green-500',
     subItems: [
-      'Gestión de Activos',
-      'Gestión de Consumibles',
+      'Gestión de Inventario',
       'Inventario de Salas',
       'Disponibilidad de Salas',
-      'Reserva de Salas'
+      'Gestión de Reservas'
     ]
   },
   {
@@ -37,10 +36,8 @@ export const menuItems = [
     iconName: 'BarChart3',
     color: 'bg-orange-500',
     subItems: [
-      'Dashboard Principal',
-      'Reportes de Casos',
-      'Encuestas de Calidad',
-      'Configuración del Sistema'
+      'Dashboard General',
+      'Reportes de Configuración'
     ]
   }
 ];
