@@ -72,7 +72,12 @@ const ModalAsignacionTecnico = ({
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    console.log('🔧 Modal de asignación no está abierto');
+    return null;
+  }
+  
+  console.log('🔧 Renderizando modal de asignación para:', incidencia?.numeroIncidencia);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">

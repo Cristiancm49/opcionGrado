@@ -10,7 +10,8 @@ import {
   Plus,
   UserPlus,
   CheckSquare,
-  X
+  X,
+  RefreshCw
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -65,6 +66,7 @@ const GestionIncidencias = () => {
   };
 
   const handleAsignarTecnico = (incidencia) => {
+    console.log('🔧 Abriendo modal de asignación para:', incidencia.numeroIncidencia);
     setIncidenciaSeleccionada(incidencia);
     setModalAsignacionAbierto(true);
   };
@@ -463,6 +465,7 @@ const GestionIncidencias = () => {
         tecnicos={tecnicos}
         isOpen={modalAsignacionAbierto}
         onClose={() => {
+          console.log('🔧 Cerrando modal de asignación');
           setModalAsignacionAbierto(false);
           setIncidenciaSeleccionada(null);
         }}
