@@ -21,6 +21,9 @@ import {
   Filter,
   Star
 } from 'lucide-react';
+import { Card, Button } from '../../styles/components';
+import { cn } from '../../styles/utils';
+import { textStyles, THEME_CONSTANTS } from '../../styles/theme';
 
 const ConfiguracionSistema = () => {
   const { getThemeClasses } = useAppStore();
@@ -211,36 +214,34 @@ const ConfiguracionSistema = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className={`text-3xl font-bold mb-2 ${themeClasses.primaryText}`}>
+            <h1 className={cn(textStyles.h1, 'mb-2')}>
               Configuración del Sistema
             </h1>
-            <p className={`${themeClasses.secondaryText}`}>
+            <p className={textStyles.body2}>
               Administre usuarios, roles, permisos y catálogos del sistema
             </p>
           </div>
           
           <div className="flex items-center space-x-3">
-            <button className="btn-secondary flex items-center space-x-2">
-              <Settings className="w-4 h-4" />
-              <span>Configuración</span>
-            </button>
-            <button className="btn-primary flex items-center space-x-2">
-              <Activity className="w-4 h-4" />
-              <span>Sincronizar Todo</span>
-            </button>
+            <Button variant="outline" icon={<Settings className="w-4 h-4" />}>
+              Configuración
+            </Button>
+            <Button variant="primary" icon={<Activity className="w-4 h-4" />}>
+              Sincronizar Todo
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Estadísticas Generales */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
+        <Card variant="default" className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
+              <p className={cn(textStyles.caption, 'mb-1')}>
                 Total Usuarios
               </p>
-              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
+              <p className="text-3xl font-bold text-primary-600">
                 {estadisticas.usuarios.total}
               </p>
             </div>

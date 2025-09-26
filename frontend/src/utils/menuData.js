@@ -27,8 +27,7 @@ export const menuItems = [
     subItems: [
       'Gestión de Inventario',
       'Inventario de Salas',
-      'Disponibilidad de Salas',
-      'Gestión de Reservas'
+      'Disponibilidad de Salas'
     ]
   },
   {

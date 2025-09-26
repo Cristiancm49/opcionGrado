@@ -5,7 +5,6 @@ import { useCasos } from './hooks/useCasos';
 import CasosFilters from './components/CasosFilters';
 import CasosStats from './components/CasosStats';
 import CasosTable from './components/CasosTable';
-import { Modal } from '../../styles/components';
 
 const MisCasosRefactorizado = () => {
   const { getThemeClasses } = useAppStore();
@@ -136,99 +135,74 @@ const MisCasosRefactorizado = () => {
           onMarcarResuelto={marcarResuelto}
         />
 
-        {/* Modales */}
-        <Modal
-          isOpen={showDetalleModal}
-          onClose={() => setShowDetalleModal(false)}
-          title="Detalle del Caso"
-          size="lg"
-        >
-          <Modal.Body>
-            <p className="text-gray-600 mb-4">
-              Detalle del caso: {casoSeleccionado?.numeroCaso}
-            </p>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900">Información General</h4>
-                <p className="text-sm text-gray-600">
-                  Solicitante: {casoSeleccionado?.solicitante}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Dependencia: {casoSeleccionado?.dependencia}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Descripción: {casoSeleccionado?.descripcion}
-                </p>
-              </div>
+        {/* Modales - Placeholder para futuros componentes */}
+        {showDetalleModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
+              <h3 className="text-lg font-semibold mb-4">Detalle del Caso</h3>
+              <p className="text-gray-600 mb-4">
+                Detalle del caso: {casoSeleccionado?.numeroCaso}
+              </p>
+              <button
+                onClick={() => setShowDetalleModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+              >
+                Cerrar
+              </button>
             </div>
-          </Modal.Body>
-        </Modal>
+          </div>
+        )}
 
-        <Modal
-          isOpen={showSeguimientoModal}
-          onClose={() => setShowSeguimientoModal(false)}
-          title="Seguimiento del Caso"
-          size="lg"
-        >
-          <Modal.Body>
-            <p className="text-gray-600 mb-4">
-              Seguimiento del caso: {casoSeleccionado?.numeroCaso}
-            </p>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900">Historial de Seguimiento</h4>
-                <p className="text-sm text-gray-600">
-                  Aquí se mostraría el historial de seguimiento del caso.
-                </p>
-              </div>
+        {showSeguimientoModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
+              <h3 className="text-lg font-semibold mb-4">Seguimiento del Caso</h3>
+              <p className="text-gray-600 mb-4">
+                Seguimiento del caso: {casoSeleccionado?.numeroCaso}
+              </p>
+              <button
+                onClick={() => setShowSeguimientoModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+              >
+                Cerrar
+              </button>
             </div>
-          </Modal.Body>
-        </Modal>
+          </div>
+        )}
 
-        <Modal
-          isOpen={showGestionModal}
-          onClose={() => setShowGestionModal(false)}
-          title="Gestión del Caso"
-          size="lg"
-        >
-          <Modal.Body>
-            <p className="text-gray-600 mb-4">
-              Gestión del caso: {casoSeleccionado?.numeroCaso}
-            </p>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900">Acciones de Gestión</h4>
-                <p className="text-sm text-gray-600">
-                  Aquí se mostrarían las opciones de gestión del caso.
-                </p>
-              </div>
+        {showGestionModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
+              <h3 className="text-lg font-semibold mb-4">Gestión del Caso</h3>
+              <p className="text-gray-600 mb-4">
+                Gestión del caso: {casoSeleccionado?.numeroCaso}
+              </p>
+              <button
+                onClick={() => setShowGestionModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+              >
+                Cerrar
+              </button>
             </div>
-          </Modal.Body>
-        </Modal>
+          </div>
+        )}
 
-        <Modal
-          isOpen={showDiagnosticoModal}
-          onClose={() => setShowDiagnosticoModal(false)}
-          title="Diagnóstico del Caso"
-          size="lg"
-        >
-          <Modal.Body>
-            <p className="text-gray-600 mb-4">
-              Diagnóstico del caso: {casoSeleccionado?.numeroCaso}
-            </p>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900">Información de Diagnóstico</h4>
-                <p className="text-sm text-gray-600">
-                  Diagnóstico: {casoSeleccionado?.diagnostico || 'Pendiente de diagnóstico'}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Solución propuesta: {casoSeleccionado?.solucionPropuesta || 'Pendiente de solución'}
-                </p>
-              </div>
+        {showDiagnosticoModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
+              <h3 className="text-lg font-semibold mb-4">Diagnóstico del Caso</h3>
+              <p className="text-gray-600 mb-4">
+                Diagnóstico del caso: {casoSeleccionado?.numeroCaso}
+              </p>
+              <button
+                onClick={() => setShowDiagnosticoModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+              >
+                Cerrar
+              </button>
             </div>
-          </Modal.Body>
-        </Modal>
+          </div>
+        )}
       </div>
     </div>
   );

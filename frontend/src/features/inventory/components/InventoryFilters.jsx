@@ -1,5 +1,8 @@
 import React from 'react';
 import { Search, Filter, X, MapPin, Package, Building } from 'lucide-react';
+import { Button, Card, Input } from '../../../styles/components';
+import { cn } from '../../../styles/utils';
+import { textStyles, gradients, THEME_CONSTANTS } from '../../../styles/theme';
 
 const InventoryFilters = ({ 
   filtros, 
@@ -16,38 +19,46 @@ const InventoryFilters = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg mb-6 border border-gray-200 overflow-hidden">
+    <Card variant="elevated" className="mb-6">
       {/* Header con gradiente */}
-      <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+      <div className={cn(
+        'px-6 py-4 bg-gradient-to-r',
+        gradients.primary,
+        'border-b border-gray-200'
+      )}>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg">
+            <div className="p-2 bg-white bg-opacity-20 rounded-lg">
               <Filter className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Filtros Avanzados</h3>
-              <p className="text-sm text-gray-600">Refina tu búsqueda con filtros específicos</p>
+              <h3 className={cn(textStyles.h4, 'text-white')}>Filtros Avanzados</h3>
+              <p className={cn(textStyles.caption, 'text-white text-opacity-80')}>Refina tu búsqueda con filtros específicos</p>
             </div>
           </div>
           <div className="flex space-x-2">
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => {
                 console.log('🔍 Ejecutando búsqueda de inventario:', filtros.busqueda);
               }}
-              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
+              className="bg-white bg-opacity-20 text-white hover:bg-opacity-30"
               disabled={!filtros.busqueda}
+              icon={<Search className="w-4 h-4" />}
             >
-              <Search className="w-4 h-4" />
-              <span>Aplicar</span>
-            </button>
-            <button
+              Aplicar
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => handleFiltroChange('busqueda', '')}
-              className="px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 bg-white text-gray-700 hover:bg-gray-50 border"
+              className="bg-white bg-opacity-20 text-white hover:bg-opacity-30"
               disabled={!filtros.busqueda}
+              icon={<X className="w-4 h-4" />}
             >
-              <X className="w-4 h-4" />
-              <span>Limpiar</span>
-            </button>
+              Limpiar
+            </Button>
           </div>
         </div>
       </div>
@@ -164,7 +175,7 @@ const InventoryFilters = ({
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

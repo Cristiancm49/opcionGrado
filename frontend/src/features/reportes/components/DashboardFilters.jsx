@@ -1,42 +1,53 @@
 import React from 'react';
 import { Search, Filter, X, Calendar, User, Building, Star, Clock } from 'lucide-react';
+import { Button, Card, Input } from '../../../styles/components';
+import { cn } from '../../../styles/utils';
+import { textStyles, gradients, THEME_CONSTANTS } from '../../../styles/theme';
 
 const DashboardFilters = ({ filtros, actualizarFiltros, limpiarFiltros, opcionesFiltros, casosFiltrados, encuestasFiltradas }) => {
   const filtrosActivos = Object.values(filtros).filter(valor => valor !== '').length;
 
   return (
-    <div className="bg-white rounded-xl shadow-lg mb-6 border border-gray-200 overflow-hidden">
+    <Card variant="elevated" className="mb-6">
       {/* Header con gradiente */}
-      <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+      <div className={cn(
+        'px-6 py-4 bg-gradient-to-r',
+        gradients.primary,
+        'border-b border-gray-200'
+      )}>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg">
+            <div className="p-2 bg-white bg-opacity-20 rounded-lg">
               <Filter className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Filtros Avanzados</h3>
-              <p className="text-sm text-gray-600">Refina tu búsqueda con filtros específicos</p>
+              <h3 className={cn(textStyles.h4, 'text-white')}>Filtros Avanzados</h3>
+              <p className={cn(textStyles.caption, 'text-white text-opacity-80')}>Refina tu búsqueda con filtros específicos</p>
             </div>
           </div>
           <div className="flex space-x-2">
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => {
                 console.log('🔍 Ejecutando búsqueda del dashboard:', filtros.busqueda);
               }}
-              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
+              className="bg-white bg-opacity-20 text-white hover:bg-opacity-30"
               disabled={!filtros.busqueda}
+              icon={<Search className="w-4 h-4" />}
             >
-              <Search className="w-4 h-4" />
-              <span>Aplicar</span>
-            </button>
-            <button
+              Aplicar
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => actualizarFiltros({ busqueda: '' })}
-              className="px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 bg-white text-gray-700 hover:bg-gray-50 border"
+              className="bg-white bg-opacity-20 text-white hover:bg-opacity-30"
               disabled={!filtros.busqueda}
+              icon={<X className="w-4 h-4" />}
             >
-              <X className="w-4 h-4" />
-              <span>Limpiar</span>
-            </button>
+              Limpiar
+            </Button>
           </div>
         </div>
       </div>
@@ -45,21 +56,15 @@ const DashboardFilters = ({ filtros, actualizarFiltros, limpiarFiltros, opciones
       <div className="p-6">
         {/* Fila 1: Búsqueda principal */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="lg:col-span-2 space-y-2">
-            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
-              <Search className="w-4 h-4 text-blue-500" />
-              <span>Buscar</span>
-            </label>
-            <input
+          <div className="lg:col-span-2">
+            <Input
               type="text"
               placeholder="Número de caso, título, descripción, usuario, técnico..."
               value={filtros.busqueda}
               onChange={(e) => actualizarFiltros({ busqueda: e.target.value })}
-              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+              icon={<Search className="w-4 h-4 text-primary-500" />}
+              helper="💡 Ejemplos: 'CAS-2024', 'impresora', 'Carlos', 'Hardware', 'Alta'"
             />
-            <div className="text-xs text-gray-500">
-              💡 Ejemplos: "CAS-2024", "impresora", "Carlos", "Hardware", "Alta"
-            </div>
           </div>
         </div>
 
@@ -215,7 +220,7 @@ const DashboardFilters = ({ filtros, actualizarFiltros, limpiarFiltros, opciones
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

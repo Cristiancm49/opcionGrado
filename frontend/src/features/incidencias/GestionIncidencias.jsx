@@ -13,8 +13,9 @@ import {
   X,
   RefreshCw
 } from 'lucide-react';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import { Card, Button } from '../../styles/components';
+import { cn } from '../../styles/utils';
+import { textStyles, THEME_CONSTANTS } from '../../styles/theme';
 import IncidenciasFilters from './components/IncidenciasFilters';
 import IncidenciaItem from './components/IncidenciaItem';
 import ModalAsignacionTecnico from './components/ModalAsignacionTecnico';
@@ -125,8 +126,8 @@ const GestionIncidencias = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Cargando incidencias...</p>
+          <RefreshCw className="w-8 h-8 animate-spin text-primary-600 mx-auto mb-4" />
+          <p className={textStyles.body2}>Cargando incidencias...</p>
         </div>
       </div>
     );
@@ -136,8 +137,8 @@ const GestionIncidencias = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <XCircle className="w-8 h-8 text-red-600 mx-auto mb-4" />
-          <p className="text-red-600">{error}</p>
+          <XCircle className="w-8 h-8 text-error-600 mx-auto mb-4" />
+          <p className={cn(textStyles.body2, 'text-error-600')}>{error}</p>
         </div>
       </div>
     );
@@ -159,13 +160,13 @@ const GestionIncidencias = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Gestión de Incidencias</h1>
-          <p className="text-gray-600">Administra todas las incidencias del sistema</p>
+          <h1 className={textStyles.h1}>Gestión de Incidencias</h1>
+          <p className={textStyles.body2}>Administra todas las incidencias del sistema</p>
         </div>
         <div className="flex items-center space-x-3">
           {incidenciasSeleccionadas.length > 0 && (
             <div className="flex items-center space-x-2 mr-4">
-              <span className="text-sm text-gray-600">
+              <span className={cn(textStyles.caption, 'text-gray-600')}>
                 {incidenciasSeleccionadas.length} seleccionada{incidenciasSeleccionadas.length !== 1 ? 's' : ''}
               </span>
               <Button
@@ -173,8 +174,8 @@ const GestionIncidencias = () => {
                 size="sm"
                 onClick={handleAsignacionMasiva}
                 className="text-purple-600 hover:text-purple-800"
+                icon={<UserPlus className="w-4 h-4" />}
               >
-                <UserPlus className="w-4 h-4 mr-2" />
                 Asignación Masiva
               </Button>
               <Button
@@ -182,17 +183,17 @@ const GestionIncidencias = () => {
                 size="sm"
                 onClick={() => setIncidenciasSeleccionadas([])}
                 className="text-gray-600 hover:text-gray-800"
+                icon={<X className="w-4 h-4" />}
               >
-                <X className="w-4 h-4 mr-2" />
                 Limpiar
               </Button>
             </div>
           )}
           <Button
+            variant="primary"
             onClick={handleNuevaIncidencia}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+            icon={<Plus className="w-4 h-4" />}
           >
-            <Plus className="w-4 h-4 mr-2" />
             Nueva Incidencia
           </Button>
         </div>
@@ -200,34 +201,54 @@ const GestionIncidencias = () => {
 
       {/* Estadísticas principales */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card.Stat
-          title="Total Incidencias"
-          value={estadisticas?.totalIncidencias || 0}
-          icon={AlertTriangle}
-          color="blue"
-          subtitle="Incidencias registradas"
-        />
-        <Card.Stat
-          title="En Proceso"
-          value={estadisticas?.incidenciasEnProceso || 0}
-          icon={Clock}
-          color="yellow"
-          subtitle="Actualmente en trabajo"
-        />
-        <Card.Stat
-          title="Cerradas"
-          value={estadisticas?.incidenciasCerradas || 0}
-          icon={CheckCircle}
-          color="green"
-          subtitle="Resueltas exitosamente"
-        />
-        <Card.Stat
-          title="Críticas"
-          value={estadisticas?.incidenciasCriticas || 0}
-          icon={XCircle}
-          color="red"
-          subtitle="Requieren atención inmediata"
-        />
+        <Card variant="default" className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className={cn(textStyles.caption, 'mb-1')}>Total Incidencias</p>
+              <p className="text-2xl font-bold text-primary-600">{estadisticas?.totalIncidencias || 0}</p>
+              <p className={cn(textStyles.caption, 'text-gray-500')}>Incidencias registradas</p>
+            </div>
+            <div className="p-3 bg-primary-500 rounded-full">
+              <AlertTriangle className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </Card>
+        <Card variant="default" className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className={cn(textStyles.caption, 'mb-1')}>En Proceso</p>
+              <p className="text-2xl font-bold text-warning-600">{estadisticas?.incidenciasEnProceso || 0}</p>
+              <p className={cn(textStyles.caption, 'text-gray-500')}>Actualmente en trabajo</p>
+            </div>
+            <div className="p-3 bg-warning-500 rounded-full">
+              <Clock className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </Card>
+        <Card variant="default" className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className={cn(textStyles.caption, 'mb-1')}>Cerradas</p>
+              <p className="text-2xl font-bold text-success-600">{estadisticas?.incidenciasCerradas || 0}</p>
+              <p className={cn(textStyles.caption, 'text-gray-500')}>Resueltas exitosamente</p>
+            </div>
+            <div className="p-3 bg-success-500 rounded-full">
+              <CheckCircle className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </Card>
+        <Card variant="default" className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className={cn(textStyles.caption, 'mb-1')}>Críticas</p>
+              <p className="text-2xl font-bold text-error-600">{estadisticas?.incidenciasCriticas || 0}</p>
+              <p className={cn(textStyles.caption, 'text-gray-500')}>Requieren atención inmediata</p>
+            </div>
+            <div className="p-3 bg-error-500 rounded-full">
+              <XCircle className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </Card>
       </div>
 
       {/* Estadísticas secundarias */}

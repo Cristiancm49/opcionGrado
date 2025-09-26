@@ -1,8 +1,10 @@
+import { textStyles } from '../../styles/theme';
+
 const DisponibilidadSalas = () => {
     return (
       <div className="h-full flex flex-col">
         <div className="mb-1">
-          <h1 className="text-primary text-2xl font-bold text-emerald-700 mb-2">
+          <h1 className={textStyles.h1}>
             Disponibilidad de Salas
           </h1>
         </div>
