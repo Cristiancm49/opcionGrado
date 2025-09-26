@@ -252,7 +252,7 @@ const ConfiguracionSistema = () => {
           <div className={cn('mt-2', textStyles.caption)}>
             <span className="text-green-600">+{estadisticas.usuarios.nuevosEsteMes}</span> este mes
           </div>
-        </div>
+        </Card>
 
         <Card variant="default" className="p-6">
           <div className="flex items-center justify-between">
