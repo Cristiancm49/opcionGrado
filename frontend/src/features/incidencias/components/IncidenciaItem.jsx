@@ -19,41 +19,41 @@ import {
   Target,
   UserPlus
 } from 'lucide-react';
-import { Card, Badge, Button } from '../../../styles/components';
-import { cn } from '../../../styles/utils';
-import { textStyles, THEME_CONSTANTS } from '../../../styles/theme';
+import Card from '../../../components/ui/Card';
+import Badge from '../../../components/ui/Badge';
+import Button from '../../../components/ui/Button';
 
 const IncidenciaItem = ({ incidencia, onEdit, onDelete, onView, onAsignar }) => {
   const [expanded, setExpanded] = useState(false);
 
   const getEstadoColor = (estado) => {
     switch (estado) {
-      case 'Pendiente': return 'warning';
-      case 'En Proceso': return 'primary';
-      case 'Cerrado': return 'success';
-      case 'Cancelado': return 'secondary';
-      case 'Escalado': return 'error';
-      default: return 'secondary';
+      case 'Pendiente': return 'yellow';
+      case 'En Proceso': return 'blue';
+      case 'Cerrado': return 'green';
+      case 'Cancelado': return 'gray';
+      case 'Escalado': return 'red';
+      default: return 'gray';
     }
   };
 
   const getPrioridadColor = (prioridad) => {
     switch (prioridad) {
-      case 'Baja': return 'secondary';
-      case 'Media': return 'primary';
-      case 'Alta': return 'warning';
-      case 'Crítica': return 'error';
-      default: return 'secondary';
+      case 'Baja': return 'gray';
+      case 'Media': return 'blue';
+      case 'Alta': return 'orange';
+      case 'Crítica': return 'red';
+      default: return 'gray';
     }
   };
 
   const getImpactoColor = (impacto) => {
     switch (impacto) {
-      case 'Bajo': return 'success';
-      case 'Medio': return 'warning';
-      case 'Alto': return 'warning';
-      case 'Crítico': return 'error';
-      default: return 'secondary';
+      case 'Bajo': return 'green';
+      case 'Medio': return 'yellow';
+      case 'Alto': return 'orange';
+      case 'Crítico': return 'red';
+      default: return 'gray';
     }
   };
 
@@ -85,12 +85,12 @@ const IncidenciaItem = ({ incidencia, onEdit, onDelete, onView, onAsignar }) => 
   };
 
   return (
-    <Card variant="default" className="mb-4">
+    <Card className="mb-4">
       <Card.Header>
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
-              <Card.Title>{incidencia.numeroIncidencia}</Card.Title>
+              <Card.Title size="lg">{incidencia.numeroIncidencia}</Card.Title>
               <Badge variant={getEstadoColor(incidencia.estado)} size="sm">
                 {incidencia.estado}
               </Badge>
@@ -99,7 +99,7 @@ const IncidenciaItem = ({ incidencia, onEdit, onDelete, onView, onAsignar }) => 
               </Badge>
               {incidencia.cumplioSLA !== null && (
                 <Badge 
-                  variant={incidencia.cumplioSLA ? 'success' : 'error'} 
+                  variant={incidencia.cumplioSLA ? 'green' : 'red'} 
                   size="sm"
                   className="flex items-center"
                 >
@@ -113,11 +113,11 @@ const IncidenciaItem = ({ incidencia, onEdit, onDelete, onView, onAsignar }) => 
               )}
             </div>
             
-            <h3 className={cn(textStyles.h5, 'mb-2')}>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {incidencia.titulo}
             </h3>
             
-            <div className={cn('flex flex-wrap items-center gap-4', textStyles.body2)}>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-1" />
                 {formatFecha(incidencia.fechaRegistro)}

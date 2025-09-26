@@ -16,9 +16,9 @@ import {
   ThumbsDown,
   MessageSquare
 } from 'lucide-react';
-import { Card, Button, Badge } from '../../../styles/components';
-import { cn } from '../../../styles/utils';
-import { textStyles, THEME_CONSTANTS } from '../../../styles/theme';
+import Card from '../../../components/ui/Card';
+import Button from '../../../components/ui/Button';
+import Badge from '../../../components/ui/Badge';
 
 const TrabajoItem = ({ trabajo, onAprobar, onRechazar, esRevisado = false }) => {
   const [mostrarDetalles, setMostrarDetalles] = useState(false);
@@ -40,22 +40,22 @@ const TrabajoItem = ({ trabajo, onAprobar, onRechazar, esRevisado = false }) => 
   // Función para obtener color según estado
   const getEstadoColor = (estado) => {
     const colores = {
-      'Pendiente': 'warning',
-      'Revisado': 'success',
-      'Cerrado': 'primary'
+      'Pendiente': 'bg-yellow-100 text-yellow-800',
+      'Revisado': 'bg-green-100 text-green-800',
+      'Cerrado': 'bg-blue-100 text-blue-800'
     };
-    return colores[estado] || 'secondary';
+    return colores[estado] || 'bg-gray-100 text-gray-800';
   };
 
   // Función para obtener color según prioridad
   const getPrioridadColor = (prioridad) => {
     const colores = {
-      'Crítica': 'error',
-      'Alta': 'warning',
-      'Media': 'warning',
-      'Baja': 'success'
+      'Crítica': 'bg-red-100 text-red-800',
+      'Alta': 'bg-orange-100 text-orange-800',
+      'Media': 'bg-yellow-100 text-yellow-800',
+      'Baja': 'bg-green-100 text-green-800'
     };
-    return colores[prioridad] || 'secondary';
+    return colores[prioridad] || 'bg-gray-100 text-gray-800';
   };
 
   // Función para obtener color según eficiencia
@@ -79,22 +79,22 @@ const TrabajoItem = ({ trabajo, onAprobar, onRechazar, esRevisado = false }) => 
   };
 
   return (
-    <Card variant="default" className={cn('hover:shadow-md', THEME_CONSTANTS.TRANSITION)}>
-      <Card.Body>
+    <Card className="hover:shadow-md transition-shadow">
+      <Card.Content>
         {/* Header del trabajo */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
-              <h3 className={cn(textStyles.h6, 'font-semibold')}>{trabajo.numeroCaso}</h3>
+              <h3 className="font-semibold text-gray-900">{trabajo.numeroCaso}</h3>
               <Badge variant={trabajo.estadoRevision === 'Pendiente' ? 'warning' : 'success'}>
                 {trabajo.estadoRevision}
               </Badge>
-              <Badge variant={getPrioridadColor(trabajo.prioridad)}>
+              <Badge variant="outline" className={getPrioridadColor(trabajo.prioridad)}>
                 {trabajo.prioridad}
               </Badge>
             </div>
-            <h4 className={cn(textStyles.h5, 'mb-1')}>{trabajo.titulo}</h4>
-            <p className={textStyles.body2}>{trabajo.descripcion}</p>
+            <h4 className="text-lg font-medium text-gray-900 mb-1">{trabajo.titulo}</h4>
+            <p className="text-sm text-gray-600">{trabajo.descripcion}</p>
           </div>
           
           <div className="flex items-center space-x-2">
@@ -289,7 +289,7 @@ const TrabajoItem = ({ trabajo, onAprobar, onRechazar, esRevisado = false }) => 
             </div>
           </div>
         )}
-      </Card.Body>
+      </Card.Content>
     </Card>
   );
 };

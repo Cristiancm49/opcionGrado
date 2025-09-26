@@ -27,9 +27,8 @@ import {
   Maximize2,
   Minimize2
 } from 'lucide-react';
-import { Card, Button } from '../../styles/components';
-import { cn } from '../../styles/utils';
-import { textStyles, THEME_CONSTANTS } from '../../styles/theme';
+import Card from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
 import { useDashboard } from './hooks/useDashboard';
 import DashboardFilters from './components/DashboardFilters';
 
@@ -77,8 +76,8 @@ const DashboardGeneral = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className={textStyles.body2}>Cargando dashboard...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Cargando dashboard...</p>
         </div>
       </div>
     );
@@ -87,9 +86,9 @@ const DashboardGeneral = () => {
   if (error) {
     return (
       <div className="text-center py-12">
-        <AlertCircle className="w-16 h-16 text-error-500 mx-auto mb-4" />
-        <h3 className={cn(textStyles.h5, 'mb-2')}>Error al cargar el dashboard</h3>
-        <p className={textStyles.body2}>{error}</p>
+        <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Error al cargar el dashboard</h3>
+        <p className="text-gray-600">{error}</p>
       </div>
     );
   }
@@ -101,8 +100,8 @@ const DashboardGeneral = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className={textStyles.h1}>Dashboard General</h1>
-          <p className={cn(textStyles.body2, 'mt-1')}>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard General</h1>
+          <p className="text-gray-600 mt-1">
             Vista general del sistema de soporte técnico
           </p>
         </div>

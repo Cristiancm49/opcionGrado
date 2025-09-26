@@ -21,9 +21,6 @@ import {
   Filter,
   Star
 } from 'lucide-react';
-import { Card, Button } from '../../styles/components';
-import { cn } from '../../styles/utils';
-import { textStyles, THEME_CONSTANTS } from '../../styles/theme';
 
 const ConfiguracionSistema = () => {
   const { getThemeClasses } = useAppStore();
@@ -214,34 +211,36 @@ const ConfiguracionSistema = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className={cn(textStyles.h1, 'mb-2')}>
+            <h1 className={`text-3xl font-bold mb-2 ${themeClasses.primaryText}`}>
               Configuración del Sistema
             </h1>
-            <p className={textStyles.body2}>
+            <p className={`${themeClasses.secondaryText}`}>
               Administre usuarios, roles, permisos y catálogos del sistema
             </p>
           </div>
           
           <div className="flex items-center space-x-3">
-            <Button variant="outline" icon={<Settings className="w-4 h-4" />}>
-              Configuración
-            </Button>
-            <Button variant="primary" icon={<Activity className="w-4 h-4" />}>
-              Sincronizar Todo
-            </Button>
+            <button className="btn-secondary flex items-center space-x-2">
+              <Settings className="w-4 h-4" />
+              <span>Configuración</span>
+            </button>
+            <button className="btn-primary flex items-center space-x-2">
+              <Activity className="w-4 h-4" />
+              <span>Sincronizar Todo</span>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Estadísticas Generales */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card variant="default" className="p-6">
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={cn(textStyles.caption, 'mb-1')}>
+              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
                 Total Usuarios
               </p>
-              <p className="text-3xl font-bold text-primary-600">
+              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
                 {estadisticas.usuarios.total}
               </p>
             </div>
@@ -249,18 +248,18 @@ const ConfiguracionSistema = () => {
               <Users className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={cn('mt-2', textStyles.caption)}>
+          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
             <span className="text-green-600">+{estadisticas.usuarios.nuevosEsteMes}</span> este mes
           </div>
-        </Card>
+        </div>
 
-        <Card variant="default" className="p-6">
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={cn(textStyles.caption, 'mb-1')}>
+              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
                 Total Roles
               </p>
-              <p className="text-3xl font-bold text-primary-600">
+              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
                 {estadisticas.roles.total}
               </p>
             </div>
@@ -268,18 +267,18 @@ const ConfiguracionSistema = () => {
               <Shield className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={cn('mt-2', textStyles.caption)}>
+          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
             {estadisticas.roles.conUsuarios} con usuarios asignados
           </div>
-        </Card>
+        </div>
 
-        <Card variant="default" className="p-6">
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={cn(textStyles.caption, 'mb-1')}>
+              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
                 Catálogos
               </p>
-              <p className="text-3xl font-bold text-primary-600">
+              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
                 {estadisticas.catalogos.totalTablas}
               </p>
             </div>
@@ -287,18 +286,18 @@ const ConfiguracionSistema = () => {
               <Database className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={cn('mt-2', textStyles.caption)}>
+          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
             {estadisticas.catalogos.totalRegistros} registros totales
           </div>
-        </Card>
+        </div>
 
-        <Card variant="default" className="p-6">
+        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={cn(textStyles.caption, 'mb-1')}>
+              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
                 Permisos
               </p>
-              <p className="text-3xl font-bold text-primary-600">
+              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
                 {estadisticas.roles.permisosTotales}
               </p>
             </div>
@@ -306,10 +305,10 @@ const ConfiguracionSistema = () => {
               <Settings className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={cn('mt-2', textStyles.caption)}>
+          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
             En {estadisticas.roles.total} roles
           </div>
-        </Card>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
