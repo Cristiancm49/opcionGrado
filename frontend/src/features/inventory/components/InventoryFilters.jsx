@@ -1,179 +1,170 @@
 import React from 'react';
-import { Search, Filter, X } from 'lucide-react';
-import Input from '../../../components/ui/Input';
-import Select from '../../../components/ui/Select';
-import Button from '../../../components/ui/Button';
-import Card from '../../../components/ui/Card';
+import { Search, Filter, X, MapPin, Package, Building } from 'lucide-react';
 
 const InventoryFilters = ({ 
   filtros, 
-  onFiltrosChange, 
+  actualizarFiltros, 
+  limpiarFiltros, 
   ubicaciones, 
-  estados, 
-  categorias,
-  tipoActual 
+  estadosFiltrados, 
+  categoriasFiltradas 
 }) => {
+  const tieneFiltrosActivos = Object.values(filtros).some(valor => valor !== '');
+
   const handleFiltroChange = (campo, valor) => {
-    onFiltrosChange({
-      ...filtros,
-      [campo]: valor
-    });
+    actualizarFiltros({ [campo]: valor });
   };
-
-  const limpiarFiltros = () => {
-    onFiltrosChange({
-      busqueda: '',
-      ubicacion: '',
-      estado: '',
-      categoria: '',
-      tipo: tipoActual
-    });
-  };
-
-  const tieneFiltrosActivos = filtros.busqueda || filtros.ubicacion || filtros.estado || filtros.categoria;
-
-  // Filtrar opciones según el tipo
-  const estadosFiltrados = estados.filter(estado => {
-    if (tipoActual === 'activos') {
-      return !estado.nombre.toLowerCase().includes('stock') && 
-             !estado.nombre.toLowerCase().includes('agotado');
-    }
-    return true;
-  });
-
-  const categoriasFiltradas = categorias.filter(categoria => {
-    if (tipoActual === 'activos') {
-      return ['Computadoras', 'Impresoras', 'Redes', 'Monitores'].includes(categoria.nombre);
-    }
-    return ['Toner', 'Cables', 'Periféricos'].includes(categoria.nombre);
-  });
 
   return (
-    <Card className="mb-6" gradient>
-      <Card.Header>
+    <div className="bg-white rounded-xl shadow-lg mb-6 border border-gray-200 overflow-hidden">
+      {/* Header con gradiente */}
+      <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Filter className="h-5 w-5 text-gray-500" />
-            <Card.Title size="lg">Filtros</Card.Title>
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg">
+              <Filter className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Filtros Avanzados</h3>
+              <p className="text-sm text-gray-600">Refina tu búsqueda con filtros específicos</p>
+            </div>
           </div>
-          {tieneFiltrosActivos && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={limpiarFiltros}
-              icon={X}
+          <div className="flex space-x-2">
+            <button
+              onClick={() => {
+                console.log('🔍 Ejecutando búsqueda de inventario:', filtros.busqueda);
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
+              disabled={!filtros.busqueda}
             >
-              Limpiar filtros
-            </Button>
-          )}
+              <Search className="w-4 h-4" />
+              <span>Aplicar</span>
+            </button>
+            <button
+              onClick={() => handleFiltroChange('busqueda', '')}
+              className="px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 bg-white text-gray-700 hover:bg-gray-50 border"
+              disabled={!filtros.busqueda}
+            >
+              <X className="w-4 h-4" />
+              <span>Limpiar</span>
+            </button>
+          </div>
         </div>
-      </Card.Header>
+      </div>
+      
+      {/* Contenido de filtros */}
+      <div className="p-6">
+        {/* Fila 1: Búsqueda principal */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="lg:col-span-2 space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Search className="w-4 h-4 text-blue-500" />
+              <span>Buscar</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Nombre, código, marca, modelo..."
+              value={filtros.busqueda}
+              onChange={(e) => handleFiltroChange('busqueda', e.target.value)}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            />
+            <div className="text-xs text-gray-500">
+              💡 Ejemplos: "Laptop", "HP", "Dell", "Monitor"
+            </div>
+          </div>
+        </div>
 
-      <Card.Content>
+        {/* Fila 2: Filtros específicos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Búsqueda */}
-        <div className="lg:col-span-2">
-          <Input
-            label="Buscar"
-            placeholder="Buscar por nombre, código, marca..."
-            value={filtros.busqueda}
-            onChange={(e) => handleFiltroChange('busqueda', e.target.value)}
-            icon={Search}
-            iconPosition="left"
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <MapPin className="w-4 h-4 text-green-500" />
+              <span>Ubicación</span>
+            </label>
+            <select
+              value={filtros.ubicacion}
+              onChange={(e) => handleFiltroChange('ubicacion', e.target.value)}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todas las ubicaciones</option>
+              {ubicaciones && ubicaciones.map(ubicacion => (
+                <option key={ubicacion.nombre} value={ubicacion.nombre}>
+                  {ubicacion.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Package className="w-4 h-4 text-orange-500" />
+              <span>Estado</span>
+            </label>
+            <select
+              value={filtros.estado}
+              onChange={(e) => handleFiltroChange('estado', e.target.value)}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todos los estados</option>
+              {estadosFiltrados && estadosFiltrados.map(estado => (
+                <option key={estado.nombre} value={estado.nombre}>
+                  {estado.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Building className="w-4 h-4 text-blue-500" />
+              <span>Categoría</span>
+            </label>
+            <select
+              value={filtros.categoria}
+              onChange={(e) => handleFiltroChange('categoria', e.target.value)}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todas las categorías</option>
+              {categoriasFiltradas && categoriasFiltradas.map(categoria => (
+                <option key={categoria.nombre} value={categoria.nombre}>
+                  {categoria.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Package className="w-4 h-4 text-purple-500" />
+              <span>Tipo</span>
+            </label>
+            <select
+              value={filtros.tipo}
+              onChange={(e) => handleFiltroChange('tipo', e.target.value)}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todos los tipos</option>
+              <option value="activo">Activo</option>
+              <option value="consumible">Consumible</option>
+            </select>
+          </div>
         </div>
 
-        {/* Ubicación */}
-        <Select
-          label="Ubicación"
-          placeholder="Todas las ubicaciones"
-          value={filtros.ubicacion}
-          onChange={(e) => handleFiltroChange('ubicacion', e.target.value)}
-          options={ubicaciones.map(ubicacion => ({
-            value: ubicacion.nombre,
-            label: ubicacion.nombre
-          }))}
-        />
-
-        {/* Estado */}
-        <Select
-          label="Estado"
-          placeholder="Todos los estados"
-          value={filtros.estado}
-          onChange={(e) => handleFiltroChange('estado', e.target.value)}
-          options={estadosFiltrados.map(estado => ({
-            value: estado.nombre,
-            label: estado.nombre
-          }))}
-        />
-
-        {/* Categoría */}
-        <Select
-          label="Categoría"
-          placeholder="Todas las categorías"
-          value={filtros.categoria}
-          onChange={(e) => handleFiltroChange('categoria', e.target.value)}
-          options={categoriasFiltradas.map(categoria => ({
-            value: categoria.nombre,
-            label: categoria.nombre
-          }))}
-        />
-        </div>
-      </Card.Content>
-
-      {/* Filtros activos */}
-      {tieneFiltrosActivos && (
-        <Card.Footer>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-sm text-gray-500">Filtros activos:</span>
-            {filtros.busqueda && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                Búsqueda: {filtros.busqueda}
-                <button
-                  onClick={() => handleFiltroChange('busqueda', '')}
-                  className="ml-1 hover:text-blue-600"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
-            )}
-            {filtros.ubicacion && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                Ubicación: {filtros.ubicacion}
-                <button
-                  onClick={() => handleFiltroChange('ubicacion', '')}
-                  className="ml-1 hover:text-green-600"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
-            )}
-            {filtros.estado && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                Estado: {filtros.estado}
-                <button
-                  onClick={() => handleFiltroChange('estado', '')}
-                  className="ml-1 hover:text-yellow-600"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
-            )}
-            {filtros.categoria && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                Categoría: {filtros.categoria}
-                <button
-                  onClick={() => handleFiltroChange('categoria', '')}
-                  className="ml-1 hover:text-purple-600"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
+        {/* Información de resultados */}
+        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-gray-600">
+              <strong>Inventario</strong> filtrado
+            </div>
+            {tieneFiltrosActivos && (
+              <div className="text-xs text-blue-600">
+                Filtros aplicados
+              </div>
             )}
           </div>
-        </Card.Footer>
-      )}
-    </Card>
+        </div>
+      </div>
+    </div>
   );
 };
 

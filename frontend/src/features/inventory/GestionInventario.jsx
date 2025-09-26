@@ -159,11 +159,11 @@ const GestionInventario = () => {
       {/* Filtros */}
       <InventoryFilters
         filtros={filtros}
-        onFiltrosChange={handleFiltrosChange}
+        actualizarFiltros={handleFiltrosChange}
+        limpiarFiltros={() => setFiltros({ busqueda: '', ubicacion: '', estado: '', categoria: '', tipo: '' })}
         ubicaciones={ubicaciones}
-        estados={estados}
-        categorias={categorias}
-        tipoActual={activeTab}
+        estadosFiltrados={estados}
+        categoriasFiltradas={categorias}
       />
 
       {/* Lista de items */}

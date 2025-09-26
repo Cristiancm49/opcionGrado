@@ -577,113 +577,169 @@ const ReservaSalas = () => {
       </div>
 
       {/* Filtros */}
-      <Card>
-        <Card.Header>
-          <Card.Title>Filtros de Búsqueda</Card.Title>
-          <p className="text-sm text-gray-600 mt-1">
-            Filtra las reservas por diferentes criterios
-          </p>
-        </Card.Header>
+      <div className="bg-white rounded-xl shadow-lg mb-6 border border-gray-200 overflow-hidden">
+        {/* Header con gradiente */}
+        <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg">
+                <Calendar className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900">Filtros Avanzados</h3>
+                <p className="text-sm text-gray-600">Refina tu búsqueda con filtros específicos</p>
+              </div>
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => {
+                  console.log('🔍 Ejecutando búsqueda de reservas:', filtros.busqueda);
+                }}
+                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
+                disabled={!filtros.busqueda}
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Aplicar</span>
+              </button>
+              <button
+                onClick={() => setFiltros({
+                  busqueda: '',
+                  estado: '',
+                  departamento: '',
+                  sala: '',
+                  fechaDesde: '',
+                  fechaHasta: ''
+                })}
+                className="px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 bg-white text-gray-700 hover:bg-gray-50 border"
+                disabled={Object.values(filtros).every(valor => valor === '')}
+              >
+                <AlertCircle className="w-4 h-4" />
+                <span>Limpiar</span>
+              </button>
+            </div>
+          </div>
+        </div>
         
-        <Card.Content>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Búsqueda general */}
-            <div>
-              <Input
-                label="Buscar"
+        {/* Contenido de filtros */}
+        <div className="p-6">
+          {/* Fila 1: Búsqueda principal */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="lg:col-span-2 space-y-2">
+              <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                <Calendar className="w-4 h-4 text-blue-500" />
+                <span>Buscar</span>
+              </label>
+              <input
+                type="text"
                 placeholder="Motivo, observaciones, sala..."
                 value={filtros.busqueda}
                 onChange={(e) => setFiltros(prev => ({ ...prev, busqueda: e.target.value }))}
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
               />
+              <div className="text-xs text-gray-500">
+                💡 Ejemplos: "reunión", "capacitación", "Sala A", "presentación"
+              </div>
             </div>
+          </div>
 
-            {/* Estado */}
-            <div>
-              <Select
-                label="Estado"
-                placeholder="Todos los estados"
+          {/* Fila 2: Filtros específicos */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                <CheckCircle className="w-4 h-4 text-green-500" />
+                <span>Estado</span>
+              </label>
+              <select
                 value={filtros.estado}
-                onChange={(value) => setFiltros(prev => ({ ...prev, estado: value }))}
+                onChange={(e) => setFiltros(prev => ({ ...prev, estado: e.target.value }))}
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
               >
                 <option value="">Todos los estados</option>
                 {estadosReserva.map(estado => (
                   <option key={estado} value={estado}>{estado}</option>
                 ))}
-              </Select>
+              </select>
             </div>
 
-            {/* Departamento */}
-            <div>
-              <Select
-                label="Departamento"
-                placeholder="Todos los departamentos"
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                <Building className="w-4 h-4 text-blue-500" />
+                <span>Departamento</span>
+              </label>
+              <select
                 value={filtros.departamento}
-                onChange={(value) => setFiltros(prev => ({ ...prev, departamento: value }))}
+                onChange={(e) => setFiltros(prev => ({ ...prev, departamento: e.target.value }))}
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
               >
                 <option value="">Todos los departamentos</option>
                 {departamentos.map(dept => (
                   <option key={dept} value={dept}>{dept}</option>
                 ))}
-              </Select>
+              </select>
             </div>
 
-            {/* Sala */}
-            <div>
-              <Select
-                label="Sala"
-                placeholder="Todas las salas"
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                <Building className="w-4 h-4 text-purple-500" />
+                <span>Sala</span>
+              </label>
+              <select
                 value={filtros.sala}
-                onChange={(value) => setFiltros(prev => ({ ...prev, sala: value }))}
+                onChange={(e) => setFiltros(prev => ({ ...prev, sala: e.target.value }))}
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
               >
                 <option value="">Todas las salas</option>
                 {salas.map(sala => (
                   <option key={sala.id} value={sala.id}>{sala.nombre}</option>
                 ))}
-              </Select>
+              </select>
             </div>
 
-            {/* Fecha desde */}
-            <div>
-              <Input
-                label="Fecha desde"
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                <Clock className="w-4 h-4 text-orange-500" />
+                <span>Fecha Desde</span>
+              </label>
+              <input
                 type="date"
                 value={filtros.fechaDesde}
                 onChange={(e) => setFiltros(prev => ({ ...prev, fechaDesde: e.target.value }))}
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
               />
             </div>
+          </div>
 
-            {/* Fecha hasta */}
-            <div>
-              <Input
-                label="Fecha hasta"
+          {/* Fila 3: Filtros adicionales */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                <Clock className="w-4 h-4 text-purple-500" />
+                <span>Fecha Hasta</span>
+              </label>
+              <input
                 type="date"
                 value={filtros.fechaHasta}
                 onChange={(e) => setFiltros(prev => ({ ...prev, fechaHasta: e.target.value }))}
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
               />
             </div>
           </div>
 
-          {/* Botones de filtros */}
-          <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
-            <div className="text-sm text-gray-600">
-              Mostrando {reservasFiltradas.length} de {reservas.length} reservas
+          {/* Información de resultados */}
+          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-gray-600">
+                <strong>{reservasFiltradas.length}</strong> de <strong>{reservas.length}</strong> reservas
+              </div>
+              {Object.values(filtros).some(valor => valor !== '') && (
+                <div className="text-xs text-blue-600">
+                  Filtros aplicados
+                </div>
+              )}
             </div>
-            <Button
-              variant="outline"
-              onClick={() => setFiltros({
-                busqueda: '',
-                estado: '',
-                departamento: '',
-                sala: '',
-                fechaDesde: '',
-                fechaHasta: ''
-              })}
-            >
-              Limpiar Filtros
-            </Button>
           </div>
-        </Card.Content>
-      </Card>
+        </div>
+      </div>
 
       {/* Lista de Reservas */}
       <Card>

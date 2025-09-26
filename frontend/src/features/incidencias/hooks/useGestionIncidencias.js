@@ -19,6 +19,8 @@ export const useGestionIncidencias = () => {
     ubicacion: '',
     cumplioSLA: ''
   });
+  
+  const [busquedaTemporal, setBusquedaTemporal] = useState('');
 
   // Simular carga de datos
   useEffect(() => {
@@ -60,6 +62,18 @@ export const useGestionIncidencias = () => {
       ubicacion: '',
       cumplioSLA: ''
     });
+    setBusquedaTemporal('');
+  };
+
+  // Función para ejecutar búsqueda manual
+  const ejecutarBusqueda = () => {
+    setFiltros(prev => ({ ...prev, busqueda: busquedaTemporal }));
+  };
+
+  // Función para limpiar búsqueda
+  const limpiarBusqueda = () => {
+    setBusquedaTemporal('');
+    setFiltros(prev => ({ ...prev, busqueda: '' }));
   };
 
   // Función para verificar si una incidencia cumple con los filtros
@@ -213,8 +227,12 @@ export const useGestionIncidencias = () => {
     error,
     tecnicos: mockTecnicosIncidencias,
     filtros,
+    busquedaTemporal,
     actualizarFiltros,
     limpiarFiltros,
+    ejecutarBusqueda,
+    limpiarBusqueda,
+    setBusquedaTemporal,
     incidenciasFiltradas,
     crearIncidencia,
     actualizarIncidencia,

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # SQL Server 2019
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: chaira-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - chaira-network
+    restart: unless-stopped
+
+  # MongoDB 2.25
+  mongodb:
+    image: mongo:2.25
+    container_name: chaira-mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - MONGO_INITDB_DATABASE=ChairaMongoDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - chaira-network
+    restart: unless-stopped
+
+  # Redis (Para cache futuro)
+  redis:
+    image: redis:7-alpine
+    container_name: chaira-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - chaira-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+volumes:
+  sqlserver_data:
+    driver: local
+  mongodb_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  chaira-network:
+    driver: bridge

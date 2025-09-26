@@ -29,8 +29,12 @@ const GestionIncidencias = () => {
     error,
     tecnicos,
     filtros,
+    busquedaTemporal,
     actualizarFiltros,
     limpiarFiltros,
+    ejecutarBusqueda,
+    limpiarBusqueda,
+    setBusquedaTemporal,
     incidenciasFiltradas,
     crearIncidencia,
     actualizarIncidencia,
@@ -261,8 +265,12 @@ const GestionIncidencias = () => {
       {/* Filtros */}
       <IncidenciasFilters
         filtros={filtros}
+        busquedaTemporal={busquedaTemporal}
         actualizarFiltros={actualizarFiltros}
         limpiarFiltros={limpiarFiltros}
+        ejecutarBusqueda={ejecutarBusqueda}
+        limpiarBusqueda={limpiarBusqueda}
+        setBusquedaTemporal={setBusquedaTemporal}
         opcionesFiltros={data.opcionesFiltros}
         incidenciasFiltradas={incidenciasFiltradas}
       />

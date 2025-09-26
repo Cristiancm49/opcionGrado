@@ -1,175 +1,199 @@
 import React from 'react';
-import { Search, Filter, X } from 'lucide-react';
-import Card from '../../../components/ui/Card';
-import Input from '../../../components/ui/Input';
-import Select from '../../../components/ui/Select';
-import Button from '../../../components/ui/Button';
+import { Search, Filter, X, Building, User, Calendar, Clock, AlertCircle } from 'lucide-react';
 
 const CasesReportsFilters = ({ filtros, actualizarFiltros, limpiarFiltros, estadosCaso, tiposCaso, prioridades, areasTecnicas, tecnicos, casosFiltrados }) => {
   const filtrosActivos = Object.values(filtros).filter(valor => valor !== '').length;
 
   return (
-    <Card className="mb-6">
-      <Card.Header>
+    <div className="bg-white rounded-xl shadow-lg mb-6 border border-gray-200 overflow-hidden">
+      {/* Header con gradiente */}
+      <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-blue-600" />
-            <Card.Title>Filtros de Reportes</Card.Title>
-            {filtrosActivos > 0 && (
-              <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
-                {filtrosActivos} filtro{filtrosActivos !== 1 ? 's' : ''} activo{filtrosActivos !== 1 ? 's' : ''}
-              </span>
-            )}
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg">
+              <Filter className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Filtros Avanzados</h3>
+              <p className="text-sm text-gray-600">Refina tu búsqueda con filtros específicos</p>
+            </div>
           </div>
-          {filtrosActivos > 0 && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={limpiarFiltros}
-              className="text-gray-600 hover:text-gray-800"
+          <div className="flex space-x-2">
+            <button
+              onClick={() => {
+                console.log('🔍 Ejecutando búsqueda de casos:', filtros.busqueda);
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
+              disabled={!filtros.busqueda}
             >
-              <X className="w-4 h-4 mr-1" />
-              Limpiar Filtros
-            </Button>
-          )}
+              <Search className="w-4 h-4" />
+              <span>Aplicar</span>
+            </button>
+            <button
+              onClick={() => actualizarFiltros({ busqueda: '' })}
+              className="px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 bg-white text-gray-700 hover:bg-gray-50 border"
+              disabled={!filtros.busqueda}
+            >
+              <X className="w-4 h-4" />
+              <span>Limpiar</span>
+            </button>
+          </div>
         </div>
-      </Card.Header>
+      </div>
       
-      <Card.Content>
-        {/* Búsqueda general */}
-        <div className="mb-6">
-          <Input
-            label="🔍 Búsqueda General"
-            placeholder="Buscar por número de caso, título, descripción, usuario, técnico, área, tipo, prioridad, estado, activo, ubicación..."
-            value={filtros.busqueda}
-            onChange={(e) => actualizarFiltros({ busqueda: e.target.value })}
-            icon={Search}
-            className="w-full"
-          />
-          <div className="mt-2 text-xs text-gray-500">
-            💡 Ejemplos: "CAS-2024", "impresora", "Carlos", "Hardware", "Alta", "Cerrado", "Oficina Principal"
+      {/* Contenido de filtros */}
+      <div className="p-6">
+        {/* Fila 1: Búsqueda principal */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="lg:col-span-2 space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Search className="w-4 h-4 text-blue-500" />
+              <span>Buscar</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Número de caso, título, descripción, usuario, técnico..."
+              value={filtros.busqueda}
+              onChange={(e) => actualizarFiltros({ busqueda: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            />
+            <div className="text-xs text-gray-500">
+              💡 Ejemplos: "CAS-2024", "impresora", "Carlos", "Hardware", "Alta"
+            </div>
           </div>
         </div>
 
-        {/* Filtros específicos */}
+        {/* Fila 2: Filtros específicos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Select
-            label="Estado del Caso"
-            value={filtros.estado}
-            onChange={(e) => actualizarFiltros({ estado: e.target.value })}
-            options={[
-              { value: '', label: 'Todos los estados' },
-              ...estadosCaso.map(estado => ({ value: estado, label: estado }))
-            ]}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <AlertCircle className="w-4 h-4 text-red-500" />
+              <span>Estado</span>
+            </label>
+            <select
+              value={filtros.estadoCaso}
+              onChange={(e) => actualizarFiltros({ estadoCaso: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todos los estados</option>
+              {estadosCaso.map(estado => (
+                <option key={estado} value={estado}>{estado}</option>
+              ))}
+            </select>
+          </div>
 
-          <Select
-            label="Tipo de Caso"
-            value={filtros.tipoCaso}
-            onChange={(e) => actualizarFiltros({ tipoCaso: e.target.value })}
-            options={[
-              { value: '', label: 'Todos los tipos' },
-              ...tiposCaso.map(tipo => ({ value: tipo, label: tipo }))
-            ]}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Building className="w-4 h-4 text-blue-500" />
+              <span>Tipo</span>
+            </label>
+            <select
+              value={filtros.tipoCaso}
+              onChange={(e) => actualizarFiltros({ tipoCaso: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todos los tipos</option>
+              {tiposCaso.map(tipo => (
+                <option key={tipo} value={tipo}>{tipo}</option>
+              ))}
+            </select>
+          </div>
 
-          <Select
-            label="Prioridad"
-            value={filtros.prioridad}
-            onChange={(e) => actualizarFiltros({ prioridad: e.target.value })}
-            options={[
-              { value: '', label: 'Todas las prioridades' },
-              ...prioridades.map(prioridad => ({ value: prioridad, label: prioridad }))
-            ]}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <AlertCircle className="w-4 h-4 text-orange-500" />
+              <span>Prioridad</span>
+            </label>
+            <select
+              value={filtros.prioridad}
+              onChange={(e) => actualizarFiltros({ prioridad: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todas las prioridades</option>
+              {prioridades.map(prioridad => (
+                <option key={prioridad} value={prioridad}>{prioridad}</option>
+              ))}
+            </select>
+          </div>
 
-          <Select
-            label="Técnico Asignado"
-            value={filtros.tecnico}
-            onChange={(e) => actualizarFiltros({ tecnico: e.target.value })}
-            options={[
-              { value: '', label: 'Todos los técnicos' },
-              ...tecnicos.map(tecnico => ({ value: tecnico.email, label: tecnico.nombre }))
-            ]}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <User className="w-4 h-4 text-green-500" />
+              <span>Técnico</span>
+            </label>
+            <select
+              value={filtros.tecnico}
+              onChange={(e) => actualizarFiltros({ tecnico: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todos los técnicos</option>
+              {tecnicos && tecnicos.map(tecnico => (
+                <option key={tecnico.id} value={tecnico.nombre}>{tecnico.nombre}</option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-          <Select
-            label="Área Técnica"
-            value={filtros.areaTecnica}
-            onChange={(e) => actualizarFiltros({ areaTecnica: e.target.value })}
-            options={[
-              { value: '', label: 'Todas las áreas' },
-              ...areasTecnicas.map(area => ({ value: area, label: area }))
-            ]}
-          />
+        {/* Fila 3: Filtros adicionales */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Building className="w-4 h-4 text-purple-500" />
+              <span>Área Técnica</span>
+            </label>
+            <select
+              value={filtros.areaTecnica}
+              onChange={(e) => actualizarFiltros({ areaTecnica: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todas las áreas</option>
+              {areasTecnicas.map(area => (
+                <option key={area} value={area}>{area}</option>
+              ))}
+            </select>
+          </div>
 
-          <Input
-            label="Fecha Desde"
-            type="date"
-            value={filtros.fechaDesde}
-            onChange={(e) => actualizarFiltros({ fechaDesde: e.target.value })}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Calendar className="w-4 h-4 text-purple-500" />
+              <span>Fecha Desde</span>
+            </label>
+            <input
+              type="date"
+              value={filtros.fechaDesde}
+              onChange={(e) => actualizarFiltros({ fechaDesde: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            />
+          </div>
 
-          <Input
-            label="Fecha Hasta"
-            type="date"
-            value={filtros.fechaHasta}
-            onChange={(e) => actualizarFiltros({ fechaHasta: e.target.value })}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Calendar className="w-4 h-4 text-purple-500" />
+              <span>Fecha Hasta</span>
+            </label>
+            <input
+              type="date"
+              value={filtros.fechaHasta}
+              onChange={(e) => actualizarFiltros({ fechaHasta: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            />
+          </div>
 
-          <Input
-            label="Días Abierto (Mínimo)"
-            type="number"
-            placeholder="0"
-            value={filtros.diasAbiertoMinimo}
-            onChange={(e) => actualizarFiltros({ diasAbiertoMinimo: e.target.value })}
-          />
-
-          <Input
-            label="Días Abierto (Máximo)"
-            type="number"
-            placeholder="30"
-            value={filtros.diasAbiertoMaximo}
-            onChange={(e) => actualizarFiltros({ diasAbiertoMaximo: e.target.value })}
-          />
-
-          <Input
-            label="Tiempo Resolución (Mínimo)"
-            type="number"
-            step="0.1"
-            placeholder="0.0"
-            value={filtros.tiempoResolucionMinimo}
-            onChange={(e) => actualizarFiltros({ tiempoResolucionMinimo: e.target.value })}
-          />
-
-          <Input
-            label="Tiempo Resolución (Máximo)"
-            type="number"
-            step="0.1"
-            placeholder="24.0"
-            value={filtros.tiempoResolucionMaximo}
-            onChange={(e) => actualizarFiltros({ tiempoResolucionMaximo: e.target.value })}
-          />
-
-          <Input
-            label="Satisfacción (Mínima)"
-            type="number"
-            min="1"
-            max="5"
-            placeholder="1"
-            value={filtros.satisfaccionMinima}
-            onChange={(e) => actualizarFiltros({ satisfaccionMinima: e.target.value })}
-          />
-
-          <Input
-            label="Satisfacción (Máxima)"
-            type="number"
-            min="1"
-            max="5"
-            placeholder="5"
-            value={filtros.satisfaccionMaxima}
-            onChange={(e) => actualizarFiltros({ satisfaccionMaxima: e.target.value })}
-          />
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+              <Clock className="w-4 h-4 text-yellow-500" />
+              <span>Escalado</span>
+            </label>
+            <select
+              value={filtros.escalado}
+              onChange={(e) => actualizarFiltros({ escalado: e.target.value })}
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white border-gray-300"
+            >
+              <option value="">Todos</option>
+              <option value="true">Escalados</option>
+              <option value="false">No escalados</option>
+            </select>
+          </div>
         </div>
 
         {/* Información de resultados */}
@@ -177,21 +201,16 @@ const CasesReportsFilters = ({ filtros, actualizarFiltros, limpiarFiltros, estad
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-600">
               <strong>{casosFiltrados.length}</strong> casos encontrados
-              {filtrosActivos > 0 && (
-                <span className="ml-2 text-blue-600">
-                  (filtrados de {casosFiltrados.length > 0 ? casosFiltrados.length : '0'} casos totales)
-                </span>
-              )}
             </div>
-            {casosFiltrados.length === 0 && filtrosActivos > 0 && (
-              <div className="text-sm text-red-600">
-                ⚠️ No se encontraron casos con los filtros aplicados
+            {filtrosActivos > 0 && (
+              <div className="text-xs text-blue-600">
+                {filtrosActivos} filtro{filtrosActivos !== 1 ? 's' : ''} activo{filtrosActivos !== 1 ? 's' : ''}
               </div>
             )}
           </div>
         </div>
-      </Card.Content>
-    </Card>
+      </div>
+    </div>
   );
 };
 
