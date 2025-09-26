@@ -249,18 +249,18 @@ const ConfiguracionSistema = () => {
               <Users className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
+          <div className={cn('mt-2', textStyles.caption)}>
             <span className="text-green-600">+{estadisticas.usuarios.nuevosEsteMes}</span> este mes
           </div>
         </div>
 
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
+        <Card variant="default" className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
+              <p className={cn(textStyles.caption, 'mb-1')}>
                 Total Roles
               </p>
-              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
+              <p className="text-3xl font-bold text-primary-600">
                 {estadisticas.roles.total}
               </p>
             </div>
@@ -268,18 +268,18 @@ const ConfiguracionSistema = () => {
               <Shield className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
+          <div className={cn('mt-2', textStyles.caption)}>
             {estadisticas.roles.conUsuarios} con usuarios asignados
           </div>
-        </div>
+        </Card>
 
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
+        <Card variant="default" className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
+              <p className={cn(textStyles.caption, 'mb-1')}>
                 Catálogos
               </p>
-              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
+              <p className="text-3xl font-bold text-primary-600">
                 {estadisticas.catalogos.totalTablas}
               </p>
             </div>
@@ -287,18 +287,18 @@ const ConfiguracionSistema = () => {
               <Database className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
+          <div className={cn('mt-2', textStyles.caption)}>
             {estadisticas.catalogos.totalRegistros} registros totales
           </div>
-        </div>
+        </Card>
 
-        <div className={`${themeClasses.sidebarBg} rounded-xl p-6 shadow-lg border border-gray-200`}>
+        <Card variant="default" className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm font-medium ${themeClasses.secondaryText}`}>
+              <p className={cn(textStyles.caption, 'mb-1')}>
                 Permisos
               </p>
-              <p className={`text-3xl font-bold ${themeClasses.primaryText}`}>
+              <p className="text-3xl font-bold text-primary-600">
                 {estadisticas.roles.permisosTotales}
               </p>
             </div>
@@ -306,10 +306,10 @@ const ConfiguracionSistema = () => {
               <Settings className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className={`mt-2 text-sm ${themeClasses.secondaryText}`}>
+          <div className={cn('mt-2', textStyles.caption)}>
             En {estadisticas.roles.total} roles
           </div>
-        </div>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
