@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import useAppStore from '../../store/useAppStore';
 import Swal from 'sweetalert2';
+import { 
+  createComponentClass, 
+  combineClasses, 
+  getTextColorClass,
+  STYLE_CONSTANTS 
+} from '../../styles/tailwind';
 
 const MisCasos = () => {
   const { getThemeClasses } = useAppStore();
@@ -1011,17 +1017,17 @@ const MisCasos = () => {
   return (
     <div className="max-w-full mx-auto">
       <div className="mb-6">
-        <h1 className={`text-3xl font-bold mb-2 ${themeClasses.primaryText}`}>
+        <h1 className={combineClasses('text-3xl font-bold mb-2', getTextColorClass('primary'))}>
           Mis Casos Técnicos
         </h1>
-        <p className={themeClasses.secondaryText}>
+        <p className={getTextColorClass('secondary')}>
           Gestione sus casos asignados y registre el progreso de su trabajo técnico
         </p>
       </div>
 
-      {/* ⭐ SELECTOR PRINCIPAL PARA TÉCNICOS - MODERNO */}
-      <div className={`${themeClasses.sidebarBg} rounded-xl p-4 shadow-lg mb-6 border border-gray-200`}>
-        <div className="flex items-center justify-between">
+      {/* ⭐ SELECTOR PRINCIPAL PARA TÉCNICOS - OPTIMIZADO */}
+      <div className={createComponentClass('card', 'default', 'md', 'shadow-lg mb-6')}>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1030,79 +1036,85 @@ const MisCasos = () => {
               </svg>
             </div>
             <div>
-              <h3 className={`font-semibold ${themeClasses.primaryText}`}>Estado del Trabajo</h3>
-              <p className={`text-sm ${themeClasses.secondaryText}`}>Filtra casos por estado de trabajo técnico</p>
+              <h3 className={combineClasses('font-semibold', getTextColorClass('primary'))}>Estado del Trabajo</h3>
+              <p className={combineClasses('text-sm', getTextColorClass('secondary'))}>Filtra casos por estado de trabajo técnico</p>
             </div>
           </div>
           
-          <div className="flex space-x-1 bg-gray-100 rounded-xl p-1">
+          {/* Selector compacto y responsive */}
+          <div className="flex flex-wrap gap-2 bg-gray-100 rounded-xl p-1">
             <button
               onClick={() => cambiarEstadoTecnico('ASIGNADOS')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+              className={combineClasses(
+                'px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 text-sm',
                 filtros.estadoTecnico === 'ASIGNADOS'
                   ? 'bg-blue-600 text-white shadow-lg scale-105'
                   : 'text-gray-600 hover:bg-white hover:shadow-md'
-              }`}
+              )}
             >
               <span className="w-2 h-2 bg-current rounded-full"></span>
               <span>Asignados</span>
-              <span className="bg-white/20 text-xs px-2 py-1 rounded-full">
+              <span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
                 {casos.filter(c => c.estadoTecnico === 'ASIGNADO').length}
               </span>
             </button>
             <button
               onClick={() => cambiarEstadoTecnico('EN_PROCESO')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+              className={combineClasses(
+                'px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 text-sm',
                 filtros.estadoTecnico === 'EN_PROCESO'
                   ? 'bg-yellow-600 text-white shadow-lg scale-105'
                   : 'text-gray-600 hover:bg-white hover:shadow-md'
-              }`}
+              )}
             >
               <span className="w-2 h-2 bg-current rounded-full"></span>
               <span>En Proceso</span>
-              <span className="bg-white/20 text-xs px-2 py-1 rounded-full">
+              <span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
                 {casos.filter(c => c.estadoTecnico === 'EN_PROCESO').length}
               </span>
             </button>
             <button
               onClick={() => cambiarEstadoTecnico('PENDIENTES')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+              className={combineClasses(
+                'px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 text-sm',
                 filtros.estadoTecnico === 'PENDIENTES'
                   ? 'bg-orange-600 text-white shadow-lg scale-105'
                   : 'text-gray-600 hover:bg-white hover:shadow-md'
-              }`}
+              )}
             >
               <span className="w-2 h-2 bg-current rounded-full"></span>
               <span>Pendientes</span>
-              <span className="bg-white/20 text-xs px-2 py-1 rounded-full">
+              <span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
                 {casos.filter(c => c.estadoTecnico === 'PENDIENTE').length}
               </span>
             </button>
             <button
               onClick={() => cambiarEstadoTecnico('RESUELTOS')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+              className={combineClasses(
+                'px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 text-sm',
                 filtros.estadoTecnico === 'RESUELTOS'
                   ? 'bg-green-600 text-white shadow-lg scale-105'
                   : 'text-gray-600 hover:bg-white hover:shadow-md'
-              }`}
+              )}
             >
               <span className="w-2 h-2 bg-current rounded-full"></span>
               <span>Resueltos</span>
-              <span className="bg-white/20 text-xs px-2 py-1 rounded-full">
+              <span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
                 {casos.filter(c => c.estadoTecnico === 'RESUELTO').length}
               </span>
             </button>
             <button
               onClick={() => cambiarEstadoTecnico('TODOS')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
+              className={combineClasses(
+                'px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 text-sm',
                 filtros.estadoTecnico === 'TODOS'
                   ? 'bg-purple-600 text-white shadow-lg scale-105'
                   : 'text-gray-600 hover:bg-white hover:shadow-md'
-              }`}
+              )}
             >
               <span className="w-2 h-2 bg-current rounded-full"></span>
               <span>Todos</span>
-              <span className="bg-white/20 text-xs px-2 py-1 rounded-full">
+              <span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
                 {casos.length}
               </span>
             </button>
@@ -1111,7 +1123,7 @@ const MisCasos = () => {
       </div>
 
       {/* Panel de Filtros Técnicos - DISEÑO MODERNO */}
-      <div className={`${themeClasses.sidebarBg} rounded-xl shadow-lg mb-6 border border-gray-200 overflow-hidden`}>
+      <div className={createComponentClass('card', 'default', 'lg', 'shadow-lg mb-6 overflow-hidden')}>
         <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -1121,14 +1133,14 @@ const MisCasos = () => {
                 </svg>
               </div>
               <div>
-                <h3 className={`font-semibold ${themeClasses.primaryText}`}>Filtros Técnicos</h3>
-                <p className={`text-sm ${themeClasses.secondaryText}`}>Filtra casos por criterios específicos de trabajo</p>
+                <h3 className={combineClasses('font-semibold', getTextColorClass('primary'))}>Filtros Técnicos</h3>
+                <p className={combineClasses('text-sm', getTextColorClass('secondary'))}>Filtra casos por criterios específicos de trabajo</p>
               </div>
             </div>
             <div className="flex space-x-2">
               <button
                 onClick={aplicarFiltros}
-                className="px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
+                className={createComponentClass('button', 'success', 'md', 'shadow-md hover:shadow-lg flex items-center space-x-2')}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -1137,7 +1149,7 @@ const MisCasos = () => {
               </button>
               <button
                 onClick={limpiarFiltros}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 bg-white text-gray-700 hover:bg-gray-50 border`}
+                className={createComponentClass('button', 'secondary', 'md', 'shadow-md hover:shadow-lg flex items-center space-x-2')}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -1434,9 +1446,7 @@ const MisCasos = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                          {caso.solicitante.split(' ')[0][0]}{caso.solicitante.split(' ')[1] ? caso.solicitante.split(' ')[1][0] : ''}
-                        </div>
+               
                         <div>
                           <div className={`text-sm font-medium ${themeClasses.primaryText}`}>
                             {caso.solicitante}

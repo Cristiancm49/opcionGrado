@@ -3,6 +3,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useAppStore from '../../store/useAppStore';
 import useFormStore from '../../store/useFormStore';
 import { incidenciaSchema } from '../../schemas/incidenciaSchema';
+import { 
+  createComponentClass, 
+  combineClasses, 
+  getTextColorClass,
+  STYLE_CONSTANTS 
+} from '../../styles/tailwind';
 
 const RegistrarIncidencia = () => {
   const { getThemeClasses } = useAppStore();
@@ -81,87 +87,97 @@ const RegistrarIncidencia = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-6">
-        <h1 className={`text-3xl font-bold mb-2 ${themeClasses.primaryText}`}>
+        <h1 className={combineClasses('text-3xl font-bold mb-2', getTextColorClass('primary'))}>
           Registrar Incidencia
         </h1>
-        <p className={themeClasses.secondaryText}>
+        <p className={getTextColorClass('secondary')}>
           Complete el siguiente formulario para registrar una nueva incidencia en el sistema
         </p>
       </div>
 
-      <div className={`${themeClasses.sidebarBg} rounded-lg p-8 shadow-lg`}>
+      <div className={createComponentClass('card', 'default', 'xl', STYLE_CONSTANTS.SHADOWS.lg)}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           
           {/* Datos del Solicitante */}
           <div className="border-b border-gray-200 pb-6">
-            <h3 className={`text-lg font-semibold mb-4 ${themeClasses.primaryText}`}>
+            <h3 className={combineClasses('text-lg font-semibold mb-4', getTextColorClass('primary'))}>
               Datos del Solicitante
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Identificación *
                 </label>
                 <div className="flex space-x-2">
                   <input 
                     type="text"
                     {...register('identificacionSolicitante')}
-                    className={`flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.identificacionSolicitante ? 'border-red-500' : ''}`}
+                    className={combineClasses(
+                      'flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300',
+                      errors.identificacionSolicitante ? 'border-red-500' : ''
+                    )}
                     placeholder="Número de cédula"
                   />
                   <button
                     type="button"
                     onClick={handleUserSearch}
                     disabled={isSearchingUser || !watchedValues.identificacionSolicitante?.trim()}
-                    className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+                    className={createComponentClass('button', 'primary', 'md', 'disabled:bg-gray-400')}
                   >
                     {isSearchingUser ? 'Buscando...' : 'Buscar'}
                   </button>
                 </div>
                 {errors.identificacionSolicitante && (
-                  <span className="text-red-500 text-sm mt-1">{errors.identificacionSolicitante.message}</span>
+                  <span className={combineClasses('text-sm mt-1', getTextColorClass('error'))}>
+                    {errors.identificacionSolicitante.message}
+                  </span>
                 )}
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Nombre del Solicitante *
                 </label>
                 <input 
                   type="text"
                   {...register('nombreSolicitante')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300 ${errors.nombreSolicitante ? 'border-red-500' : ''}`}
+                  className={combineClasses(
+                    'w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300',
+                    errors.nombreSolicitante ? 'border-red-500' : ''
+                  )}
                   placeholder="Se completará automáticamente"
                 />
                 {errors.nombreSolicitante && (
-                  <span className="text-red-500 text-sm mt-1">{errors.nombreSolicitante.message}</span>
+                  <span className={combineClasses('text-sm mt-1', getTextColorClass('error'))}>
+                    {errors.nombreSolicitante.message}
+                  </span>
                 )}
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Dependencia
                 </label>
                 <input 
                   type="text"
                   {...register('dependencia')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className="w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300"
                   placeholder="Se completará automáticamente"
                 />
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Teléfono / Extensión
                 </label>
                 <input 
                   type="text"
                   {...register('telefonoExtension')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className="w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300"
                   placeholder="Se completará automáticamente"
                 />
               </div>
@@ -170,29 +186,32 @@ const RegistrarIncidencia = () => {
 
           {/* Descripción del Caso */}
           <div className="border-b border-gray-200 pb-6">
-            <h3 className={`text-lg font-semibold mb-4 ${themeClasses.primaryText}`}>
+            <h3 className={combineClasses('text-lg font-semibold mb-4', getTextColorClass('primary'))}>
               Descripción
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Fecha y Hora de Registro
                 </label>
                 <input 
                   type="date"
                   {...register('fechaRegistro')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className="w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300"
                 />
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Tipo de Caso *
                 </label>
                 <select 
                   {...register('tipoCaso')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.tipoCaso ? 'border-red-500' : ''}`}
+                  className={combineClasses(
+                    'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300',
+                    errors.tipoCaso ? 'border-red-500' : ''
+                  )}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="INCIDENCIA">Incidencia</option>
@@ -201,19 +220,24 @@ const RegistrarIncidencia = () => {
                   <option value="PROBLEMA">Problema</option>
                 </select>
                 {errors.tipoCaso && (
-                  <span className="text-red-500 text-sm mt-1">{errors.tipoCaso.message}</span>
+                  <span className={combineClasses('text-sm mt-1', getTextColorClass('error'))}>
+                    {errors.tipoCaso.message}
+                  </span>
                 )}
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Área Técnica *
                 </label>
                 <select 
                   {...register('areaTecnica')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.areaTecnica ? 'border-red-500' : ''}`}
+                  className={combineClasses(
+                    'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300',
+                    errors.areaTecnica ? 'border-red-500' : ''
+                  )}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="HARDWARE">Hardware</option>
@@ -224,17 +248,19 @@ const RegistrarIncidencia = () => {
                   <option value="INFRAESTRUCTURA">Infraestructura TI</option>
                 </select>
                 {errors.areaTecnica && (
-                  <span className="text-red-500 text-sm mt-1">{errors.areaTecnica.message}</span>
+                  <span className={combineClasses('text-sm mt-1', getTextColorClass('error'))}>
+                    {errors.areaTecnica.message}
+                  </span>
                 )}
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Categoría
                 </label>
                 <select 
                   {...register('categoria')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300"
                 >
                   <option value="">Seleccionar...</option>
                   <option value="HARDWARE_PC">Hardware PC</option>
@@ -247,12 +273,12 @@ const RegistrarIncidencia = () => {
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Tipo de Trabajo
                 </label>
                 <select 
                   {...register('tipoTrabajo')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300"
                 >
                   <option value="">Seleccionar...</option>
                   <option value="REPARACION">Reparación</option>
@@ -266,12 +292,15 @@ const RegistrarIncidencia = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Prioridad del Caso *
                 </label>
                 <select 
                   {...register('prioridad')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300 ${errors.prioridad ? 'border-red-500' : ''}`}
+                  className={combineClasses(
+                    'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300',
+                    errors.prioridad ? 'border-red-500' : ''
+                  )}
                 >
                   <option value="">Seleccionar...</option>
                   <option value="1">1 - Crítica (Resolver inmediatamente)</option>
@@ -281,17 +310,19 @@ const RegistrarIncidencia = () => {
                   <option value="5">5 - Planificada (Resolver según cronograma)</option>
                 </select>
                 {errors.prioridad && (
-                  <span className="text-red-500 text-sm mt-1">{errors.prioridad.message}</span>
+                  <span className={combineClasses('text-sm mt-1', getTextColorClass('error'))}>
+                    {errors.prioridad.message}
+                  </span>
                 )}
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Canal de Ingreso
                 </label>
                 <select 
                   {...register('canalIngreso')}
-                  className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300"
                 >
                   <option value="WEB">Portal Web</option>
                   <option value="TELEFONO">Teléfono</option>
@@ -302,28 +333,33 @@ const RegistrarIncidencia = () => {
             </div>
 
             <div className="mt-6">
-              <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+              <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                 Observaciones del Caso *
               </label>
               <textarea 
                 {...register('descripcion')}
                 rows={4}
-                className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white border-gray-300 ${errors.descripcion ? 'border-red-500' : ''}`}
+                className={combineClasses(
+                  'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white border-gray-300',
+                  errors.descripcion ? 'border-red-500' : ''
+                )}
                 placeholder="Describa detalladamente el problema o incidencia..."
               />
               {errors.descripcion && (
-                <span className="text-red-500 text-sm mt-1">{errors.descripcion.message}</span>
+                <span className={combineClasses('text-sm mt-1', getTextColorClass('error'))}>
+                  {errors.descripcion.message}
+                </span>
               )}
             </div>
 
             <div className="mt-6">
-              <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+              <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                 Observaciones Adicionales
               </label>
               <textarea 
                 {...register('observaciones')}
                 rows={3}
-                className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white border-gray-300`}
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white border-gray-300"
                 placeholder="Información adicional relevante..."
               />
             </div>
@@ -331,26 +367,26 @@ const RegistrarIncidencia = () => {
 
           {/* Elemento Afectado */}
           <div className="border-b border-gray-200 pb-6">
-            <h3 className={`text-lg font-semibold mb-4 ${themeClasses.primaryText}`}>
+            <h3 className={combineClasses('text-lg font-semibold mb-4', getTextColorClass('primary'))}>
               Elemento Afectado (Solo si aplica)
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Buscar Elemento
                 </label>
                 <div className="flex space-x-2">
                   <input 
                     type="text"
                     {...register('codigoPatrimonial')}
-                    className={`flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300`}
+                    className="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white border-gray-300"
                     placeholder="Código patrimonial o serie"
                   />
                   <button
                     type="button"
                     onClick={handleElementSearch}
                     disabled={isSearchingElement || !watchedValues.codigoPatrimonial?.trim()}
-                    className="px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 transition-colors"
+                    className={createComponentClass('button', 'success', 'md', 'disabled:bg-gray-400')}
                   >
                     {isSearchingElement ? 'Buscando...' : 'Buscar'}
                   </button>
@@ -358,27 +394,27 @@ const RegistrarIncidencia = () => {
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Elemento Afectado
                 </label>
                 <input 
                   type="text"
                   {...register('elementoAfectado')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className="w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300"
                   placeholder="Se completará automáticamente"
                 />
               </div>
 
               <div className="md:col-span-2">
-                <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+                <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                   Ubicación Específica
                 </label>
                 <input 
                   type="text"
                   {...register('ubicacionEspecifica')}
                   readOnly
-                  className={`w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300`}
+                  className="w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed border-gray-300"
                   placeholder="Se completará automáticamente al buscar elemento"
                 />
               </div>
@@ -387,12 +423,12 @@ const RegistrarIncidencia = () => {
 
           {/* Evidencias */}
           <div className="border-b border-gray-200 pb-6">
-            <h3 className={`text-lg font-semibold mb-4 ${themeClasses.primaryText}`}>
+            <h3 className={combineClasses('text-lg font-semibold mb-4', getTextColorClass('primary'))}>
               Evidencias (Opcional)
             </h3>
             
             <div className="mb-4">
-              <label className={`block text-sm font-medium mb-2 ${themeClasses.primaryText}`}>
+              <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
                 Adjuntar Archivos
               </label>
               <input
@@ -401,13 +437,16 @@ const RegistrarIncidencia = () => {
                 accept="image/*,.pdf,.doc,.docx"
                 onChange={handleFileUpload}
                 disabled={uploadingFile}
-                className={`w-full p-3 border rounded-lg bg-white border-gray-300 ${uploadingFile ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={combineClasses(
+                  'w-full p-3 border rounded-lg bg-white border-gray-300',
+                  uploadingFile ? 'opacity-50 cursor-not-allowed' : ''
+                )}
               />
-              <p className={`text-sm mt-1 ${themeClasses.secondaryText}`}>
+              <p className={combineClasses('text-sm mt-1', getTextColorClass('secondary'))}>
                 Formatos permitidos: Imágenes, PDF, Word. Tamaño máximo: 10MB por archivo.
               </p>
               {uploadingFile && (
-                <p className={`text-sm mt-1 text-blue-600`}>
+                <p className={combineClasses('text-sm mt-1', getTextColorClass('info'))}>
                   Subiendo archivo...
                 </p>
               )}
@@ -416,13 +455,13 @@ const RegistrarIncidencia = () => {
             {/* Lista de evidencias */}
             {watchedValues.evidencias && watchedValues.evidencias.length > 0 && (
               <div className="space-y-2">
-                <h4 className={`text-sm font-medium ${themeClasses.primaryText}`}>
+                <h4 className={combineClasses('text-sm font-medium', getTextColorClass('primary'))}>
                   Archivos adjuntos ({watchedValues.evidencias.length}):
                 </h4>
                 {watchedValues.evidencias.map((evidencia) => (
                   <div 
                     key={evidencia.id} 
-                    className={`flex items-center justify-between p-3 border rounded-lg border-gray-300 bg-gray-50`}
+                    className="flex items-center justify-between p-3 border rounded-lg border-gray-300 bg-gray-50"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="text-blue-500">
@@ -430,10 +469,10 @@ const RegistrarIncidencia = () => {
                          evidencia.tipo.includes('pdf') ? '📄' : '📝'}
                       </div>
                       <div>
-                        <p className={`font-medium ${themeClasses.primaryText}`}>
+                        <p className={combineClasses('font-medium', getTextColorClass('primary'))}>
                           {evidencia.nombre}
                         </p>
-                        <p className={`text-sm ${themeClasses.secondaryText}`}>
+                        <p className={combineClasses('text-sm', getTextColorClass('secondary'))}>
                           {formatFileSize(evidencia.tamaño)}
                         </p>
                       </div>
@@ -441,7 +480,7 @@ const RegistrarIncidencia = () => {
                     <button
                       type="button"
                       onClick={() => handleRemoveEvidence(evidencia.id, evidencia.nombre)}
-                      className="text-red-500 hover:text-red-700 p-2"
+                      className={combineClasses('p-2', getTextColorClass('error'), 'hover:text-red-700')}
                     >
                       ✕
                     </button>
@@ -452,7 +491,7 @@ const RegistrarIncidencia = () => {
           </div>
 
           {/* Información adicional */}
-          <div className={`p-4 rounded-lg bg-blue-50`}>
+          <div className="p-4 rounded-lg bg-blue-50">
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
                 <svg className="w-5 h-5 text-blue-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -460,10 +499,10 @@ const RegistrarIncidencia = () => {
                 </svg>
               </div>
               <div className="flex-1">
-                <h4 className={`text-sm font-medium ${themeClasses.primaryText}`}>
+                <h4 className={combineClasses('text-sm font-medium', getTextColorClass('primary'))}>
                   Información Importante
                 </h4>
-                <p className={`text-sm mt-1 ${themeClasses.secondaryText}`}>
+                <p className={combineClasses('text-sm mt-1', getTextColorClass('secondary'))}>
                   • Los campos marcados con (*) son obligatorios<br/>
                   • Busque al solicitante por identificación para autocompletar sus datos<br/>
                   • Se generará un número de caso automáticamente<br/>
@@ -478,11 +517,10 @@ const RegistrarIncidencia = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`px-8 py-3 rounded-lg transition-colors font-medium shadow-lg hover:shadow-xl ${
-                isSubmitting 
-                  ? 'bg-gray-400 cursor-not-allowed' 
-                  : 'bg-blue-600 hover:bg-blue-700'
-              } text-white`}
+              className={combineClasses(
+                createComponentClass('button', 'primary', 'lg', 'shadow-lg hover:shadow-xl'),
+                isSubmitting ? 'bg-gray-400 cursor-not-allowed' : ''
+              )}
             >
               {isSubmitting ? 'Registrando...' : 'Registrar Incidencia'}
             </button>
@@ -490,7 +528,10 @@ const RegistrarIncidencia = () => {
               type="button"
               onClick={handleClearForm}
               disabled={isSubmitting}
-              className={`px-8 py-3 rounded-lg transition-colors font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={combineClasses(
+                createComponentClass('button', 'secondary', 'lg'),
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              )}
             >
               Limpiar Formulario
             </button>
