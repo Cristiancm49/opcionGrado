@@ -15,13 +15,16 @@ import {
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
-import IncidenciasFilters from './components/IncidenciasFilters';
+import useAppStore from '../../store/useAppStore';
+import FiltrosIncidencias from './components/FiltrosIncidencias';
 import IncidenciaItem from './components/IncidenciaItem';
 import ModalAsignacionTecnico from './components/ModalAsignacionTecnico';
 import ModalAsignacionMasiva from './components/ModalAsignacionMasiva';
 import { useGestionIncidencias } from './hooks/useGestionIncidencias';
 
 const GestionIncidencias = () => {
+  const { getThemeClasses } = useAppStore();
+  const themeClasses = getThemeClasses();
   const {
     data,
     estadisticas,
@@ -263,7 +266,7 @@ const GestionIncidencias = () => {
       </div>
 
       {/* Filtros */}
-      <IncidenciasFilters
+      <FiltrosIncidencias
         filtros={filtros}
         busquedaTemporal={busquedaTemporal}
         actualizarFiltros={actualizarFiltros}

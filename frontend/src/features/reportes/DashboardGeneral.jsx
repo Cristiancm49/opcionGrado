@@ -29,10 +29,13 @@ import {
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import useAppStore from '../../store/useAppStore';
 import { useDashboard } from './hooks/useDashboard';
 import DashboardFilters from './components/DashboardFilters';
 
 const DashboardGeneral = () => {
+  const { getThemeClasses } = useAppStore();
+  const themeClasses = getThemeClasses();
   const [vistaActiva, setVistaActiva] = useState('general');
   const [refrescar, setRefrescar] = useState(false);
   const { 
@@ -74,10 +77,10 @@ const DashboardGeneral = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Cargando dashboard...</p>
+      <div className={themeClasses.loadingContainer}>
+        <div className={themeClasses.centerContainer}>
+          <div className={themeClasses.loadingSpinner}></div>
+          <p className={themeClasses.secondaryText}>Cargando dashboard...</p>
         </div>
       </div>
     );
@@ -85,10 +88,10 @@ const DashboardGeneral = () => {
 
   if (error) {
     return (
-      <div className="text-center py-12">
+      <div className={themeClasses.centerContainer}>
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Error al cargar el dashboard</h3>
-        <p className="text-gray-600">{error}</p>
+        <h3 className={`text-lg font-semibold mb-2 ${themeClasses.primaryText}`}>Error al cargar el dashboard</h3>
+        <p className={themeClasses.secondaryText}>{error}</p>
       </div>
     );
   }
@@ -96,12 +99,12 @@ const DashboardGeneral = () => {
   if (!data) return null;
 
   return (
-    <div className="space-y-6">
+    <div className={themeClasses.spaceY6}>
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className={themeClasses.flexJustifyBetweenItems}>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard General</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className={`text-3xl font-bold ${themeClasses.primaryText}`}>Dashboard General</h1>
+          <p className={`${themeClasses.secondaryText} mt-1`}>
             Vista general del sistema de soporte técnico
           </p>
         </div>

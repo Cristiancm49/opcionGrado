@@ -19,10 +19,13 @@ import {
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import useAppStore from '../../store/useAppStore';
 import CasesReportsFilters from './components/CasesReportsFilters';
 import { useCasesReports } from './hooks/useCasesReports';
 
 const ReportesCasos = () => {
+  const { getThemeClasses } = useAppStore();
+  const themeClasses = getThemeClasses();
   const [tabActivo, setTabActivo] = useState('casos');
   const {
     casos,

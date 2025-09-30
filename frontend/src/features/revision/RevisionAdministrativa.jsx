@@ -21,11 +21,14 @@ import {
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import useAppStore from '../../store/useAppStore';
 import { useRevisionAdministrativa } from './hooks/useRevisionAdministrativa';
 import RevisionFilters from './components/RevisionFilters';
 import TrabajoItem from './components/TrabajoItem';
 
 const RevisionAdministrativa = () => {
+  const { getThemeClasses } = useAppStore();
+  const themeClasses = getThemeClasses();
   const [vistaActiva, setVistaActiva] = useState('pendientes');
   const [refrescar, setRefrescar] = useState(false);
   

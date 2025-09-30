@@ -1,301 +1,146 @@
-// Mock data para Gestión de Incidencias
-export const mockIncidenciasData = {
-  // Incidencias del sistema
-  incidencias: [
-    {
-      id: 1,
-      numeroIncidencia: 'INC-2024-001',
-      titulo: 'Problema con servidor de correo',
-      descripcion: 'El servidor de correo electrónico no está respondiendo correctamente, los usuarios no pueden enviar ni recibir emails.',
-      fechaRegistro: '2024-01-15T08:30:00Z',
-      fechaActualizacion: '2024-01-15T14:20:00Z',
-      estado: 'En Proceso',
-      prioridad: 'Alta',
-      categoria: 'Infraestructura',
-      subcategoria: 'Servidores',
-      usuarioReporta: 'maria.garcia@empresa.com',
-      nombreUsuario: 'María García',
-      tecnicoAsignado: 'carlos.martinez@empresa.com',
-      nombreTecnico: 'Carlos Martínez',
-      areaTecnica: 'Soporte Infraestructura',
-      ubicacion: 'Centro de Datos - Sótano',
-      impacto: 'Alto',
-      urgencia: 'Alta',
-      tiempoEstimado: 8.0,
-      tiempoReal: 6.5,
-      solucion: 'Se reinició el servicio de correo y se aplicaron parches de seguridad pendientes.',
-      observaciones: 'El problema se resolvió más rápido de lo esperado.',
-      archivosAdjuntos: ['log-servidor-correo.txt', 'configuracion-smtp.xml'],
-      etiquetas: ['servidor', 'correo', 'infraestructura'],
-      casosRelacionados: ['CAS-2024-001', 'CAS-2024-002'],
-      sla: '4 horas',
-      tiempoSLA: 3.5,
-      cumplioSLA: true
-    },
-    {
-      id: 2,
-      numeroIncidencia: 'INC-2024-002',
-      titulo: 'Fallo en sistema de backup',
-      descripcion: 'El sistema de backup automático no está funcionando desde hace 2 días, se requiere intervención inmediata.',
-      fechaRegistro: '2024-01-14T09:15:00Z',
-      fechaActualizacion: '2024-01-14T16:45:00Z',
-      estado: 'Cerrado',
-      prioridad: 'Crítica',
-      categoria: 'Infraestructura',
-      subcategoria: 'Backup',
-      usuarioReporta: 'juan.perez@empresa.com',
-      nombreUsuario: 'Juan Pérez',
-      tecnicoAsignado: 'ana.lopez@empresa.com',
-      nombreTecnico: 'Ana López',
-      areaTecnica: 'Soporte Infraestructura',
-      ubicacion: 'Centro de Datos - Sótano',
-      impacto: 'Crítico',
-      urgencia: 'Crítica',
-      tiempoEstimado: 12.0,
-      tiempoReal: 10.2,
-      solucion: 'Se reconfiguró el sistema de backup y se ejecutó backup manual de emergencia.',
-      observaciones: 'Se implementaron mejoras adicionales en el sistema de monitoreo.',
-      archivosAdjuntos: ['backup-log.txt', 'configuracion-backup.xml'],
-      etiquetas: ['backup', 'crítico', 'infraestructura'],
-      casosRelacionados: ['CAS-2024-003'],
-      sla: '2 horas',
-      tiempoSLA: 7.5,
-      cumplioSLA: false
-    },
-    {
-      id: 3,
-      numeroIncidencia: 'INC-2024-003',
-      titulo: 'Problema de conectividad WiFi',
-      descripcion: 'Los usuarios del piso 3 reportan problemas intermitentes de conectividad WiFi.',
-      fechaRegistro: '2024-01-13T11:20:00Z',
-      fechaActualizacion: '2024-01-13T15:30:00Z',
-      estado: 'Cerrado',
-      prioridad: 'Media',
-      categoria: 'Redes',
-      subcategoria: 'WiFi',
-      usuarioReporta: 'pedro.silva@empresa.com',
-      nombreUsuario: 'Pedro Silva',
-      tecnicoAsignado: 'luis.rodriguez@empresa.com',
-      nombreTecnico: 'Luis Rodríguez',
-      areaTecnica: 'Soporte Redes',
-      ubicacion: 'Piso 3 - Oficinas',
-      impacto: 'Medio',
-      urgencia: 'Media',
-      tiempoEstimado: 4.0,
-      tiempoReal: 4.2,
-      solucion: 'Se reconfiguró el router WiFi y se optimizó la señal.',
-      observaciones: 'El problema era interferencia de otros dispositivos.',
-      archivosAdjuntos: ['diagnostico-wifi.pdf'],
-      etiquetas: ['wifi', 'redes', 'conectividad'],
-      casosRelacionados: ['CAS-2024-004', 'CAS-2024-005'],
-      sla: '8 horas',
-      tiempoSLA: 4.2,
-      cumplioSLA: true
-    },
-    {
-      id: 4,
-      numeroIncidencia: 'INC-2024-004',
-      titulo: 'Error en aplicación contable',
-      descripcion: 'La aplicación de contabilidad está generando errores al procesar las facturas del mes.',
-      fechaRegistro: '2024-01-12T07:00:00Z',
-      fechaActualizacion: '2024-01-12T12:00:00Z',
-      estado: 'En Proceso',
-      prioridad: 'Alta',
-      categoria: 'Aplicaciones',
-      subcategoria: 'Software Empresarial',
-      usuarioReporta: 'laura.martinez@empresa.com',
-      nombreUsuario: 'Laura Martínez',
-      tecnicoAsignado: 'ana.lopez@empresa.com',
-      nombreTecnico: 'Ana López',
-      areaTecnica: 'Soporte Aplicaciones',
-      ubicacion: 'Oficina Contabilidad - Piso 1',
-      impacto: 'Alto',
-      urgencia: 'Alta',
-      tiempoEstimado: 6.0,
-      tiempoReal: null,
-      solucion: null,
-      observaciones: 'Se está trabajando con el proveedor del software.',
-      archivosAdjuntos: ['error-contabilidad.log', 'facturas-problema.xlsx'],
-      etiquetas: ['contabilidad', 'aplicación', 'facturas'],
-      casosRelacionados: ['CAS-2024-006'],
-      sla: '6 horas',
-      tiempoSLA: null,
-      cumplioSLA: null
-    },
-    {
-      id: 5,
-      numeroIncidencia: 'INC-2024-005',
-      titulo: 'Actualización de sistema operativo',
-      descripcion: 'Se requiere actualizar el sistema operativo de los equipos administrativos a la última versión.',
-      fechaRegistro: '2024-01-11T10:30:00Z',
-      fechaActualizacion: '2024-01-11T18:45:00Z',
-      estado: 'Cerrado',
-      prioridad: 'Media',
-      categoria: 'Sistemas',
-      subcategoria: 'Actualizaciones',
-      usuarioReporta: 'roberto.gonzalez@empresa.com',
-      nombreUsuario: 'Roberto González',
-      tecnicoAsignado: 'carlos.martinez@empresa.com',
-      nombreTecnico: 'Carlos Martínez',
-      areaTecnica: 'Soporte Sistemas',
-      ubicacion: 'Oficina Administrativa - Piso 2',
-      impacto: 'Medio',
-      urgencia: 'Media',
-      tiempoEstimado: 8.0,
-      tiempoReal: 8.3,
-      solucion: 'Se actualizó el sistema operativo y se migraron los datos del usuario.',
-      observaciones: 'La migración fue exitosa pero requirió reinstalación de algunas aplicaciones.',
-      archivosAdjuntos: ['plan-actualizacion.pdf'],
-      etiquetas: ['actualización', 'sistema operativo', 'migración'],
-      casosRelacionados: ['CAS-2024-007'],
-      sla: '12 horas',
-      tiempoSLA: 8.3,
-      cumplioSLA: true
-    },
-    {
-      id: 6,
-      numeroIncidencia: 'INC-2024-006',
-      titulo: 'Problema con impresora láser',
-      descripcion: 'La impresora láser del área administrativa no está funcionando correctamente.',
-      fechaRegistro: '2024-01-10T13:45:00Z',
-      fechaActualizacion: '2024-01-10T17:30:00Z',
-      estado: 'Cerrado',
-      prioridad: 'Baja',
-      categoria: 'Hardware',
-      subcategoria: 'Impresoras',
-      usuarioReporta: 'sofia.hernandez@empresa.com',
-      nombreUsuario: 'Sofía Hernández',
-      tecnicoAsignado: 'carlos.martinez@empresa.com',
-      nombreTecnico: 'Carlos Martínez',
-      areaTecnica: 'Soporte Hardware',
-      ubicacion: 'Oficina Administrativa - Piso 2',
-      impacto: 'Bajo',
-      urgencia: 'Baja',
-      tiempoEstimado: 2.0,
-      tiempoReal: 3.7,
-      solucion: 'Se reemplazó el cartucho de tóner y se realizó limpieza completa.',
-      observaciones: 'El problema era más complejo de lo inicialmente estimado.',
-      archivosAdjuntos: ['manual-impresora.pdf'],
-      etiquetas: ['impresora', 'hardware', 'tóner'],
-      casosRelacionados: ['CAS-2024-008'],
-      sla: '24 horas',
-      tiempoSLA: 3.7,
-      cumplioSLA: true
-    },
-    {
-      id: 7,
-      numeroIncidencia: 'INC-2024-007',
-      titulo: 'Fallo en sistema de monitoreo',
-      descripcion: 'El sistema de monitoreo de red no está reportando el estado correcto de los dispositivos.',
-      fechaRegistro: '2024-01-09T14:20:00Z',
-      fechaActualizacion: '2024-01-09T17:30:00Z',
-      estado: 'Pendiente',
-      prioridad: 'Media',
-      categoria: 'Redes',
-      subcategoria: 'Monitoreo',
-      usuarioReporta: 'diego.torres@empresa.com',
-      nombreUsuario: 'Diego Torres',
-      tecnicoAsignado: 'luis.rodriguez@empresa.com',
-      nombreTecnico: 'Luis Rodríguez',
-      areaTecnica: 'Soporte Redes',
-      ubicacion: 'Centro de Datos - Sótano',
-      impacto: 'Medio',
-      urgencia: 'Media',
-      tiempoEstimado: 6.0,
-      tiempoReal: null,
-      solucion: null,
-      observaciones: 'Pendiente de asignación de técnico.',
-      archivosAdjuntos: ['log-monitoreo.txt'],
-      etiquetas: ['monitoreo', 'redes', 'dispositivos'],
-      casosRelacionados: [],
-      sla: '8 horas',
-      tiempoSLA: null,
-      cumplioSLA: null
-    },
-    {
-      id: 8,
-      numeroIncidencia: 'INC-2024-008',
-      titulo: 'Problema con base de datos',
-      descripcion: 'La base de datos principal está experimentando lentitud en las consultas.',
-      fechaRegistro: '2024-01-08T08:00:00Z',
-      fechaActualizacion: '2024-01-08T16:00:00Z',
-      estado: 'Cerrado',
-      prioridad: 'Alta',
-      categoria: 'Infraestructura',
-      subcategoria: 'Base de Datos',
-      usuarioReporta: 'carmen.vargas@empresa.com',
-      nombreUsuario: 'Carmen Vargas',
-      tecnicoAsignado: 'ana.lopez@empresa.com',
-      nombreTecnico: 'Ana López',
-      areaTecnica: 'Soporte Infraestructura',
-      ubicacion: 'Centro de Datos - Sótano',
-      impacto: 'Alto',
-      urgencia: 'Alta',
-      tiempoEstimado: 10.0,
-      tiempoReal: 12.5,
-      solucion: 'Se optimizaron las consultas y se ajustaron los índices de la base de datos.',
-      observaciones: 'Se implementaron mejoras adicionales en el rendimiento.',
-      archivosAdjuntos: ['query-analysis.sql', 'performance-report.pdf'],
-      etiquetas: ['base de datos', 'rendimiento', 'optimización'],
-      casosRelacionados: ['CAS-2024-009'],
-      sla: '6 horas',
-      tiempoSLA: 8.0,
-      cumplioSLA: false
-    }
-  ],
+// Datos mock para incidencias
 
-  // Opciones para filtros
-  opcionesFiltros: {
-    estados: ['Pendiente', 'En Proceso', 'Cerrado', 'Cancelado', 'Escalado'],
-    prioridades: ['Baja', 'Media', 'Alta', 'Crítica'],
-    categorias: ['Infraestructura', 'Redes', 'Aplicaciones', 'Sistemas', 'Hardware', 'Seguridad'],
-    subcategorias: {
-      'Infraestructura': ['Servidores', 'Backup', 'Base de Datos', 'Almacenamiento'],
-      'Redes': ['WiFi', 'Monitoreo', 'Conectividad', 'Switches'],
-      'Aplicaciones': ['Software Empresarial', 'Desarrollo', 'Integración'],
-      'Sistemas': ['Actualizaciones', 'Configuración', 'Mantenimiento'],
-      'Hardware': ['Impresoras', 'Equipos', 'Periféricos'],
-      'Seguridad': ['Antivirus', 'Firewall', 'Accesos', 'Auditoría']
-    },
-    impactos: ['Bajo', 'Medio', 'Alto', 'Crítico'],
-    urgencias: ['Baja', 'Media', 'Alta', 'Crítica'],
-    tecnicos: [
-      { id: 1, nombre: 'Carlos Martínez', email: 'carlos.martinez@empresa.com', area: 'Soporte Infraestructura' },
-      { id: 2, nombre: 'Ana López', email: 'ana.lopez@empresa.com', area: 'Soporte Aplicaciones' },
-      { id: 3, nombre: 'Luis Rodríguez', email: 'luis.rodriguez@empresa.com', area: 'Soporte Redes' }
-    ],
-    ubicaciones: [
-      'Centro de Datos - Sótano',
-      'Oficina Principal - Piso 2',
-      'Oficina Administrativa - Piso 2',
-      'Oficina Contabilidad - Piso 1',
-      'Piso 3 - Oficinas',
-      'Departamento Ventas - Piso 1'
+export const incidenciasData = [
+  // ====== CASOS ACTIVOS ======
+  {
+    id: 1,
+    numeroCaso: 'INC-001234',
+    fechaRegistro: '2025-01-15',
+    fechaModificacion: '2025-01-17',
+    solicitante: 'DIEGO FERNANDO QUESADA PEÑA',
+    dependencia: 'OFICINA DE PLANEACION',
+    contacto: 'diego.quesada@uniamazonia.edu.co',
+    telefono: '123456789',
+    descripcion: 'Computador no enciende en oficina 205, presenta problema eléctrico',
+    prioridad: 'Alta',
+    areaTecnica: 'Hardware',
+    tipoTrabajo: 'Reparación',
+    estado: 'Activo',
+    tecnicoAsignado: null,
+    diasAbierto: 3,
+    slaStatus: 'En Tiempo',
+    ubicacion: 'Edificio A - Piso 2 - Oficina 205',
+    elementoAfectado: 'Computador HP ProDesk 400',
+    observaciones: 'Se requiere revisión urgente del equipo.',
+    evidencias: [],
+    historial: [
+      { fecha: '2025-01-15', usuario: 'Sistema', accion: 'Incidencia Creada' },
+      { fecha: '2025-01-17', usuario: 'Administrador', accion: 'Modificada' }
     ]
   },
+  {
+    id: 2,
+    numeroCaso: 'INC-001235',
+    fechaRegistro: '2025-01-14',
+    fechaModificacion: '2025-01-14',
+    solicitante: 'MARIA GONZALEZ LOPEZ',
+    dependencia: 'RECURSOS HUMANOS',
+    contacto: 'maria.gonzalez@uniamazonia.edu.co',
+    telefono: '987654321',
+    descripcion: 'Problema con impresora en recepción, no imprime documentos',
+    prioridad: 'Media',
+    areaTecnica: 'Hardware',
+    tipoTrabajo: 'Reparación',
+    estado: 'Activo',
+    tecnicoAsignado: 'Juan Pérez',
+    diasAbierto: 4,
+    slaStatus: 'En Tiempo',
+    ubicacion: 'Edificio Principal - Recepción',
+    elementoAfectado: 'Impresora Canon ImageRunner',
+    observaciones: 'Se asignó a Juan Pérez para revisión.',
+    evidencias: ['foto_impresora.jpg'],
+    historial: [
+      { fecha: '2025-01-14', usuario: 'Sistema', accion: 'Incidencia Creada' },
+      { fecha: '2025-01-14', usuario: 'Administrador', accion: 'Asignada a Juan Pérez' }
+    ]
+  },
+  {
+    id: 3,
+    numeroCaso: 'INC-001236',
+    fechaRegistro: '2025-01-13',
+    fechaModificacion: '2025-01-17',
+    solicitante: 'CARLOS RIVERA MORA',
+    dependencia: 'SISTEMAS',
+    contacto: 'carlos.rivera@uniamazonia.edu.co',
+    telefono: '456789123',
+    descripcion: 'Problema de conectividad a internet en toda la oficina',
+    prioridad: 'Crítica',
+    areaTecnica: 'Redes',
+    tipoTrabajo: 'Configuración',
+    estado: 'Activo',
+    tecnicoAsignado: 'Luis Martínez',
+    diasAbierto: 5,
+    slaStatus: 'Vencido',
+    ubicacion: 'Edificio B - Piso 1',
+    elementoAfectado: 'Switch de red principal',
+    observaciones: 'Requiere reconfiguración de VLANs.',
+    evidencias: ['log_red.txt'],
+    historial: [
+      { fecha: '2025-01-13', usuario: 'Sistema', accion: 'Incidencia Creada' },
+      { fecha: '2025-01-13', usuario: 'Administrador', accion: 'Asignada a Luis Martínez' },
+      { fecha: '2025-01-17', usuario: 'Luis Martínez', accion: 'Diagnóstico inicial' }
+    ]
+  },
+  // ====== CASOS RESUELTOS ======
+  {
+    id: 4,
+    numeroCaso: 'INC-001200',
+    fechaRegistro: '2025-01-10',
+    fechaModificacion: '2025-01-12',
+    fechaResolucion: '2025-01-12',
+    solicitante: 'ANA JIMENEZ TORRES',
+    dependencia: 'CONTABILIDAD',
+    contacto: 'ana.jimenez@uniamazonia.edu.co',
+    telefono: '789123456',
+    descripcion: 'Computador lento, requiere optimización',
+    prioridad: 'Baja',
+    areaTecnica: 'Hardware',
+    tipoTrabajo: 'Mantenimiento',
+    estado: 'Resuelto',
+    tecnicoAsignado: 'Juan Pérez',
+    diasAbierto: 2,
+    slaStatus: 'Cumplido',
+    ubicacion: 'Edificio Principal - Contabilidad',
+    elementoAfectado: 'Computador Dell OptiPlex 7090',
+    observaciones: 'Se realizó desfragmentación y limpieza de software.',
+    evidencias: ['reporte_optimizacion.pdf'],
+    historial: [
+      { fecha: '2025-01-10', usuario: 'Sistema', accion: 'Incidencia Creada' },
+      { fecha: '2025-01-10', usuario: 'Administrador', accion: 'Asignada a Juan Pérez' },
+      { fecha: '2025-01-12', usuario: 'Juan Pérez', accion: 'Resuelta' }
+    ],
+    calificacion: 5,
+    comentario: 'Excelente servicio, el equipo funciona mucho mejor.'
+  }
+];
 
-  // Estadísticas generales
-  estadisticasGenerales: {
-    totalIncidencias: 8,
-    incidenciasPendientes: 1,
-    incidenciasEnProceso: 1,
-    incidenciasCerradas: 6,
-    incidenciasCriticas: 1,
-    incidenciasAltaPrioridad: 3,
-    promedioTiempoResolucion: 7.2,
-    cumplimientoSLA: 75.0,
-    incidenciasPorCategoria: {
-      'Infraestructura': 3,
-      'Redes': 2,
-      'Aplicaciones': 1,
-      'Sistemas': 1,
-      'Hardware': 1
-    }
+// Utilidades para colores
+export const getPrioridadColor = (prioridad) => {
+  switch(prioridad) {
+    case 'Crítica': return 'bg-red-100 text-red-800 border-red-200';
+    case 'Alta': return 'bg-orange-100 text-orange-800 border-orange-200';
+    case 'Media': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    case 'Baja': return 'bg-green-100 text-green-800 border-green-200';
+    default: return 'bg-gray-100 text-gray-800 border-gray-200';
   }
 };
 
-export const mockTecnicosIncidencias = [
-  { id: 1, nombre: 'Carlos Martínez', area: 'Soporte Infraestructura', incidenciasAsignadas: 4, promedioResolucion: 6.8 },
-  { id: 2, nombre: 'Ana López', area: 'Soporte Aplicaciones', incidenciasAsignadas: 3, promedioResolucion: 8.2 },
-  { id: 3, nombre: 'Luis Rodríguez', area: 'Soporte Redes', incidenciasAsignadas: 2, promedioResolucion: 4.2 }
-];
+export const getEstadoColor = (estado) => {
+  switch(estado) {
+    case 'Activo': return 'bg-blue-100 text-blue-800 border-blue-200';
+    case 'En Proceso': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    case 'Pendiente': return 'bg-orange-100 text-orange-800 border-orange-200';
+    case 'Resuelto': return 'bg-green-100 text-green-800 border-green-200';
+    default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  }
+};
+
+export const getSlaColor = (slaStatus) => {
+  switch(slaStatus) {
+    case 'En Tiempo': return 'bg-green-100 text-green-800 border-green-200';
+    case 'En Riesgo': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    case 'Vencido': return 'bg-red-100 text-red-800 border-red-200';
+    case 'Cumplido': return 'bg-blue-100 text-blue-800 border-blue-200';
+    default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  }
+};

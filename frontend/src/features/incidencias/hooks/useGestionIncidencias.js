@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { mockIncidenciasData, mockTecnicosIncidencias } from '../data/incidenciasData';
+import { incidenciasData } from '../data/incidenciasData';
 
 export const useGestionIncidencias = () => {
   const [data, setData] = useState(null);
@@ -29,7 +29,7 @@ export const useGestionIncidencias = () => {
       try {
         // Simular delay de API
         await new Promise(resolve => setTimeout(resolve, 1000));
-        setData(mockIncidenciasData);
+        setData(incidenciasData);
         setError(null);
       } catch (err) {
         setError('Error al cargar las incidencias');
@@ -225,7 +225,12 @@ export const useGestionIncidencias = () => {
     estadisticas: estadisticasCalculadas,
     loading,
     error,
-    tecnicos: mockTecnicosIncidencias,
+    tecnicos: [
+      { id: 1, nombre: 'Juan Pérez', especialidad: 'Hardware' },
+      { id: 2, nombre: 'María González', especialidad: 'Software' },
+      { id: 3, nombre: 'Luis Martínez', especialidad: 'Redes' },
+      { id: 4, nombre: 'Ana Rodríguez', especialidad: 'Sistemas' }
+    ],
     filtros,
     busquedaTemporal,
     actualizarFiltros,

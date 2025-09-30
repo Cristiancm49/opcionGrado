@@ -19,11 +19,14 @@ import {
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
+import useAppStore from '../../store/useAppStore';
 import ConfigAuditFilters from './components/ConfigAuditFilters';
 import ConfigAuditItem from './components/ConfigAuditItem';
 import { useConfigAuditReport } from './hooks/useConfigAuditReport';
 
 const ReportesConfiguracion = () => {
+  const { getThemeClasses } = useAppStore();
+  const themeClasses = getThemeClasses();
   const [tabActivo, setTabActivo] = useState('auditoria');
   
   const {

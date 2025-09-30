@@ -22,11 +22,14 @@ import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
 import Input from '../../components/ui/Input';
+import useAppStore from '../../store/useAppStore';
 import QualitySurveysFilters from './components/QualitySurveysFilters';
 import QualitySurveyItem from './components/QualitySurveyItem';
 import { useQualitySurveysReport } from './hooks/useQualitySurveysReport';
 
 const EncuestasCalidad = () => {
+  const { getThemeClasses } = useAppStore();
+  const themeClasses = getThemeClasses();
   const [tabActivo, setTabActivo] = useState('encuestas');
   
   const {

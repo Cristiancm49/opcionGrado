@@ -4,7 +4,8 @@ import HomePage from '../features/home/HomePage';
 import RegistrarIncidencia from '../features/registrar/RegistrarIncidencia';
 import DisponibilidadSalas from '../features/inventory/DisponibilidadSalas';
 import GestionInventario from '../features/inventory/GestionInventario';
-import MisIncidencias from '../features/casos/MisIncidencias';
+import MisIncidencias from '../features/incidencias/MisIncidencias';
+import GestionIncidencias from '../features/incidencias/GestionIncidencias';
 import MisCasos from '../features/casos/MisCasos';
 import ConfiguracionSistema from '../features/configuracion/ConfiguracionSistema';
 import ReportesConfiguracion from '../features/reportes/ReportesConfiguracion';
@@ -12,7 +13,6 @@ import EncuestasCalidad from '../features/reportes/EncuestasCalidad';
 import ReportesCasos from '../features/reportes/ReportesCasos';
 import DashboardGeneral from '../features/reportes/DashboardGeneral';
 import RevisionAdministrativa from '../features/revision/RevisionAdministrativa';
-import GestionIncidencias from '../features/incidencias/GestionIncidencias';
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
         element: <MisCasos />
       },
       {
+        path: 'admin/gestion-incidencias',
+        element: <GestionIncidencias />
+      },
+      {
         path: 'admin/configuracion-sistema',
         element: <ConfiguracionSistema />
       },
@@ -67,10 +71,6 @@ export const router = createBrowserRouter([
         path: 'admin/revision-administrativa',
         element: <RevisionAdministrativa />
       },
-      {
-        path: 'admin/gestion-incidencias',
-        element: <GestionIncidencias />
-      }
     ]
   }
 ]);
@@ -82,11 +82,11 @@ export const menuRoutes = {
   'Disponibilidad de Salas': '/inventory/disponibilidad-salas',
   'Mis Incidencias': '/casos/mis-incidencias',
   'Mis Casos': '/casos/mis-casos',
+  'Gestión de Incidencias': '/admin/gestion-incidencias',
   'Configuración del Sistema': '/admin/configuracion-sistema',
   'Reportes de Configuración': '/reportes/configuracion',
   'Encuestas de Calidad': '/reportes/encuestas-calidad',
   'Reportes de Casos': '/reportes/casos',
   'Dashboard General': '/reportes/dashboard',
   'Revisión Administrativa': '/admin/revision-administrativa',
-  'Gestión de Incidencias': '/admin/gestion-incidencias'
 };
