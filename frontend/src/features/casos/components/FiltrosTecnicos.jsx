@@ -52,7 +52,8 @@ const FiltrosTecnicos = ({
       </div>
       
       <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {/* Primera fila de filtros */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           <div className="space-y-2">
             <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
               <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,31 +131,37 @@ const FiltrosTecnicos = ({
           </div>
         </div>
 
-        {/* Filtros adicionales en chips compactos */}
-        <div className="flex flex-wrap gap-3">
-          <div className="flex items-center space-x-2 bg-gray-50 rounded-lg px-3 py-2 min-w-0 flex-shrink-0">
-            <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
+        {/* Segunda fila de filtros */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span>Solicitante</span>
+            </label>
             <input
               type="text"
               placeholder="Solicitante..."
               value={filtros.solicitante}
               onChange={(e) => setFiltros({...filtros, solicitante: e.target.value})}
-              className="bg-transparent border-none outline-none text-sm min-w-0 flex-1"
+              className={createComponentClass('input', 'default', 'sm')}
             />
           </div>
 
-          <div className="flex items-center space-x-2 bg-gray-50 rounded-lg px-3 py-2">
-            <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-            </svg>
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+              <span>Tipo de Trabajo</span>
+            </label>
             <select
               value={filtros.tipoTrabajo}
               onChange={(e) => setFiltros({...filtros, tipoTrabajo: e.target.value})}
-              className="bg-transparent border-none outline-none text-sm"
+              className={createComponentClass('input', 'default', 'sm')}
             >
-              <option value="">Tipo de trabajo</option>
+              <option value="">Todas</option>
               <option value="Reparación">🔧 Reparación</option>
               <option value="Mantenimiento">🛠️ Mantenimiento</option>
               <option value="Configuración">⚙️ Configuración</option>
@@ -162,23 +169,29 @@ const FiltrosTecnicos = ({
             </select>
           </div>
 
-          <div className="flex items-center space-x-2 bg-gray-50 rounded-lg px-3 py-2">
-            <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <input
-              type="date"
-              value={filtros.fechaDesde}
-              onChange={(e) => setFiltros({...filtros, fechaDesde: e.target.value})}
-              className="bg-transparent border-none outline-none text-sm"
-            />
-            <span className="text-gray-400">-</span>
-            <input
-              type="date"
-              value={filtros.fechaHasta}
-              onChange={(e) => setFiltros({...filtros, fechaHasta: e.target.value})}
-              className="bg-transparent border-none outline-none text-sm"
-            />
+          <div className="space-y-2 lg:col-span-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>Rango de Fechas</span>
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="date"
+                value={filtros.fechaDesde}
+                onChange={(e) => setFiltros({...filtros, fechaDesde: e.target.value})}
+                className={createComponentClass('input', 'default', 'md')}
+                placeholder="dd/mm/aaaa"
+              />
+              <input
+                type="date"
+                value={filtros.fechaHasta}
+                onChange={(e) => setFiltros({...filtros, fechaHasta: e.target.value})}
+                className={createComponentClass('input', 'default', 'md')}
+                placeholder="dd/mm/aaaa"
+              />
+            </div>
           </div>
         </div>
       </div>

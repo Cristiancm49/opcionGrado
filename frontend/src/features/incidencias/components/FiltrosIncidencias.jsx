@@ -51,25 +51,30 @@ const FiltrosIncidencias = ({ filtros, actualizarFiltros, aplicarFiltros, limpia
       </div>
 
       <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {/* Búsqueda general */}
-          <div className="md:col-span-2 lg:col-span-3 xl:col-span-4">
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              🔍 Búsqueda General
+        {/* Primera fila de filtros */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <span>Búsqueda General</span>
             </label>
             <input
               type="text"
+              placeholder="Buscar por número, solicitante, descripción..."
               value={filtros.busqueda}
               onChange={(e) => actualizarFiltros({ busqueda: e.target.value })}
-              placeholder="Buscar por número, solicitante, descripción..."
               className={createComponentClass('input', 'default', 'sm')}
             />
           </div>
 
-          {/* Prioridad */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              ⚡ Prioridad
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 15.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              <span>Prioridad</span>
             </label>
             <select
               value={filtros.prioridad}
@@ -83,10 +88,12 @@ const FiltrosIncidencias = ({ filtros, actualizarFiltros, aplicarFiltros, limpia
             </select>
           </div>
 
-          {/* Área Técnica */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              🔧 Área Técnica
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>Área Técnica</span>
             </label>
             <select
               value={filtros.areaTecnica}
@@ -100,10 +107,12 @@ const FiltrosIncidencias = ({ filtros, actualizarFiltros, aplicarFiltros, limpia
             </select>
           </div>
 
-          {/* Estado Específico */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              📊 Estado Específico
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              <span>Estado Específico</span>
             </label>
             <select
               value={filtros.estadoEspecifico}
@@ -116,11 +125,16 @@ const FiltrosIncidencias = ({ filtros, actualizarFiltros, aplicarFiltros, limpia
               ))}
             </select>
           </div>
+        </div>
 
-          {/* Técnico Asignado */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              👨‍💻 Técnico Asignado
+        {/* Segunda fila de filtros */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span>Técnico Asignado</span>
             </label>
             <select
               value={filtros.tecnico}
@@ -134,10 +148,12 @@ const FiltrosIncidencias = ({ filtros, actualizarFiltros, aplicarFiltros, limpia
             </select>
           </div>
 
-          {/* SLA Status */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              ⏰ Estado SLA
+          <div className="space-y-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Estado SLA</span>
             </label>
             <select
               value={filtros.slaStatus}
@@ -151,49 +167,29 @@ const FiltrosIncidencias = ({ filtros, actualizarFiltros, aplicarFiltros, limpia
             </select>
           </div>
 
-          {/* Calificación (solo para resueltos) */}
-          {filtros.estadoGeneral === 'RESUELTOS' && (
-            <div>
-              <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-                ⭐ Calificación
-              </label>
-              <select
-                value={filtros.calificacion}
-                onChange={(e) => actualizarFiltros({ calificacion: e.target.value })}
-                className={createComponentClass('input', 'default', 'sm')}
-              >
-                <option value="">Todas las calificaciones</option>
-                {opcionesFiltros.calificaciones.map(calificacion => (
-                  <option key={calificacion} value={calificacion}>{calificacion} estrella{calificacion > 1 ? 's' : ''}</option>
-                ))}
-              </select>
+          <div className="space-y-2 lg:col-span-2">
+            <label className={combineClasses('flex items-center space-x-2 text-sm font-medium', getTextColorClass('primary'))}>
+              <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>Rango de Fechas</span>
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="date"
+                value={filtros.fechaDesde}
+                onChange={(e) => actualizarFiltros({ fechaDesde: e.target.value })}
+                className={createComponentClass('input', 'default', 'md')}
+                placeholder="dd/mm/aaaa"
+              />
+              <input
+                type="date"
+                value={filtros.fechaHasta}
+                onChange={(e) => actualizarFiltros({ fechaHasta: e.target.value })}
+                className={createComponentClass('input', 'default', 'md')}
+                placeholder="dd/mm/aaaa"
+              />
             </div>
-          )}
-
-          {/* Fecha Desde */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              📅 Fecha Desde
-            </label>
-            <input
-              type="date"
-              value={filtros.fechaDesde}
-              onChange={(e) => actualizarFiltros({ fechaDesde: e.target.value })}
-              className={createComponentClass('input', 'default', 'sm')}
-            />
-          </div>
-
-          {/* Fecha Hasta */}
-          <div>
-            <label className={combineClasses('block text-sm font-medium mb-2', getTextColorClass('primary'))}>
-              📅 Fecha Hasta
-            </label>
-            <input
-              type="date"
-              value={filtros.fechaHasta}
-              onChange={(e) => actualizarFiltros({ fechaHasta: e.target.value })}
-              className={createComponentClass('input', 'default', 'sm')}
-            />
           </div>
         </div>
       </div>
