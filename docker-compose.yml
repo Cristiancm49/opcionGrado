@@ -7,23 +7,30 @@ services:
     container_name: chaira-sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong@Passw0rd
+      - SA_PASSWORD=3124553100Mm
       - MSSQL_PID=Express
     ports:
       - "1433:1433"
     volumes:
       - sqlserver_data:/var/opt/mssql
+      - ./database/bsd.sql:/docker-entrypoint-initdb.d/bsd.sql:ro
     networks:
       - chaira-network
     restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 3124553100Mm -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
-  # MongoDB 2.25
+  # MongoDB 4.2
   mongodb:
-    image: mongo:2.25
+    image: mongo:4.2
     container_name: chaira-mongodb
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - MONGO_INITDB_ROOT_USERNAME=admin1518
+      - MONGO_INITDB_ROOT_PASSWORD=3124553100Mm
       - MONGO_INITDB_DATABASE=ChairaMongoDB
     ports:
       - "27017:27017"
@@ -33,6 +40,12 @@ services:
     networks:
       - chaira-network
     restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   # Redis (Para cache futuro)
   redis:

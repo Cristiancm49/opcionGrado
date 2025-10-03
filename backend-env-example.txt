@@ -1,0 +1,89 @@
+# ===========================================
+# CONFIGURACIÓN DE BASE DE DATOS - CHAIRA
+# ===========================================
+
+# SQL Server 2019
+SQL_SERVER_HOST=localhost
+SQL_SERVER_PORT=1433
+SQL_SERVER_DATABASE=mesaServicios
+SQL_SERVER_USER=sa
+SQL_SERVER_PASSWORD=3124553100Mm
+SQL_SERVER_CONNECTION_STRING=Server=localhost,1433;Database=mesaServicios;User Id=sa;Password=3124553100Mm;TrustServerCertificate=True;
+
+# MongoDB 3.6
+MONGODB_HOST=localhost
+MONGODB_PORT=27017
+MONGODB_DATABASE=ChairaMongoDB
+MONGODB_USER=admin1518
+MONGODB_PASSWORD=3124553100Mm
+MONGODB_AUTH_DATABASE=admin
+MONGODB_CONNECTION_STRING=mongodb://admin1518:3124553100Mm@localhost:27017/ChairaMongoDB?authSource=admin
+
+# Redis 7 (Caché)
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=
+
+# ===========================================
+# CONFIGURACIÓN DE APLICACIÓN
+# ===========================================
+
+# JWT Configuration
+JWT_SECRET_KEY=ChairaSecretKey2025!@#SuperSecure
+JWT_ISSUER=ChairaAPI
+JWT_AUDIENCE=ChairaUsers
+JWT_EXPIRATION_HOURS=24
+
+# API Configuration
+API_VERSION=v1
+API_TITLE=Chaira Security API
+API_DESCRIPTION=Sistema de Mesa de Ayuda y Gestión de Casos
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
+CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE,OPTIONS
+CORS_ALLOWED_HEADERS=Content-Type,Authorization
+
+# ===========================================
+# CONFIGURACIÓN DE DESARROLLO
+# ===========================================
+
+# Environment
+ASPNETCORE_ENVIRONMENT=Development
+ASPNETCORE_URLS=http://localhost:5000;https://localhost:5001
+
+# Logging
+LOG_LEVEL=Information
+LOG_FILE_PATH=logs/chaira-api.log
+
+# File Upload
+MAX_FILE_SIZE_MB=10
+ALLOWED_FILE_TYPES=jpg,jpeg,png,pdf,doc,docx
+
+# Password Policy
+PASSWORD_MIN_LENGTH=8
+PASSWORD_REQUIRE_UPPERCASE=true
+PASSWORD_REQUIRE_LOWERCASE=true
+PASSWORD_REQUIRE_DIGITS=true
+PASSWORD_REQUIRE_SPECIAL_CHARS=true
+
+# Session Configuration
+SESSION_TIMEOUT_MINUTES=30
+MAX_LOGIN_ATTEMPTS=5
+LOCKOUT_DURATION_MINUTES=15
+
+# Email Configuration (para notificaciones)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=chaira.notifications@gmail.com
+SMTP_PASSWORD=your_app_password_here
+SMTP_ENABLE_SSL=true
+
+# Health Checks
+HEALTH_CHECK_TIMEOUT_SECONDS=30
+ENABLE_DETAILED_HEALTH_CHECKS=true
+
+# Performance Monitoring
+ENABLE_PERFORMANCE_COUNTERS=true
+PERFORMANCE_SAMPLE_RATE=0.1
+
