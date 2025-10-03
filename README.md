@@ -237,4 +237,3 @@ Si tienes problemas o preguntas, por favor:
 
 ---
 
-**¡Desarrollado con ❤️ por el equipo de Chaira!**

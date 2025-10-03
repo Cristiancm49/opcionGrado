@@ -7,8 +7,8 @@ db = db.getSiblingDB('ChairaMongoDB');
 
 // Crear usuario para la aplicación
 db.createUser({
-  user: 'chaira_user',
-  pwd: 'chaira_password',
+  user: 'admin1518',
+  pwd: '3124553100Mm',
   roles: [
     {
       role: 'readWrite',
@@ -72,6 +72,6 @@ db.system_logs.insertMany([
 
 print("✅ MongoDB initialization completed successfully!");
 print("📊 Database: ChairaMongoDB");
-print("👤 User: chaira_user");
+print("👤 User: admin1518");
 print("📁 Collections: audit_logs, system_logs, user_sessions, notifications, file_uploads");
 print("🔍 Indexes: Created for optimal performance");
