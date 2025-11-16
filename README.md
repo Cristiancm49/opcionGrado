@@ -20,35 +20,26 @@ Sistema completo de gestión de incidencias desarrollado con **React + Vite** (F
 - **Swagger** para documentación
 
 ### Bases de Datos
-- **SQL Server 2019** (Datos relacionales)
-- **MongoDB 2.25** (Logs y auditoría)
-- **Redis** (Cache - futuro)
+- **SQL Server 2019** (Datos relacionales - mesaServicios)
+- **MongoDB 4.2** (Logs y auditoría - ChairaMongoDB)
+- **Redis 7** (Cache)
 
-## 🚀 Configuración Rápida
+## 🚀 Inicio Rápido
 
-### Opción 1: Script Automático
+### 1. Iniciar Bases de Datos (Docker)
 ```bash
-# Ejecutar script de configuración
-./scripts/setup.sh
-```
-
-### Opción 2: Configuración Manual
-
-#### 1. Iniciar Bases de Datos
-```bash
-# Iniciar contenedores Docker
 docker-compose up -d
 ```
+Esto iniciará SQL Server, MongoDB y Redis. Las bases de datos se inicializan automáticamente.
 
-#### 2. Configurar Backend
+### 2. Iniciar Backend (Opcional)
 ```bash
 cd backend
 dotnet restore
-dotnet build
 dotnet run --project MicroApi.Seguridad.Api
 ```
 
-#### 3. Configurar Frontend
+### 3. Iniciar Frontend (Opcional)
 ```bash
 cd frontend
 npm install
@@ -138,14 +129,23 @@ docker-compose down
 
 ## 🔐 Credenciales por Defecto
 
+Ver archivo `database-credentials.env` para todas las credenciales.
+
 ### SQL Server
+- **Host:** localhost:1433
 - **Usuario:** sa
-- **Contraseña:** YourStrong@Passw0rd
+- **Contraseña:** 3124553100Mm
+- **Base de datos:** mesaServicios
 
 ### MongoDB
-- **Usuario:** admin
-- **Contraseña:** admin123
+- **Host:** localhost:27017
+- **Usuario:** admin1518
+- **Contraseña:** 3124553100Mm
 - **Base de datos:** ChairaMongoDB
+
+### Redis
+- **Host:** localhost:6379
+- **Sin contraseña**
 
 ## 🧪 Testing
 

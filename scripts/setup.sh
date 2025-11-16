@@ -1,140 +1,85 @@
 #!/bin/bash
 
 # ===========================================
-# SCRIPT DE CONFIGURACIÓN DEL PROYECTO CHAIRA
+# SCRIPT DE CONFIGURACIÓN - CHAIRA PROJECT
 # ===========================================
 
 echo "🚀 Iniciando configuración del proyecto Chaira..."
 
-# Colores para output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
-
-# Función para imprimir mensajes
-print_message() {
-    echo -e "${GREEN}✅ $1${NC}"
-}
-
-print_warning() {
-    echo -e "${YELLOW}⚠️  $1${NC}"
-}
-
-print_error() {
-    echo -e "${RED}❌ $1${NC}"
-}
-
-print_info() {
-    echo -e "${BLUE}ℹ️  $1${NC}"
-}
-
 # Verificar si Docker está instalado
 if ! command -v docker &> /dev/null; then
-    print_error "Docker no está instalado. Por favor instala Docker Desktop."
-    exit 1
-fi
-
-# Verificar si Docker Compose está instalado
-if ! command -v docker-compose &> /dev/null; then
-    print_error "Docker Compose no está instalado. Por favor instala Docker Compose."
+    echo "❌ Docker no está instalado. Por favor instala Docker Desktop desde:"
+    echo "   https://www.docker.com/products/docker-desktop/"
     exit 1
 fi
 
 # Verificar si .NET está instalado
 if ! command -v dotnet &> /dev/null; then
-    print_error ".NET no está instalado. Por favor instala .NET 8.0."
+    echo "❌ .NET SDK no está instalado. Por favor instala .NET desde:"
+    echo "   https://dotnet.microsoft.com/download"
     exit 1
 fi
 
 # Verificar si Node.js está instalado
 if ! command -v node &> /dev/null; then
-    print_error "Node.js no está instalado. Por favor instala Node.js."
+    echo "❌ Node.js no está instalado. Por favor instala Node.js desde:"
+    echo "   https://nodejs.org/"
     exit 1
 fi
 
-print_message "Todas las dependencias están instaladas"
+echo "✅ Todas las herramientas necesarias están instaladas"
 
-# Crear archivos .env si no existen
-print_info "Configurando archivos de entorno..."
-
-# Backend .env
-if [ ! -f "backend/.env" ]; then
-    cat > backend/.env << EOF
-# Configuración del Backend
-ASPNETCORE_ENVIRONMENT=Development
-SQL_SERVER_CONNECTION_STRING=Server=localhost,1433;Database=ChairaDB;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true;
-MONGO_CONNECTION_STRING=mongodb://localhost:27017
-MONGO_DATABASE_NAME=ChairaMongoDB
-JWT_SECRET_KEY=YourSuperSecretKeyForJWTTokenGeneration2024!
-API_BASE_URL=http://localhost:5000
-FRONTEND_URL=http://localhost:5173
-EOF
-    print_message "Archivo backend/.env creado"
-else
-    print_warning "Archivo backend/.env ya existe"
-fi
-
-# Frontend .env
-if [ ! -f "frontend/.env" ]; then
-    cat > frontend/.env << EOF
-# Configuración del Frontend
-NODE_ENV=development
-VITE_API_BASE_URL=http://localhost:5000
-VITE_API_URL=http://localhost:5000/api
-VITE_APP_NAME=Chaira
-VITE_APP_VERSION=1.0.0
-VITE_ENABLE_DEBUG=true
-VITE_ENABLE_MOCK_DATA=true
-EOF
-    print_message "Archivo frontend/.env creado"
-else
-    print_warning "Archivo frontend/.env ya existe"
-fi
-
-# Iniciar contenedores Docker
-print_info "Iniciando contenedores Docker..."
+# Iniciar servicios de base de datos con Docker
+echo "🐳 Iniciando servicios de base de datos..."
 docker-compose up -d
 
-# Esperar a que los contenedores estén listos
-print_info "Esperando a que los contenedores estén listos..."
-sleep 10
+# Esperar a que los servicios estén listos
+echo "⏳ Esperando a que los servicios estén listos..."
+sleep 30
 
-# Verificar que los contenedores estén ejecutándose
-if docker ps | grep -q "chaira-sqlserver"; then
-    print_message "SQL Server está ejecutándose"
+# Verificar que los servicios estén funcionando
+echo "🔍 Verificando servicios..."
+
+# Verificar SQL Server
+if docker exec chaira-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 3124553100Mm -Q "SELECT 1" &> /dev/null; then
+    echo "✅ SQL Server está funcionando"
 else
-    print_error "SQL Server no está ejecutándose"
+    echo "❌ SQL Server no está respondiendo"
 fi
 
-if docker ps | grep -q "chaira-mongodb"; then
-    print_message "MongoDB está ejecutándose"
+# Verificar MongoDB
+if docker exec chaira-mongodb mongo --eval "db.runCommand('ping')" &> /dev/null; then
+    echo "✅ MongoDB está funcionando"
 else
-    print_error "MongoDB no está ejecutándose"
+    echo "❌ MongoDB no está respondiendo"
+fi
+
+# Verificar Redis
+if docker exec chaira-redis redis-cli ping &> /dev/null; then
+    echo "✅ Redis está funcionando"
+else
+    echo "❌ Redis no está respondiendo"
 fi
 
 # Instalar dependencias del frontend
-print_info "Instalando dependencias del frontend..."
+echo "📦 Instalando dependencias del frontend..."
 cd frontend
 npm install
 cd ..
 
-# Compilar el backend
-print_info "Compilando el backend..."
+# Restaurar paquetes del backend
+echo "📦 Restaurando paquetes del backend..."
 cd backend
-dotnet build
+dotnet restore
 cd ..
 
-print_message "Configuración completada exitosamente!"
-print_info "Para iniciar el proyecto:"
-print_info "  Backend: cd backend && dotnet run --project MicroApi.Seguridad.Api"
-print_info "  Frontend: cd frontend && npm run dev"
-print_info "  Bases de datos: docker-compose up -d"
-print_info ""
-print_info "URLs del proyecto:"
-print_info "  Frontend: http://localhost:5173"
-print_info "  Backend API: http://localhost:5000"
-print_info "  Swagger: http://localhost:5000/swagger"
-print_info "  SQL Server: localhost:1433"
-print_info "  MongoDB: localhost:27017"
+echo "🎉 ¡Configuración completada!"
+echo ""
+echo "Para iniciar el proyecto:"
+echo "1. Frontend: cd frontend && npm run dev"
+echo "2. Backend: cd backend && dotnet run --project MicroApi.Seguridad.Api"
+echo ""
+echo "URLs del proyecto:"
+echo "- Frontend: http://localhost:5173"
+echo "- Backend API: http://localhost:5000"
+echo "- Swagger: http://localhost:5000/swagger"
