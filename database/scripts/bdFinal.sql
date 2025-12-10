@@ -28,9 +28,9 @@ GO
 
 
 
-------------------------------------------------------------
+
 --   ESTADO GENERAL
-------------------------------------------------------------
+
 CREATE TABLE catalogo.EstadoGeneral (
     IdEstadoGeneral BIGINT IDENTITY(1,1),
     NombreEstado VARCHAR(100) NOT NULL,   -- Activo / Inactivo
@@ -42,9 +42,9 @@ GO
 
 
 
-------------------------------------------------------------
+
 --   MÓDULO ACCESO
-------------------------------------------------------------
+
 CREATE TABLE acceso.Rol (
     IdRol BIGINT IDENTITY(1,1),
     NombreRol VARCHAR(100) NOT NULL,
@@ -67,9 +67,8 @@ GO
 
 
 
-------------------------------------------------------------
---   MÓDULO CATÁLOGO (ACTUALIZADO CON EstadoGeneral)
-------------------------------------------------------------
+--   MÓDULO CATÁLOGO
+
 CREATE TABLE catalogo.AreaTecnica (
     IdAreaTecnica BIGINT IDENTITY(1,1),
     NombreAreaTecnica VARCHAR(100) NOT NULL,
@@ -171,9 +170,8 @@ GO
 
 
 
-------------------------------------------------------------
 --   INVENTARIO 
-------------------------------------------------------------
+
 CREATE TABLE inventario.Componente (
     IdComponente BIGINT IDENTITY(1,1),
     NombreComponente VARCHAR(200) NOT NULL,
@@ -189,9 +187,9 @@ GO
 
 
 
-------------------------------------------------------------
+
 --   MÓDULO SOPORTE
-------------------------------------------------------------
+
 CREATE TABLE soporte.Caso (
     IdCaso BIGINT IDENTITY(1,1),
     Descripcion VARCHAR(MAX) NOT NULL,
@@ -427,4 +425,117 @@ CREATE TABLE soporte.DetalleConsumible (
     FechaRegistro DATETIME2 NOT NULL DEFAULT GETDATE(),
     IdUsuarioCreacion BIGINT NOT NULL
 );
+GO
+
+
+-- LLAVES FORANEAS
+
+SET IDENTITY_INSERT acceso.Rol ON;
+
+INSERT INTO acceso.Rol (IdRol, NombreRol, Descripcion, FechaCreacion, IdUsuarioCreacion)
+VALUES (1, 'Administrador', 'Rol administrador del sistema', GETDATE(), 1);
+
+SET IDENTITY_INSERT acceso.Rol OFF;
+GO
+
+
+SET IDENTITY_INSERT acceso.Usuario ON;
+
+INSERT INTO acceso.Usuario (IdUsuario, NombreCompleto, Email, Telefono, IdRol, FechaCreacion, IdUsuarioCreacion)
+VALUES (1, 'Administrador del Sistema', 'admin@sistema.com', '0000000000', 1, GETDATE(), 1);
+
+SET IDENTITY_INSERT acceso.Usuario OFF;
+GO
+
+INSERT INTO catalogo.EstadoGeneral (NombreEstado, Descripcion, FechaCreacion, IdUsuarioCreacion)
+VALUES ('Activo', 'Estado habilitado', GETDATE(), 1),
+       ('Inactivo', 'Estado deshabilitado', GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.EstadoCaso (NombreEstadoCaso, DescripcionEstadoCaso, Orden, FechaCreacion, IdUsuarioCreacion)
+VALUES 
+('Abierto', 'El caso fue creado', 1, GETDATE(), 1),
+('Asignado', 'El caso fue asignado a un técnico', 2, GETDATE(), 1),
+('En Progreso', 'El técnico está trabajando en el caso', 3, GETDATE(), 1),
+('Resuelto', 'Se aplicó solución técnica', 4, GETDATE(), 1),
+('Cerrado', 'El usuario aprobó la solución', 5, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.EstadoIntervencionTecnica (NombreEstado, Descripcion, Orden, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Pendiente', 'Trabajo registrado pero no iniciado', 1, GETDATE(), 1),
+('En Progreso', 'Trabajo en ejecución', 2, GETDATE(), 1),
+('Completado', 'Trabajo finalizado', 3, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.Prioridad (NombrePrioridad, TiempoRespuestaDias, TiempoResolucionDias, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Alta', 1, 2, 1, GETDATE(), 1),
+('Media', 3, 7, 1, GETDATE(), 1),
+('Baja', 7, 14, 1, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.TipoCaso (NombreTipoCaso, Descripcion, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Incidencia', 'Falla o problema técnico', 1, GETDATE(), 1),
+('Requerimiento', 'Solicitud de servicio', 1, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.CanalIngreso (NombreCanal, Descripcion, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Web', 'Portal de autoservicio', 1, GETDATE(), 1),
+('Telefono', 'Llamadas entrantes al soporte', 1, GETDATE(), 1),
+('Correo', 'Correo institucional', 1, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.EstadoActivo (NombreEstado, Descripcion, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Operativo', 'El activo funciona correctamente', GETDATE(), 1),
+('En Mantenimiento', 'El activo está siendo revisado', GETDATE(), 1),
+('Fuera de Servicio', 'El activo no está operativo', GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.CategoriaActivo (NombreCategoria, Descripcion, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Computador', 'Equipos de escritorio y portátiles', 1, GETDATE(), 1),
+('Impresora', 'Equipos de impresión', 1, GETDATE(), 1),
+('Redes', 'Equipos de infraestructura de red', 1, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.TipoConsumible (NombreTipo, Descripcion, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Toner', 'Cartuchos de impresión', 1, GETDATE(), 1),
+('Cable', 'Cables de red, energía, etc.', 1, GETDATE(), 1),
+('Limpieza', 'Insumos varios de limpieza', 1, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.EstadoConsumible (NombreEstado, Descripcion, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Disponible', 'Consumible en existencia', GETDATE(), 1),
+('Bajo Stock', 'Stock mínimo alcanzado', GETDATE(), 1),
+('Agotado', 'Sin existencias', GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.Pregunta (TextoPregunta, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES ('¿Cómo califica la atención recibida?', 1, GETDATE(), 1);
+GO
+
+
+INSERT INTO catalogo.Respuesta (TextoRespuesta, ValorNumerico, IdEstadoGeneral, FechaCreacion, IdUsuarioCreacion)
+VALUES
+('Excelente', 5, 1, GETDATE(), 1),
+('Bueno', 4, 1, GETDATE(), 1),
+('Regular', 3, 1, GETDATE(), 1),
+('Malo', 2, 1, GETDATE(), 1),
+('Pésimo', 1, 1, GETDATE(), 1);
 GO
