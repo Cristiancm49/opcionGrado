@@ -791,6 +791,11 @@ ADD CONSTRAINT FKInventarioResponsable
 FOREIGN KEY (IdResponsableInventario)
 REFERENCES acceso.Usuario(IdUsuario)
 ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE inventario.HojaDeVidaActivo
+ADD CONSTRAINT CKHojaVidaFecha
+CHECK (FechaRegistro <= GETDATE());
+
 GO
 
 
@@ -1137,6 +1142,10 @@ ALTER TABLE acceso.Rol
 ADD CONSTRAINT UQRolNombreRol UNIQUE (NombreRol);
 
 -- CATALOGO
+
+ALTER TABLE catalogo.EstadoActivo
+ADD CONSTRAINT UQEstadoActivoNombre UNIQUE (NombreEstado);
+
 ALTER TABLE catalogo.AreaTecnica
 ADD CONSTRAINT UQAreaTecnicaNombre UNIQUE (NombreAreaTecnica);
 
