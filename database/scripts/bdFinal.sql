@@ -650,15 +650,14 @@ GO
 
 
 -- PRIMARY KEYS – SOPORTE
+ALTER TABLE soporte.TrazabilidadCaso
+ADD CONSTRAINT PKTrazabilidadCaso PRIMARY KEY CLUSTERED (IdTrazabilidadCaso);
 
 
 ALTER TABLE soporte.Caso
 ADD CONSTRAINT PKCaso PRIMARY KEY (IdCaso);
 GO
 
-ALTER TABLE soporte.TrazabilidadCaso
-ADD CONSTRAINT PKTrazabilidadCaso PRIMARY KEY (IdTrazabilidadCaso);
-GO
 
 ALTER TABLE soporte.IntervencionTecnica
 ADD CONSTRAINT PKIntervencionTecnica PRIMARY KEY (IdIntervencionTecnica);
@@ -1089,25 +1088,30 @@ GO
 
 ALTER TABLE inventario.Consumible
 ADD CONSTRAINT CKConsumibleStockValidacion
-CHECK (StockActual >= 0 AND StockMinimo >= 0);
+CHECK (StockMinimo >= 0
+    AND StockActual >= 0
+    AND StockActual >= StockMinimo);
 GO
 
 
 ALTER TABLE catalogo.Prioridad
 ADD CONSTRAINT CKPrioridadSLA
-CHECK (TiempoRespuestaDias > 0 AND TiempoResolucionDias > 0);
+CHECK (    TiempoRespuestaDias > 0
+    AND TiempoResolucionDias > 0
+    AND TiempoResolucionDias >= TiempoRespuestaDias);
 GO
 
 
 ALTER TABLE soporte.Caso
 ADD CONSTRAINT CKCasoTelefono
 CHECK (
-    TelefonoContacto IS NULL 
-    OR ( TelefonoContacto NOT LIKE '%[^0-9+]%'
-    AND LEN(TelefonoContacto) BETWEEN 10 AND 11
-    AND (
-            TelefonoContacto NOT LIKE '%+%'   
-            OR TelefonoContacto LIKE '+%'
+    TelefonoContacto IS NULL
+    OR (
+        TelefonoContacto NOT LIKE '%[^0-9+]%'  
+        AND LEN(TelefonoContacto) BETWEEN 10 AND 11
+        AND (
+            TelefonoContacto NOT LIKE '%+%'     
+            OR TelefonoContacto LIKE '+%'       
         )
     )
 );
@@ -1341,5 +1345,38 @@ GO
 
 CREATE INDEX IXDetalleCambioIntervencion 
 ON soporte.DetalleCambioComponentes(IdIntervencionTecnica);
+GO
+
+CREATE INDEX IXIntervencionEstado
+ON soporte.IntervencionTecnica (IdEstadoIntervencion);
+GO
+
+CREATE INDEX IXCasoUsuarioReporta
+ON soporte.Caso (IdUsuarioReporta);
+GO
+
+
+CREATE INDEX IXCasoCanalIngreso
+ON soporte.Caso (IdCanalIngreso);
+GO
+
+
+CREATE INDEX IXHojaVidaTipoEvento
+ON inventario.HojaDeVidaActivo (TipoEvento);
+GO
+
+
+CREATE INDEX IXHojaVidaUsuario
+ON inventario.HojaDeVidaActivo (IdUsuarioCreacion);
+GO
+
+
+CREATE INDEX IXTrazabilidadTipoEvento
+ON soporte.TrazabilidadCaso (TipoEvento);
+GO
+
+
+CREATE INDEX IXTrazabilidadEstado
+ON soporte.TrazabilidadCaso (IdEstadoCaso);
 GO
 
