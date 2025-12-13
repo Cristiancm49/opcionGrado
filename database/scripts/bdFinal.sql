@@ -150,7 +150,7 @@ GO
 
 CREATE TABLE catalogo.Pregunta (
     IdPregunta BIGINT IDENTITY(1,1),
-    TextoPregunta VARCHAR(MAX) NOT NULL,
+    TextoPregunta VARCHAR(100) NOT NULL,
     IdEstadoGeneral BIGINT NOT NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
     IdUsuarioCreacion BIGINT NOT NULL
@@ -160,7 +160,7 @@ GO
 
 CREATE TABLE catalogo.Respuesta (
     IdRespuesta BIGINT IDENTITY(1,1),
-    TextoRespuesta VARCHAR(MAX) NOT NULL,
+    TextoRespuesta VARCHAR(50) NOT NULL,
     ValorNumerico INT NULL,
     IdEstadoGeneral BIGINT NOT NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -1100,6 +1100,7 @@ CHECK (    TiempoRespuestaDias > 0
     AND TiempoResolucionDias > 0
     AND TiempoResolucionDias >= TiempoRespuestaDias);
 GO
+
 
 
 ALTER TABLE soporte.Caso
