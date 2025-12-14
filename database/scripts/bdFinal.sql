@@ -177,7 +177,9 @@ CREATE TABLE inventario.Componente (
     NombreComponente VARCHAR(200) NOT NULL,
     Marca VARCHAR(100) NULL,
     Modelo VARCHAR(100) NULL,
+    IdInventario BIGINT NOT NULL, 
     StockActual INT NOT NULL DEFAULT 0,
+    StockMinimo INT NOT NULL DEFAULT 1,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -837,6 +839,13 @@ REFERENCES inventario.Activo(IdActivo)
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
+ALTER TABLE inventario.Componente
+ADD CONSTRAINT FKComponenteInventario
+FOREIGN KEY (IdInventario)
+REFERENCES inventario.Inventario(IdInventario)
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
 
 ALTER TABLE inventario.Consumible
 ADD CONSTRAINT FKConsumibleInventario
@@ -1086,6 +1095,13 @@ CHECK (Cantidad > 0);
 GO
 
 
+ALTER TABLE inventario.Componente
+ADD CONSTRAINT CKComponenteStockMinimo
+CHECK (StockMinimo >= 0);
+GO
+
+
+
 ALTER TABLE inventario.Consumible
 ADD CONSTRAINT CKConsumibleStockValidacion
 CHECK (StockMinimo >= 0
@@ -1283,6 +1299,7 @@ CREATE INDEX IXHojaVidaFechaRegistro ON inventario.HojaDeVidaActivo(FechaRegistr
 GO
 
 
+
  --   ÍNDICES – SOPORTE.CASO
 
 
@@ -1380,4 +1397,10 @@ GO
 CREATE INDEX IXTrazabilidadEstado
 ON soporte.TrazabilidadCaso (IdEstadoCaso);
 GO
+CREATE INDEX IXComponenteInventario
+ON inventario.Componente(IdInventario);
+GO
 
+CREATE INDEX IXComponenteStockMinimo
+ON inventario.Componente(StockMinimo);
+GO
