@@ -16,7 +16,6 @@ namespace MicroApi.Seguridad.Data.Repositories
         public async Task<IEnumerable<Caso>> GetAllAsync()
         {
             return await _context.Casos
-                .Include(c => c.Trazabilidades)
                 .ToListAsync();
         }
 
