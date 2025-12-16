@@ -18,6 +18,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Configurar JSON para manejar referencias circulares
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    options.SerializerOptions.WriteIndented = true;
+});
+
 // Configurar Entity Framework Core
 var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
