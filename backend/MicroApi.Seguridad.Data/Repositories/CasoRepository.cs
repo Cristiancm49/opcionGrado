@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MicroApi.Seguridad.Domain.Interfaces;
-using MicroApi.Seguridad.Domain.Models;
+using MicroApi.Seguridad.Domain.Models.Soporte;
 
 namespace MicroApi.Seguridad.Data.Repositories
 {
@@ -23,6 +23,7 @@ namespace MicroApi.Seguridad.Data.Repositories
         {
             return await _context.Casos
                 .Include(c => c.Trazabilidades)
+                    .ThenInclude(t => t.IntervencionesTecnicas)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -90,6 +91,7 @@ namespace MicroApi.Seguridad.Data.Repositories
 
         public async Task<Caso> UpdateAsync(Caso caso)
         {
+            caso.FechaActualizacion = DateTime.UtcNow;
             _context.Casos.Update(caso);
             await _context.SaveChangesAsync();
             return caso;
@@ -121,11 +123,13 @@ namespace MicroApi.Seguridad.Data.Repositories
         public async Task<IEnumerable<Caso>> GetPagedAsync(int page, int pageSize)
         {
             return await _context.Casos
-                .Include(c => c.Trazabilidades)
+                .Include(c => c.EstadoCaso)
+                .Include(c => c.TipoCaso)
+                .Include(c => c.Prioridad)
+                .OrderByDescending(c => c.FechaRegistro)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
     }
 }
-

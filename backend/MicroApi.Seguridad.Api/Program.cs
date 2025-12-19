@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MicroApi.Seguridad.Data;
 using MicroApi.Seguridad.Data.Repositories;
 using MicroApi.Seguridad.Domain.Interfaces;
-using MicroApi.Seguridad.Domain.Models;
+using MicroApi.Seguridad.Domain.Models.Soporte;
 
 var builder = WebApplication.CreateBuilder(args);
 

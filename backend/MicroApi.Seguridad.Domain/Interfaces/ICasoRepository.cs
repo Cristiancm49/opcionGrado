@@ -1,4 +1,4 @@
-using MicroApi.Seguridad.Domain.Models;
+using MicroApi.Seguridad.Domain.Models.Soporte;
 
 namespace MicroApi.Seguridad.Domain.Interfaces
 {
@@ -17,5 +17,3 @@ namespace MicroApi.Seguridad.Domain.Interfaces
         Task<IEnumerable<Caso>> GetPagedAsync(int page, int pageSize);
     }
 }
-
-
