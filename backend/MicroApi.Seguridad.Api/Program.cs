@@ -1,20 +1,26 @@
 using Microsoft.EntityFrameworkCore;
+using MicroApi.Seguridad.Api.Extensions;
 using MicroApi.Seguridad.Data;
 using MicroApi.Seguridad.Data.Repositories;
+using MicroApi.Seguridad.Domain.DTOs.Catalogo;
+using MicroApi.Seguridad.Domain.DTOs.Common;
 using MicroApi.Seguridad.Domain.Interfaces;
+using MicroApi.Seguridad.Domain.Interfaces.Services;
 using MicroApi.Seguridad.Domain.Models.Soporte;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ==================== CONFIGURACIÓN DE SERVICIOS ====================
+
+// Swagger (documentación de la API)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "Chaira API",
+        Title = "Chaira API - Mesa de Servicios",
         Version = "v1",
-        Description = "API para el sistema de gestión de incidencias Chaira"
+        Description = "API para el sistema de gestión de casos y soporte técnico"
     });
 });
 
@@ -25,12 +31,16 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.WriteIndented = true;
 });
 
-// Configurar Entity Framework Core
+// Entity Framework Core (conexión a BD)
 var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Registrar Repositorios
+// Registrar Repositorios y Servicios (usando nuestras extensiones)
+builder.Services.AddRepositories();
+builder.Services.AddApplicationServices();
+
+// Mantener el repositorio de casos existente
 builder.Services.AddScoped<ICasoRepository, CasoRepository>();
 
 // Configurar CORS
@@ -50,26 +60,28 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ==================== CONFIGURACIÓN DEL PIPELINE ====================
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chaira API v1");
-        c.RoutePrefix = string.Empty; // Swagger en la raíz
+        c.RoutePrefix = string.Empty;
     });
 }
 
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 
-// Endpoint simple para probar la conexión a la base de datos
+// ==================== ENDPOINTS ====================
+
+// ----- Health Check -----
 app.MapGet("/api/health", async (ApplicationDbContext dbContext) =>
 {
     try
     {
-        // Probar conexión a la base de datos
         var canConnect = await dbContext.Database.CanConnectAsync();
         return Results.Ok(new
         {
@@ -80,64 +92,131 @@ app.MapGet("/api/health", async (ApplicationDbContext dbContext) =>
     }
     catch (Exception ex)
     {
-        return Results.Problem(
-            detail: ex.Message,
-            statusCode: 500
-        );
+        return Results.Problem(detail: ex.Message, statusCode: 500);
     }
 })
 .WithName("HealthCheck")
-.WithOpenApi()
-.Produces(200)
-.Produces(500);
+.WithTags("Sistema")
+.WithOpenApi();
 
-// Endpoint simple para obtener todos los casos
-app.MapGet("/api/casos", async (ICasoRepository casoRepository) =>
+// ==================== ENDPOINTS: ESTADO GENERAL ====================
+// Grupo de endpoints para la tabla catalogo.EstadoGeneral (Activo/Inactivo)
+
+var estadoGeneralGroup = app.MapGroup("/api/catalogo/estados-generales")
+    .WithTags("Catálogo - Estados Generales");
+
+// GET: Obtener todos los estados
+estadoGeneralGroup.MapGet("/", async (IEstadoGeneralService service) =>
+{
+    var result = await service.GetAllAsync();
+    return result.Success ? Results.Ok(result) : Results.BadRequest(result);
+})
+.WithName("GetEstadosGenerales")
+.WithOpenApi()
+.Produces<ApiResponseDto<IEnumerable<EstadoGeneralDto>>>(200);
+
+// GET: Obtener estado por ID
+estadoGeneralGroup.MapGet("/{id:long}", async (long id, IEstadoGeneralService service) =>
+{
+    var result = await service.GetByIdAsync(id);
+    
+    if (!result.Success)
+        return Results.NotFound(result);
+    
+    return Results.Ok(result);
+})
+.WithName("GetEstadoGeneralById")
+.WithOpenApi()
+.Produces<ApiResponseDto<EstadoGeneralDto>>(200)
+.Produces(404);
+
+// POST: Crear nuevo estado
+estadoGeneralGroup.MapPost("/", async (EstadoGeneralCreateDto createDto, IEstadoGeneralService service) =>
+{
+    var result = await service.CreateAsync(createDto);
+    
+    if (!result.Success)
+        return Results.BadRequest(result);
+    
+    return Results.Created($"/api/catalogo/estados-generales/{result.Data?.Id}", result);
+})
+.WithName("CreateEstadoGeneral")
+.WithOpenApi()
+.Produces<ApiResponseDto<EstadoGeneralDto>>(201)
+.Produces(400);
+
+// PUT: Actualizar estado existente
+estadoGeneralGroup.MapPut("/{id:long}", async (long id, EstadoGeneralUpdateDto updateDto, IEstadoGeneralService service) =>
+{
+    var result = await service.UpdateAsync(id, updateDto);
+    
+    if (!result.Success)
+        return Results.NotFound(result);
+    
+    return Results.Ok(result);
+})
+.WithName("UpdateEstadoGeneral")
+.WithOpenApi()
+.Produces<ApiResponseDto<EstadoGeneralDto>>(200)
+.Produces(404);
+
+// GET: Contar total de estados
+estadoGeneralGroup.MapGet("/count", async (IEstadoGeneralService service) =>
+{
+    var result = await service.CountAsync();
+    return Results.Ok(result);
+})
+.WithName("CountEstadosGenerales")
+.WithOpenApi();
+
+
+// ==================== ENDPOINTS: CASOS (existentes) ====================
+
+var casosGroup = app.MapGroup("/api/soporte/casos")
+    .WithTags("Soporte - Casos");
+
+casosGroup.MapGet("/", async (ICasoRepository casoRepository) =>
 {
     try
     {
         var casos = await casoRepository.GetAllAsync();
-        return Results.Ok(casos);
+        return Results.Ok(new ApiResponseDto<IEnumerable<Caso>>
+        {
+            Success = true,
+            Message = "Casos obtenidos",
+            Data = casos
+        });
     }
     catch (Exception ex)
     {
-        return Results.Problem(
-            detail: ex.Message,
-            statusCode: 500
-        );
+        return Results.Problem(detail: ex.Message, statusCode: 500);
     }
 })
 .WithName("GetCasos")
-.WithOpenApi()
-.Produces<List<Caso>>(200)
-.Produces(500);
+.WithOpenApi();
 
-// Endpoint para obtener un caso por ID
-app.MapGet("/api/casos/{id}", async (long id, ICasoRepository casoRepository) =>
+casosGroup.MapGet("/{id:long}", async (long id, ICasoRepository casoRepository) =>
 {
     try
     {
         var caso = await casoRepository.GetByIdAsync(id);
         
         if (caso == null)
-        {
             return Results.NotFound(new { message = $"Caso con ID {id} no encontrado" });
-        }
         
-        return Results.Ok(caso);
+        return Results.Ok(new ApiResponseDto<Caso>
+        {
+            Success = true,
+            Message = "Caso obtenido",
+            Data = caso
+        });
     }
     catch (Exception ex)
     {
-        return Results.Problem(
-            detail: ex.Message,
-            statusCode: 500
-        );
+        return Results.Problem(detail: ex.Message, statusCode: 500);
     }
 })
 .WithName("GetCasoById")
-.WithOpenApi()
-.Produces<Caso>(200)
-.Produces(404)
-.Produces(500);
+.WithOpenApi();
 
 app.Run();
