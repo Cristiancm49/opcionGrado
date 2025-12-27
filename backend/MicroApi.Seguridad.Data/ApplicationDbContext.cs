@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MicroApi.Seguridad.Domain.Models.Acceso;
 using MicroApi.Seguridad.Domain.Models.Catalogo;
 using MicroApi.Seguridad.Domain.Models.Inventario;
@@ -55,7 +55,7 @@ namespace MicroApi.Seguridad.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // ==================== CONFIGURACIÓN ACCESO ====================
+            // ==================== CONFIGURACION ACCESO ====================
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasMany(r => r.Usuarios)
@@ -64,7 +64,53 @@ namespace MicroApi.Seguridad.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // ==================== CONFIGURACIÓN INVENTARIO ====================
+            // ==================== CONFIGURACION CATALOGO ====================
+            modelBuilder.Entity<AreaTecnica>(entity =>
+            {
+                entity.HasOne(a => a.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Encargado)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdEncargado)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<CanalIngreso>(entity =>
+            {
+                entity.HasOne(c => c.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(c => c.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Prioridad>(entity =>
+            {
+                entity.HasOne(p => p.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(p => p.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<TipoCaso>(entity =>
+            {
+                entity.HasOne(t => t.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(t => t.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<TipoTrabajo>(entity =>
+            {
+                entity.HasOne(t => t.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(t => t.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ==================== CONFIGURACION INVENTARIO ====================
             modelBuilder.Entity<Inventario>(entity =>
             {
                 entity.HasMany(i => i.Activos)
@@ -91,7 +137,7 @@ namespace MicroApi.Seguridad.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // ==================== CONFIGURACIÓN SOPORTE ====================
+            // ==================== CONFIGURACION SOPORTE ====================
             modelBuilder.Entity<Caso>(entity =>
             {
                 entity.HasMany(c => c.Trazabilidades)
