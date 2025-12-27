@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MicroApi.Seguridad.Domain.DTOs.Catalogo
 {
@@ -7,7 +7,6 @@ namespace MicroApi.Seguridad.Domain.DTOs.Catalogo
         public long Id { get; set; }
         public string NombreEstado { get; set; } = string.Empty;
         public string? Descripcion { get; set; }
-        public int Orden { get; set; }
         public DateTime FechaCreacion { get; set; }
     }
 
@@ -19,11 +18,7 @@ namespace MicroApi.Seguridad.Domain.DTOs.Catalogo
 
         public string? Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El orden es requerido")]
-        [Range(1, int.MaxValue, ErrorMessage = "El orden debe ser mayor a 0")]
-        public int Orden { get; set; }
-
-        [Required(ErrorMessage = "El ID del usuario de creación es requerido")]
+        [Required(ErrorMessage = "El ID del usuario de creacion es requerido")]
         public long IdUsuarioCreacion { get; set; }
     }
 
@@ -36,10 +31,5 @@ namespace MicroApi.Seguridad.Domain.DTOs.Catalogo
         public string? NombreEstado { get; set; }
 
         public string? Descripcion { get; set; }
-
-        [Range(1, int.MaxValue, ErrorMessage = "El orden debe ser mayor a 0")]
-        public int? Orden { get; set; }
     }
 }
-
-

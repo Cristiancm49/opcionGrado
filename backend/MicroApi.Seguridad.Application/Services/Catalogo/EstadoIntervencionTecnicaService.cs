@@ -1,4 +1,4 @@
-using MicroApi.Seguridad.Domain.DTOs.Catalogo;
+﻿using MicroApi.Seguridad.Domain.DTOs.Catalogo;
 using MicroApi.Seguridad.Domain.Interfaces;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
 using MicroApi.Seguridad.Domain.Models.Catalogo;
@@ -14,7 +14,6 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
             Id = entity.Id,
             NombreEstado = entity.NombreEstado,
             Descripcion = entity.Descripcion,
-            Orden = entity.Orden,
             FechaCreacion = entity.FechaCreacion
         };
 
@@ -22,7 +21,6 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
         {
             NombreEstado = dto.NombreEstado,
             Descripcion = dto.Descripcion,
-            Orden = dto.Orden,
             FechaCreacion = DateTime.UtcNow,
             IdUsuarioCreacion = dto.IdUsuarioCreacion
         };
@@ -31,11 +29,8 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
         {
             if (!string.IsNullOrEmpty(dto.NombreEstado)) entity.NombreEstado = dto.NombreEstado;
             if (dto.Descripcion != null) entity.Descripcion = dto.Descripcion;
-            if (dto.Orden.HasValue) entity.Orden = dto.Orden.Value;
         }
 
         protected override long GetEntityId(EstadoIntervencionTecnica entity) => entity.Id;
     }
 }
-
-
