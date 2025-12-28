@@ -1,5 +1,6 @@
 using MicroApi.Seguridad.Application.Services.Acceso;
 using MicroApi.Seguridad.Application.Services.Catalogo;
+using MicroApi.Seguridad.Application.Services.Inventario;
 using MicroApi.Seguridad.Data.Repositories;
 using MicroApi.Seguridad.Domain.Interfaces;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -22,6 +23,10 @@ namespace MicroApi.Seguridad.Api.Extensions
             // Repositorios específicos - Acceso
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             
+            // Repositorios específicos - Inventario/Catálogo
+            services.AddScoped<ICategoriaActivoRepository, CategoriaActivoRepository>();
+            services.AddScoped<ITipoConsumibleRepository, TipoConsumibleRepository>();
+            
             return services;
         }
 
@@ -42,6 +47,11 @@ namespace MicroApi.Seguridad.Api.Extensions
             // Acceso
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            
+            // Inventario
+            services.AddScoped<IUbicacionService, UbicacionService>();
+            services.AddScoped<ICategoriaActivoService, CategoriaActivoService>();
+            services.AddScoped<ITipoConsumibleService, TipoConsumibleService>();
             
             return services;
         }

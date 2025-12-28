@@ -85,6 +85,7 @@ if (app.Environment.IsDevelopment())
                     {
                         new Microsoft.OpenApi.Any.OpenApiString("AreaTecnica"),
                         new Microsoft.OpenApi.Any.OpenApiString("CanalIngreso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("CategoriaActivo"),
                         new Microsoft.OpenApi.Any.OpenApiString("EstadoGeneral"),
                         new Microsoft.OpenApi.Any.OpenApiString("EstadoCaso"),
                         new Microsoft.OpenApi.Any.OpenApiString("EstadoActivo"),
@@ -92,7 +93,16 @@ if (app.Environment.IsDevelopment())
                         new Microsoft.OpenApi.Any.OpenApiString("EstadoIntervencion"),
                         new Microsoft.OpenApi.Any.OpenApiString("Prioridad"),
                         new Microsoft.OpenApi.Any.OpenApiString("TipoCaso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("TipoConsumible"),
                         new Microsoft.OpenApi.Any.OpenApiString("TipoTrabajo")
+                    }
+                },
+                new Microsoft.OpenApi.Any.OpenApiObject
+                {
+                    ["name"] = new Microsoft.OpenApi.Any.OpenApiString("📦 Inventario"),
+                    ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
+                    {
+                        new Microsoft.OpenApi.Any.OpenApiString("Ubicacion")
                     }
                 },
                 new Microsoft.OpenApi.Any.OpenApiObject
