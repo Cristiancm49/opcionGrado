@@ -1,26 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using MicroApi.Seguridad.Domain.DTOs.Catalogo;
+using MicroApi.Seguridad.Domain.DTOs.Acceso;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
 
-namespace MicroApi.Seguridad.Api.Controllers.Catalogo
+namespace MicroApi.Seguridad.Api.Controllers.Acceso
 {
     [ApiController]
-    [Route("api/catalogo/areas-tecnicas")]
+    [Route("api/acceso/roles")]
     [Produces("application/json")]
-    [Tags("AreaTecnica")]
-    public class AreaTecnicaController : ControllerBase
+    [Tags("Rol")]
+    public class RolController : ControllerBase
     {
-        private readonly IAreaTecnicaService _service;
-        private readonly ILogger<AreaTecnicaController> _logger;
+        private readonly IRolService _service;
 
-        public AreaTecnicaController(IAreaTecnicaService service, ILogger<AreaTecnicaController> logger)
+        public RolController(IRolService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObtenerTodas()
+        public async Task<IActionResult> ObtenerTodos()
         {
             var result = await _service.GetAllAsync();
             return Ok(result);
@@ -41,7 +39,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] AreaTecnicaCreateDto dto)
+        public async Task<IActionResult> Crear([FromBody] RolCreateDto dto)
         {
             var result = await _service.CreateAsync(dto);
             if (!result.Success) return BadRequest(result);
@@ -49,7 +47,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
         }
 
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Actualizar(long id, [FromBody] AreaTecnicaUpdateDto dto)
+        public async Task<IActionResult> Actualizar(long id, [FromBody] RolUpdateDto dto)
         {
             var result = await _service.UpdateAsync(id, dto);
             return result.Success ? Ok(result) : NotFound(result);

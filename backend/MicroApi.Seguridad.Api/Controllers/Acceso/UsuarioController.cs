@@ -1,26 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using MicroApi.Seguridad.Domain.DTOs.Catalogo;
+using MicroApi.Seguridad.Domain.DTOs.Acceso;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
 
-namespace MicroApi.Seguridad.Api.Controllers.Catalogo
+namespace MicroApi.Seguridad.Api.Controllers.Acceso
 {
     [ApiController]
-    [Route("api/catalogo/areas-tecnicas")]
+    [Route("api/acceso/usuarios")]
     [Produces("application/json")]
-    [Tags("AreaTecnica")]
-    public class AreaTecnicaController : ControllerBase
+    [Tags("Usuario")]
+    public class UsuarioController : ControllerBase
     {
-        private readonly IAreaTecnicaService _service;
-        private readonly ILogger<AreaTecnicaController> _logger;
+        private readonly IUsuarioService _service;
 
-        public AreaTecnicaController(IAreaTecnicaService service, ILogger<AreaTecnicaController> logger)
+        public UsuarioController(IUsuarioService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObtenerTodas()
+        public async Task<IActionResult> ObtenerTodos()
         {
             var result = await _service.GetAllAsync();
             return Ok(result);
@@ -33,6 +31,13 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
             return result.Success ? Ok(result) : NotFound(result);
         }
 
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> ObtenerPorEmail(string email)
+        {
+            var result = await _service.GetByEmailAsync(email);
+            return result.Success ? Ok(result) : NotFound(result);
+        }
+
         [HttpGet("count")]
         public async Task<IActionResult> ContarTotal()
         {
@@ -41,7 +46,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] AreaTecnicaCreateDto dto)
+        public async Task<IActionResult> Crear([FromBody] UsuarioCreateDto dto)
         {
             var result = await _service.CreateAsync(dto);
             if (!result.Success) return BadRequest(result);
@@ -49,7 +54,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
         }
 
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Actualizar(long id, [FromBody] AreaTecnicaUpdateDto dto)
+        public async Task<IActionResult> Actualizar(long id, [FromBody] UsuarioUpdateDto dto)
         {
             var result = await _service.UpdateAsync(id, dto);
             return result.Success ? Ok(result) : NotFound(result);

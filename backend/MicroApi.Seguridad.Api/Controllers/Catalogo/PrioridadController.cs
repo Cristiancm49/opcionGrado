@@ -6,7 +6,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
 {
     [ApiController]
     [Route("api/catalogo/prioridades")]
-    [Tags("Catálogo")]
+    [Tags("Prioridad")]
     public class PrioridadController : ControllerBase
     {
         private readonly IPrioridadService _service;

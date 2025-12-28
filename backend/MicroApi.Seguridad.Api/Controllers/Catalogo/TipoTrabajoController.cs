@@ -6,7 +6,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
 {
     [ApiController]
     [Route("api/catalogo/tipos-trabajo")]
-    [Tags("Catálogo")]
+    [Tags("TipoTrabajo")]
     public class TipoTrabajoController : ControllerBase
     {
         private readonly ITipoTrabajoService _service;

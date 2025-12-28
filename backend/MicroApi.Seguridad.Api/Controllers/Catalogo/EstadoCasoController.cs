@@ -6,7 +6,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
 {
     [ApiController]
     [Route("api/catalogo/estados-caso")]
-    [Tags("Catálogo")]
+    [Tags("EstadoCaso")]
     public class EstadoCasoController : ControllerBase
     {
         private readonly IEstadoCasoService _service;

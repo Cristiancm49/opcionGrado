@@ -16,7 +16,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Swagger
+// Swagger + Redoc
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -24,11 +24,8 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Chaira API",
         Version = "v1",
-        Description = "API Mesa de Servicios"
+        Description = "API Mesa de Servicios - Sistema de Gestión de Soporte Técnico"
     });
-    
-    c.OrderActionsBy(api => api.GroupName);
-    c.TagActionsBy(api => new[] { api.GroupName ?? api.ActionDescriptor.RouteValues["controller"] });
 });
 
 // Entity Framework
@@ -57,11 +54,72 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(c =>
+    {
+        c.PreSerializeFilters.Add((swagger, httpReq) =>
+        {
+            // Agregar x-tagGroups para Redoc
+            swagger.Extensions["x-tagGroups"] = new Microsoft.OpenApi.Any.OpenApiArray
+            {
+                new Microsoft.OpenApi.Any.OpenApiObject
+                {
+                    ["name"] = new Microsoft.OpenApi.Any.OpenApiString("🔧 Sistema"),
+                    ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
+                    {
+                        new Microsoft.OpenApi.Any.OpenApiString("Sistema")
+                    }
+                },
+                new Microsoft.OpenApi.Any.OpenApiObject
+                {
+                    ["name"] = new Microsoft.OpenApi.Any.OpenApiString("👤 Acceso"),
+                    ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
+                    {
+                        new Microsoft.OpenApi.Any.OpenApiString("Rol"),
+                        new Microsoft.OpenApi.Any.OpenApiString("Usuario")
+                    }
+                },
+                new Microsoft.OpenApi.Any.OpenApiObject
+                {
+                    ["name"] = new Microsoft.OpenApi.Any.OpenApiString("📋 Catálogo"),
+                    ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
+                    {
+                        new Microsoft.OpenApi.Any.OpenApiString("AreaTecnica"),
+                        new Microsoft.OpenApi.Any.OpenApiString("CanalIngreso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("EstadoGeneral"),
+                        new Microsoft.OpenApi.Any.OpenApiString("EstadoCaso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("EstadoActivo"),
+                        new Microsoft.OpenApi.Any.OpenApiString("EstadoConsumible"),
+                        new Microsoft.OpenApi.Any.OpenApiString("EstadoIntervencion"),
+                        new Microsoft.OpenApi.Any.OpenApiString("Prioridad"),
+                        new Microsoft.OpenApi.Any.OpenApiString("TipoCaso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("TipoTrabajo")
+                    }
+                },
+                new Microsoft.OpenApi.Any.OpenApiObject
+                {
+                    ["name"] = new Microsoft.OpenApi.Any.OpenApiString("🎫 Soporte"),
+                    ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
+                    {
+                        new Microsoft.OpenApi.Any.OpenApiString("Soporte (temporal)")
+                    }
+                }
+            };
+        });
+    });
+    
+    // Swagger UI en la raíz
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chaira API v1");
         c.RoutePrefix = string.Empty;
+    });
+    
+    // Redoc en /docs (con grupos jerárquicos)
+    app.UseReDoc(c =>
+    {
+        c.SpecUrl = "/swagger/v1/swagger.json";
+        c.RoutePrefix = "docs";
+        c.DocumentTitle = "Chaira API - Documentación";
     });
 }
 

@@ -6,7 +6,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
 {
     [ApiController]
     [Route("api/catalogo/estados-consumible")]
-    [Tags("Catálogo")]
+    [Tags("EstadoConsumible")]
     public class EstadoConsumibleController : ControllerBase
     {
         private readonly IEstadoConsumibleService _service;

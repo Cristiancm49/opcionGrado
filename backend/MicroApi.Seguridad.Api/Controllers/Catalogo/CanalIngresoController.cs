@@ -6,7 +6,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
 {
     [ApiController]
     [Route("api/catalogo/canales-ingreso")]
-    [Tags("Catálogo")]
+    [Tags("CanalIngreso")]
     public class CanalIngresoController : ControllerBase
     {
         private readonly ICanalIngresoService _service;

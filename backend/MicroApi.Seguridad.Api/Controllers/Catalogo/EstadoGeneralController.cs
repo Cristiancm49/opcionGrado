@@ -8,7 +8,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
     [ApiController]
     [Route("api/catalogo/estados-generales")]
     [Produces("application/json")]
-    [Tags("Catálogo")]
+    [Tags("EstadoGeneral")]
     public class EstadoGeneralController : ControllerBase
     {
         private readonly IEstadoGeneralService _service;
