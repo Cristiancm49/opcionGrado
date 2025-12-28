@@ -16,30 +16,57 @@ namespace MicroApi.Seguridad.Data.Repositories
         public async Task<IEnumerable<Caso>> GetAllAsync()
         {
             return await _context.Casos
+                .Include(c => c.EstadoCaso)
+                .Include(c => c.TipoCaso)
+                .Include(c => c.Prioridad)
+                .Include(c => c.CanalIngreso)
+                .Include(c => c.AreaTecnica)
+                .Include(c => c.Activo)
+                .OrderByDescending(c => c.FechaRegistro)
                 .ToListAsync();
         }
 
         public async Task<Caso?> GetByIdAsync(long id)
         {
             return await _context.Casos
+                .Include(c => c.EstadoCaso)
+                .Include(c => c.TipoCaso)
+                .Include(c => c.Prioridad)
+                .Include(c => c.CanalIngreso)
+                .Include(c => c.AreaTecnica)
+                .Include(c => c.Activo)
+                .Include(c => c.Trazabilidades)
+                    .ThenInclude(t => t.EstadoCaso)
+                .Include(c => c.Trazabilidades)
+                    .ThenInclude(t => t.AreaTecnica)
                 .Include(c => c.Trazabilidades)
                     .ThenInclude(t => t.IntervencionesTecnicas)
+                        .ThenInclude(i => i.TipoTrabajo)
+                .Include(c => c.Trazabilidades)
+                    .ThenInclude(t => t.IntervencionesTecnicas)
+                        .ThenInclude(i => i.EstadoIntervencion)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Caso>> GetByTecnicoAsync(long idTecnico)
         {
             return await _context.Casos
-                .Include(c => c.Trazabilidades)
+                .Include(c => c.EstadoCaso)
+                .Include(c => c.TipoCaso)
+                .Include(c => c.Prioridad)
                 .Where(c => c.IdTecnicoAsignado == idTecnico)
+                .OrderByDescending(c => c.FechaRegistro)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Caso>> GetByEstadoAsync(long idEstadoCaso)
         {
             return await _context.Casos
-                .Include(c => c.Trazabilidades)
+                .Include(c => c.EstadoCaso)
+                .Include(c => c.TipoCaso)
+                .Include(c => c.Prioridad)
                 .Where(c => c.IdEstadoCaso == idEstadoCaso)
+                .OrderByDescending(c => c.FechaRegistro)
                 .ToListAsync();
         }
 
@@ -51,7 +78,9 @@ namespace MicroApi.Seguridad.Data.Repositories
             DateTime? fechaHasta)
         {
             var query = _context.Casos
-                .Include(c => c.Trazabilidades)
+                .Include(c => c.EstadoCaso)
+                .Include(c => c.TipoCaso)
+                .Include(c => c.Prioridad)
                 .AsQueryable();
 
             if (idEstadoCaso.HasValue)
@@ -79,7 +108,7 @@ namespace MicroApi.Seguridad.Data.Repositories
                 query = query.Where(c => c.FechaRegistro <= fechaHasta.Value);
             }
 
-            return await query.ToListAsync();
+            return await query.OrderByDescending(c => c.FechaRegistro).ToListAsync();
         }
 
         public async Task<Caso> CreateAsync(Caso caso)
@@ -95,19 +124,6 @@ namespace MicroApi.Seguridad.Data.Repositories
             _context.Casos.Update(caso);
             await _context.SaveChangesAsync();
             return caso;
-        }
-
-        public async Task<bool> DeleteAsync(long id)
-        {
-            var caso = await _context.Casos.FindAsync(id);
-            if (caso == null)
-            {
-                return false;
-            }
-
-            _context.Casos.Remove(caso);
-            await _context.SaveChangesAsync();
-            return true;
         }
 
         public async Task<bool> ExistsAsync(long id)

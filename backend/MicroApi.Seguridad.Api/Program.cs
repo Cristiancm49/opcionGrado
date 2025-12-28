@@ -1,10 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MicroApi.Seguridad.Api.Extensions;
 using MicroApi.Seguridad.Data;
-using MicroApi.Seguridad.Data.Repositories;
-using MicroApi.Seguridad.Domain.DTOs.Common;
-using MicroApi.Seguridad.Domain.Interfaces;
-using MicroApi.Seguridad.Domain.Models.Soporte;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +31,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 // Repositorios y Servicios
 builder.Services.AddRepositories();
 builder.Services.AddApplicationServices();
-builder.Services.AddScoped<ICasoRepository, CasoRepository>();
 
 // CORS
 var allowedOrigins = builder.Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
@@ -115,7 +110,14 @@ if (app.Environment.IsDevelopment())
                     ["name"] = new Microsoft.OpenApi.Any.OpenApiString("🎫 Soporte"),
                     ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
                     {
-                        new Microsoft.OpenApi.Any.OpenApiString("Soporte (temporal)")
+                        new Microsoft.OpenApi.Any.OpenApiString("Caso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("TrazabilidadCaso"),
+                        new Microsoft.OpenApi.Any.OpenApiString("IntervencionTecnica"),
+                        new Microsoft.OpenApi.Any.OpenApiString("DetalleCambioComponentes"),
+                        new Microsoft.OpenApi.Any.OpenApiString("DetalleConsumible"),
+                        new Microsoft.OpenApi.Any.OpenApiString("RevisionAdmi"),
+                        new Microsoft.OpenApi.Any.OpenApiString("EncuestaCalidad"),
+                        new Microsoft.OpenApi.Any.OpenApiString("DetalleEncuesta")
                     }
                 }
             };
@@ -148,22 +150,5 @@ app.MapGet("/api/health", async (ApplicationDbContext db) =>
     var canConnect = await db.Database.CanConnectAsync();
     return Results.Ok(new { status = "healthy", database = canConnect ? "connected" : "disconnected", timestamp = DateTime.UtcNow });
 }).WithTags("Sistema").WithOpenApi();
-
-// Casos (temporal - migrar a Controller)
-var casos = app.MapGroup("/api/soporte/casos").WithTags("Soporte (temporal)");
-
-casos.MapGet("/", async (ICasoRepository repo) =>
-{
-    var data = await repo.GetAllAsync();
-    return Results.Ok(new ApiResponseDto<IEnumerable<Caso>> { Success = true, Message = "OK", Data = data });
-});
-
-casos.MapGet("/{id:long}", async (long id, ICasoRepository repo) =>
-{
-    var caso = await repo.GetByIdAsync(id);
-    return caso == null 
-        ? Results.NotFound(new { message = $"Caso {id} no encontrado" }) 
-        : Results.Ok(new ApiResponseDto<Caso> { Success = true, Message = "OK", Data = caso });
-});
 
 app.Run();

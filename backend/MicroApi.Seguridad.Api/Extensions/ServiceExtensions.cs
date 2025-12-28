@@ -1,6 +1,7 @@
 using MicroApi.Seguridad.Application.Services.Acceso;
 using MicroApi.Seguridad.Application.Services.Catalogo;
 using MicroApi.Seguridad.Application.Services.Inventario;
+using MicroApi.Seguridad.Application.Services.Soporte;
 using MicroApi.Seguridad.Data.Repositories;
 using MicroApi.Seguridad.Domain.Interfaces;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -34,6 +35,16 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IActivoRepository, ActivoRepository>();
             services.AddScoped<IHojaDeVidaActivoRepository, HojaDeVidaActivoRepository>();
             
+            // Repositorios específicos - Soporte
+            services.AddScoped<ICasoRepository, CasoRepository>();
+            services.AddScoped<ITrazabilidadCasoRepository, TrazabilidadCasoRepository>();
+            services.AddScoped<IIntervencionTecnicaRepository, IntervencionTecnicaRepository>();
+            services.AddScoped<IDetalleCambioComponentesRepository, DetalleCambioComponentesRepository>();
+            services.AddScoped<IDetalleConsumibleRepository, DetalleConsumibleRepository>();
+            services.AddScoped<IRevisionAdmiRepository, RevisionAdmiRepository>();
+            services.AddScoped<IEncuestaCalidadRepository, EncuestaCalidadRepository>();
+            services.AddScoped<IDetalleEncuestaRepository, DetalleEncuestaRepository>();
+            
             return services;
         }
 
@@ -64,6 +75,16 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IConsumibleService, ConsumibleService>();
             services.AddScoped<IActivoService, ActivoService>();
             services.AddScoped<IHojaDeVidaActivoService, HojaDeVidaActivoService>();
+            
+            // Soporte
+            services.AddScoped<ICasoService, CasoService>();
+            services.AddScoped<ITrazabilidadCasoService, TrazabilidadCasoService>();
+            services.AddScoped<IIntervencionTecnicaService, IntervencionTecnicaService>();
+            services.AddScoped<IDetalleCambioComponentesService, DetalleCambioComponentesService>();
+            services.AddScoped<IDetalleConsumibleService, DetalleConsumibleService>();
+            services.AddScoped<IRevisionAdmiService, RevisionAdmiService>();
+            services.AddScoped<IEncuestaCalidadService, EncuestaCalidadService>();
+            services.AddScoped<IDetalleEncuestaService, DetalleEncuestaService>();
             
             return services;
         }

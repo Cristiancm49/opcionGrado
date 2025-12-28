@@ -115,3 +115,4 @@ namespace MicroApi.Seguridad.Domain.DTOs.Inventario
 
 
 
+

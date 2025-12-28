@@ -10,6 +10,34 @@ namespace MicroApi.Seguridad.Domain.DTOs.Common
         public string Message { get; set; } = string.Empty;
         public T? Data { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// Crea una respuesta exitosa con datos y mensaje
+        /// </summary>
+        public static ApiResponseDto<T> SuccessResponse(T data, string message = "OK")
+        {
+            return new ApiResponseDto<T>
+            {
+                Success = true,
+                Message = message,
+                Data = data,
+                Timestamp = DateTime.UtcNow
+            };
+        }
+
+        /// <summary>
+        /// Crea una respuesta de error con mensaje
+        /// </summary>
+        public static ApiResponseDto<T> FailResponse(string message)
+        {
+            return new ApiResponseDto<T>
+            {
+                Success = false,
+                Message = message,
+                Data = default,
+                Timestamp = DateTime.UtcNow
+            };
+        }
     }
 
     /// <summary>
@@ -39,6 +67,3 @@ namespace MicroApi.Seguridad.Domain.DTOs.Common
         public bool HasNextPage => Page < TotalPages;
     }
 }
-
-
-

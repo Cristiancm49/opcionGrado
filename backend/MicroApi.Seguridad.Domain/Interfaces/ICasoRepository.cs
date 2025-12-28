@@ -11,7 +11,6 @@ namespace MicroApi.Seguridad.Domain.Interfaces
         Task<IEnumerable<Caso>> GetByFiltrosAsync(long? idEstadoCaso, long? idTecnico, long? idAreaTecnica, DateTime? fechaDesde, DateTime? fechaHasta);
         Task<Caso> CreateAsync(Caso caso);
         Task<Caso> UpdateAsync(Caso caso);
-        Task<bool> DeleteAsync(long id);
         Task<bool> ExistsAsync(long id);
         Task<int> CountAsync();
         Task<IEnumerable<Caso>> GetPagedAsync(int page, int pageSize);

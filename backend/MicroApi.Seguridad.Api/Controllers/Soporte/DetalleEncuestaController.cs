@@ -1,0 +1,51 @@
+using Microsoft.AspNetCore.Mvc;
+using MicroApi.Seguridad.Domain.DTOs.Common;
+using MicroApi.Seguridad.Domain.DTOs.Soporte;
+using MicroApi.Seguridad.Domain.Interfaces.Services;
+
+namespace MicroApi.Seguridad.Api.Controllers.Soporte
+{
+    [ApiController]
+    [Route("api/detalles-encuesta")]
+    [Tags("DetalleEncuesta")]
+    public class DetalleEncuestaController : ControllerBase
+    {
+        private readonly IDetalleEncuestaService _service;
+
+        public DetalleEncuestaController(IDetalleEncuestaService service)
+        {
+            _service = service;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ApiResponseDto<IEnumerable<DetalleEncuestaDto>>>> GetAll()
+        {
+            var items = await _service.GetAllAsync();
+            return Ok(ApiResponseDto<IEnumerable<DetalleEncuestaDto>>.SuccessResponse(items, "Detalles de encuesta obtenidos"));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ApiResponseDto<DetalleEncuestaDto>>> GetById(long id)
+        {
+            var item = await _service.GetByIdAsync(id);
+            if (item == null)
+                return NotFound(ApiResponseDto<DetalleEncuestaDto>.FailResponse("Detalle de encuesta no encontrado"));
+            return Ok(ApiResponseDto<DetalleEncuestaDto>.SuccessResponse(item, "Detalle de encuesta obtenido"));
+        }
+
+        [HttpGet("count")]
+        public async Task<ActionResult<ApiResponseDto<int>>> Count()
+        {
+            var count = await _service.CountAsync();
+            return Ok(ApiResponseDto<int>.SuccessResponse(count, "Total de detalles de encuesta"));
+        }
+
+        [HttpGet("encuesta/{idEncuesta}")]
+        public async Task<ActionResult<ApiResponseDto<IEnumerable<DetalleEncuestaDto>>>> GetByEncuesta(long idEncuesta)
+        {
+            var items = await _service.GetByEncuestaIdAsync(idEncuesta);
+            return Ok(ApiResponseDto<IEnumerable<DetalleEncuestaDto>>.SuccessResponse(items, "Detalles de la encuesta obtenidos"));
+        }
+    }
+}
+

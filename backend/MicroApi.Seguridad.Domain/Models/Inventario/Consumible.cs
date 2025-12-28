@@ -72,3 +72,4 @@ namespace MicroApi.Seguridad.Domain.Models.Inventario
 
 
 
+
