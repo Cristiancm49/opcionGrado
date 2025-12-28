@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MicroApi.Seguridad.Domain.Models.Acceso;
 using MicroApi.Seguridad.Domain.Models.Catalogo;
 
 namespace MicroApi.Seguridad.Domain.Models.Inventario
@@ -38,6 +39,9 @@ namespace MicroApi.Seguridad.Domain.Models.Inventario
         // Navegación
         [ForeignKey("IdEstadoGeneral")]
         public virtual EstadoGeneral EstadoGeneral { get; set; } = null!;
+
+        [ForeignKey("IdResponsableInventario")]
+        public virtual Usuario Responsable { get; set; } = null!;
 
         public virtual ICollection<Activo> Activos { get; set; } = new List<Activo>();
         public virtual ICollection<Componente> Componentes { get; set; } = new List<Componente>();

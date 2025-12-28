@@ -27,6 +27,11 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<ICategoriaActivoRepository, CategoriaActivoRepository>();
             services.AddScoped<ITipoConsumibleRepository, TipoConsumibleRepository>();
             
+            // Repositorios específicos - Inventario
+            services.AddScoped<IInventarioRepository, InventarioRepository>();
+            services.AddScoped<IComponenteRepository, ComponenteRepository>();
+            services.AddScoped<IConsumibleRepository, ConsumibleRepository>();
+            
             return services;
         }
 
@@ -52,6 +57,9 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IUbicacionService, UbicacionService>();
             services.AddScoped<ICategoriaActivoService, CategoriaActivoService>();
             services.AddScoped<ITipoConsumibleService, TipoConsumibleService>();
+            services.AddScoped<IInventarioService, InventarioService>();
+            services.AddScoped<IComponenteService, ComponenteService>();
+            services.AddScoped<IConsumibleService, ConsumibleService>();
             
             return services;
         }

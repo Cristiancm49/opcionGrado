@@ -102,7 +102,10 @@ if (app.Environment.IsDevelopment())
                     ["name"] = new Microsoft.OpenApi.Any.OpenApiString("📦 Inventario"),
                     ["tags"] = new Microsoft.OpenApi.Any.OpenApiArray
                     {
-                        new Microsoft.OpenApi.Any.OpenApiString("Ubicacion")
+                        new Microsoft.OpenApi.Any.OpenApiString("Ubicacion"),
+                        new Microsoft.OpenApi.Any.OpenApiString("Inventario"),
+                        new Microsoft.OpenApi.Any.OpenApiString("Componente"),
+                        new Microsoft.OpenApi.Any.OpenApiString("Consumible")
                     }
                 },
                 new Microsoft.OpenApi.Any.OpenApiObject

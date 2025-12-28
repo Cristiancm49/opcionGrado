@@ -81,6 +81,16 @@ namespace MicroApi.Seguridad.Data
             // ==================== CONFIGURACIÓN INVENTARIO ====================
             modelBuilder.Entity<Inventario>(entity =>
             {
+                entity.HasOne(i => i.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(i => i.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(i => i.Responsable)
+                    .WithMany()
+                    .HasForeignKey(i => i.IdResponsableInventario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
                 entity.HasMany(i => i.Activos)
                     .WithOne(a => a.Inventario)
                     .HasForeignKey(a => a.IdInventario)
@@ -94,6 +104,37 @@ namespace MicroApi.Seguridad.Data
                 entity.HasMany(i => i.Consumibles)
                     .WithOne(c => c.Inventario)
                     .HasForeignKey(c => c.IdInventario)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Componente>(entity =>
+            {
+                entity.HasOne(c => c.Inventario)
+                    .WithMany(i => i.Componentes)
+                    .HasForeignKey(c => c.IdInventario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(c => c.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Consumible>(entity =>
+            {
+                entity.HasOne(c => c.Inventario)
+                    .WithMany(i => i.Consumibles)
+                    .HasForeignKey(c => c.IdInventario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.TipoConsumible)
+                    .WithMany()
+                    .HasForeignKey(c => c.IdTipoConsumible)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.EstadoConsumible)
+                    .WithMany()
+                    .HasForeignKey(c => c.IdEstadoConsumible)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
