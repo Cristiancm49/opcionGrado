@@ -10,6 +10,10 @@ namespace MicroApi.Seguridad.Api.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            
+            // Repositorios específicos
+            services.AddScoped<IAreaTecnicaRepository, AreaTecnicaRepository>();
+            
             return services;
         }
 

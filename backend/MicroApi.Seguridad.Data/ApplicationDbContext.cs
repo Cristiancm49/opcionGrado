@@ -64,6 +64,20 @@ namespace MicroApi.Seguridad.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            // ==================== CONFIGURACIÓN CATALOGO ====================
+            modelBuilder.Entity<AreaTecnica>(entity =>
+            {
+                entity.HasOne(a => a.EstadoGeneral)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdEstadoGeneral)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Encargado)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdEncargado)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
             // ==================== CONFIGURACIÓN INVENTARIO ====================
             modelBuilder.Entity<Inventario>(entity =>
             {

@@ -96,7 +96,6 @@ CREATE TABLE catalogo.EstadoIntervencionTecnica (
     IdEstadoIntervencion BIGINT IDENTITY(1,1),
     NombreEstado VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
-    Orden INT NOT NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
     IdUsuarioCreacion BIGINT NOT NULL
 );
@@ -107,7 +106,6 @@ CREATE TABLE catalogo.EstadoCaso (
     IdEstadoCaso BIGINT IDENTITY(1,1),
     NombreEstadoCaso VARCHAR(100) NOT NULL,
     DescripcionEstadoCaso VARCHAR(MAX) NULL,
-    Orden INT NOT NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
     IdUsuarioCreacion BIGINT NOT NULL
 );

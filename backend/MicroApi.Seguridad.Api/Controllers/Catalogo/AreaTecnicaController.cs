@@ -11,17 +11,24 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
     public class AreaTecnicaController : ControllerBase
     {
         private readonly IAreaTecnicaService _service;
+        private readonly ILogger<AreaTecnicaController> _logger;
 
-        public AreaTecnicaController(IAreaTecnicaService service)
+        public AreaTecnicaController(IAreaTecnicaService service, ILogger<AreaTecnicaController> logger)
         {
             _service = service;
+            _logger = logger;
+            _logger.LogWarning($">>> AreaTecnicaController - Service type: {service.GetType().FullName} <<<");
         }
 
         [HttpGet]
         public async Task<IActionResult> ObtenerTodas()
         {
             var result = await _service.GetAllAsync();
-            return Ok(result);
+            // DEBUG: Mostrar el tipo real del servicio
+            return Ok(new { 
+                serviceType = _service.GetType().FullName,
+                result 
+            });
         }
 
         [HttpGet("{id:long}")]

@@ -18,10 +18,6 @@ namespace MicroApi.Seguridad.Domain.Models.Catalogo
         [Column("DescripcionEstadoCaso")]
         public string? DescripcionEstadoCaso { get; set; }
 
-        [Column("Orden")]
-        [Required]
-        public int Orden { get; set; }
-
         [Column("FechaCreacion")]
         [Required]
         public DateTime FechaCreacion { get; set; }
@@ -31,5 +27,4 @@ namespace MicroApi.Seguridad.Domain.Models.Catalogo
         public long IdUsuarioCreacion { get; set; }
     }
 }
-
 
