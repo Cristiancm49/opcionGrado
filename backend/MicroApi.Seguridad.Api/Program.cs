@@ -105,7 +105,9 @@ if (app.Environment.IsDevelopment())
                         new Microsoft.OpenApi.Any.OpenApiString("Ubicacion"),
                         new Microsoft.OpenApi.Any.OpenApiString("Inventario"),
                         new Microsoft.OpenApi.Any.OpenApiString("Componente"),
-                        new Microsoft.OpenApi.Any.OpenApiString("Consumible")
+                        new Microsoft.OpenApi.Any.OpenApiString("Consumible"),
+                        new Microsoft.OpenApi.Any.OpenApiString("Activo"),
+                        new Microsoft.OpenApi.Any.OpenApiString("HojaDeVidaActivo")
                     }
                 },
                 new Microsoft.OpenApi.Any.OpenApiObject

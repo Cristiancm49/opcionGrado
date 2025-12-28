@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MicroApi.Seguridad.Domain.Models.Acceso;
 using MicroApi.Seguridad.Domain.Models.Catalogo;
 
 namespace MicroApi.Seguridad.Domain.Models.Inventario
@@ -80,6 +81,9 @@ namespace MicroApi.Seguridad.Domain.Models.Inventario
 
         [ForeignKey("IdUbicacion")]
         public virtual Ubicacion Ubicacion { get; set; } = null!;
+
+        [ForeignKey("IdResponsableActivo")]
+        public virtual Usuario? Responsable { get; set; }
 
         public virtual ICollection<HojaDeVidaActivo> HojasDeVida { get; set; } = new List<HojaDeVidaActivo>();
     }

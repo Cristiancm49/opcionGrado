@@ -140,9 +140,47 @@ namespace MicroApi.Seguridad.Data
 
             modelBuilder.Entity<Activo>(entity =>
             {
+                entity.HasOne(a => a.CategoriaActivo)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdCategoriaActivo)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.EstadoActivo)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdEstadoActivo)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Inventario)
+                    .WithMany(i => i.Activos)
+                    .HasForeignKey(a => a.IdInventario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Ubicacion)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdUbicacion)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Responsable)
+                    .WithMany()
+                    .HasForeignKey(a => a.IdResponsableActivo)
+                    .OnDelete(DeleteBehavior.Restrict);
+
                 entity.HasMany(a => a.HojasDeVida)
                     .WithOne(h => h.Activo)
                     .HasForeignKey(h => h.IdActivo)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<HojaDeVidaActivo>(entity =>
+            {
+                entity.HasOne(h => h.Activo)
+                    .WithMany(a => a.HojasDeVida)
+                    .HasForeignKey(h => h.IdActivo)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(h => h.UsuarioCreacion)
+                    .WithMany()
+                    .HasForeignKey(h => h.IdUsuarioCreacion)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 

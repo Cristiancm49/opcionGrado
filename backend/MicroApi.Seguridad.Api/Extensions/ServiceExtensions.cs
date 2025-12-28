@@ -31,6 +31,8 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IInventarioRepository, InventarioRepository>();
             services.AddScoped<IComponenteRepository, ComponenteRepository>();
             services.AddScoped<IConsumibleRepository, ConsumibleRepository>();
+            services.AddScoped<IActivoRepository, ActivoRepository>();
+            services.AddScoped<IHojaDeVidaActivoRepository, HojaDeVidaActivoRepository>();
             
             return services;
         }
@@ -60,6 +62,8 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IInventarioService, InventarioService>();
             services.AddScoped<IComponenteService, ComponenteService>();
             services.AddScoped<IConsumibleService, ConsumibleService>();
+            services.AddScoped<IActivoService, ActivoService>();
+            services.AddScoped<IHojaDeVidaActivoService, HojaDeVidaActivoService>();
             
             return services;
         }

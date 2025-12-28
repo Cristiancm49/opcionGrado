@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MicroApi.Seguridad.Domain.Models.Acceso;
 
 namespace MicroApi.Seguridad.Domain.Models.Inventario
 {
@@ -36,6 +37,9 @@ namespace MicroApi.Seguridad.Domain.Models.Inventario
         // Navegación
         [ForeignKey("IdActivo")]
         public virtual Activo Activo { get; set; } = null!;
+
+        [ForeignKey("IdUsuarioCreacion")]
+        public virtual Usuario UsuarioCreacion { get; set; } = null!;
     }
 }
 
