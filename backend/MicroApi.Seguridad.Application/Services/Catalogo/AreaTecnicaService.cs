@@ -1,4 +1,4 @@
-﻿using MicroApi.Seguridad.Domain.DTOs.Catalogo;
+using MicroApi.Seguridad.Domain.DTOs.Catalogo;
 using MicroApi.Seguridad.Domain.DTOs.Common;
 using MicroApi.Seguridad.Domain.Interfaces;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -60,6 +60,7 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
 
         protected override long GetEntityId(AreaTecnica entity) => entity.Id;
 
+        // Sobrescribimos para usar las consultas con relaciones
         public override async Task<ApiResponseDto<IEnumerable<AreaTecnicaDto>>> GetAllAsync()
         {
             try
@@ -79,7 +80,7 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
                 return new ApiResponseDto<IEnumerable<AreaTecnicaDto>>
                 {
                     Success = false,
-                    Message = "Error: " + ex.Message,
+                    Message = $"Error: {ex.Message}",
                     Data = null
                 };
             }
@@ -96,7 +97,7 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
                     return new ApiResponseDto<AreaTecnicaDto>
                     {
                         Success = false,
-                        Message = "Registro con ID " + id + " no encontrado",
+                        Message = $"Registro con ID {id} no encontrado",
                         Data = null
                     };
                 }
@@ -113,78 +114,11 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
                 return new ApiResponseDto<AreaTecnicaDto>
                 {
                     Success = false,
-                    Message = "Error: " + ex.Message,
-                    Data = null
-                };
-            }
-        }
-
-        public override async Task<ApiResponseDto<AreaTecnicaDto>> CreateAsync(AreaTecnicaCreateDto createDto)
-        {
-            try
-            {
-                var entity = MapToEntity(createDto);
-                var created = await _repository.AddAsync(entity);
-                
-                // Recargar la entidad con sus relaciones
-                var entityWithRelations = await _areaTecnicaRepository.GetByIdWithRelationsAsync(GetEntityId(created));
-
-                return new ApiResponseDto<AreaTecnicaDto>
-                {
-                    Success = true,
-                    Message = "Registro creado",
-                    Data = MapToDto(entityWithRelations!)
-                };
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponseDto<AreaTecnicaDto>
-                {
-                    Success = false,
-                    Message = "Error: " + ex.Message,
-                    Data = null
-                };
-            }
-        }
-
-        public override async Task<ApiResponseDto<AreaTecnicaDto>> UpdateAsync(long id, AreaTecnicaUpdateDto updateDto)
-        {
-            try
-            {
-                var entity = await _repository.GetByIdAsync(id);
-
-                if (entity == null)
-                {
-                    return new ApiResponseDto<AreaTecnicaDto>
-                    {
-                        Success = false,
-                        Message = "Registro con ID " + id + " no encontrado",
-                        Data = null
-                    };
-                }
-
-                MapUpdateToEntity(updateDto, entity);
-                await _repository.UpdateAsync(entity);
-                
-                // Recargar la entidad con sus relaciones
-                var entityWithRelations = await _areaTecnicaRepository.GetByIdWithRelationsAsync(id);
-
-                return new ApiResponseDto<AreaTecnicaDto>
-                {
-                    Success = true,
-                    Message = "Registro actualizado",
-                    Data = MapToDto(entityWithRelations!)
-                };
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponseDto<AreaTecnicaDto>
-                {
-                    Success = false,
-                    Message = "Error: " + ex.Message,
+                    Message = $"Error: {ex.Message}",
                     Data = null
                 };
             }
         }
     }
 }
+

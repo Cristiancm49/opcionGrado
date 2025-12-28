@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MicroApi.Seguridad.Domain.Models.Catalogo
@@ -27,3 +27,4 @@ namespace MicroApi.Seguridad.Domain.Models.Catalogo
         public long IdUsuarioCreacion { get; set; }
     }
 }
+

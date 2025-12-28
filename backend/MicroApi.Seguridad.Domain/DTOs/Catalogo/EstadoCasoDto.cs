@@ -33,3 +33,4 @@ namespace MicroApi.Seguridad.Domain.DTOs.Catalogo
         public string? DescripcionEstadoCaso { get; set; }
     }
 }
+

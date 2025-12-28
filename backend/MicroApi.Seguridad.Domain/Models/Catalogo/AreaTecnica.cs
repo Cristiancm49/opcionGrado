@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MicroApi.Seguridad.Domain.Models.Acceso;
 
@@ -35,7 +35,7 @@ namespace MicroApi.Seguridad.Domain.Models.Catalogo
         [Required]
         public long IdUsuarioCreacion { get; set; }
 
-        // Navegacion
+        // Navegación
         [ForeignKey("IdEstadoGeneral")]
         public virtual EstadoGeneral EstadoGeneral { get; set; } = null!;
 
@@ -43,3 +43,4 @@ namespace MicroApi.Seguridad.Domain.Models.Catalogo
         public virtual Usuario Encargado { get; set; } = null!;
     }
 }
+

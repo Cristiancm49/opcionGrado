@@ -1,4 +1,4 @@
-﻿using MicroApi.Seguridad.Application.Services.Catalogo;
+using MicroApi.Seguridad.Application.Services.Catalogo;
 using MicroApi.Seguridad.Data.Repositories;
 using MicroApi.Seguridad.Domain.Interfaces;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -11,19 +11,15 @@ namespace MicroApi.Seguridad.Api.Extensions
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             
-            // Repositorios especificos
+            // Repositorios específicos
             services.AddScoped<IAreaTecnicaRepository, AreaTecnicaRepository>();
-            services.AddScoped<ICanalIngresoRepository, CanalIngresoRepository>();
-            services.AddScoped<IPrioridadRepository, PrioridadRepository>();
-            services.AddScoped<ITipoCasoRepository, TipoCasoRepository>();
-            services.AddScoped<ITipoTrabajoRepository, TipoTrabajoRepository>();
             
             return services;
         }
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // Catalogo
+            // Catálogo
             services.AddScoped<IEstadoGeneralService, EstadoGeneralService>();
             services.AddScoped<IAreaTecnicaService, AreaTecnicaService>();
             services.AddScoped<ICanalIngresoService, CanalIngresoService>();

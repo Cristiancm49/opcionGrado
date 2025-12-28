@@ -34,3 +34,4 @@ namespace MicroApi.Seguridad.Application.Services.Catalogo
         protected override long GetEntityId(EstadoCaso entity) => entity.Id;
     }
 }
+
