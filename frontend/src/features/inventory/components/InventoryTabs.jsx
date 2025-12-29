@@ -1,5 +1,5 @@
 import React from 'react';
-import { Package, Zap } from 'lucide-react';
+import { Package, Zap, Cpu } from 'lucide-react';
 
 const InventoryTabs = ({ activeTab, onTabChange, estadisticas }) => {
   const tabs = [
@@ -9,6 +9,13 @@ const InventoryTabs = ({ activeTab, onTabChange, estadisticas }) => {
       icon: Package,
       count: estadisticas.totalActivos,
       color: 'blue'
+    },
+    {
+      id: 'componentes',
+      label: 'Componentes',
+      icon: Cpu,
+      count: estadisticas.totalComponentes || 0,
+      color: 'purple'
     },
     {
       id: 'consumibles',

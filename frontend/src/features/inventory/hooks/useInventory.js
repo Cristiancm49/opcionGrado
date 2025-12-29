@@ -1,38 +1,170 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { 
+  activosService, 
+  consumiblesService, 
+  componentesService,
+  ubicacionesService 
+} from '../../../services';
+import { 
+  estadosActivoService, 
+  estadosConsumibleService,
+  categoriasActivoService,
+  tiposConsumibleService 
+} from '../../../services';
 import { mockActivos, mockConsumibles, mockUbicaciones, mockEstados, mockCategorias } from '../data/inventoryData';
 
 export const useInventory = () => {
   const [activos, setActivos] = useState([]);
   const [consumibles, setConsumibles] = useState([]);
-  const [ubicaciones] = useState(mockUbicaciones);
-  const [estados] = useState(mockEstados);
-  const [categorias] = useState(mockCategorias);
+  const [componentes, setComponentes] = useState([]);
+  const [ubicaciones, setUbicaciones] = useState([]);
+  const [estados, setEstados] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [tiposConsumible, setTiposConsumible] = useState([]);
   
   const [filtros, setFiltros] = useState({
     busqueda: '',
     ubicacion: '',
     estado: '',
     categoria: '',
-    tipo: 'activos' // 'activos' o 'consumibles'
+    tipo: 'activos'
   });
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Cargar datos iniciales
-  useEffect(() => {
-    const cargarDatos = async () => {
-      setLoading(true);
-      // Simular carga de datos
-      await new Promise(resolve => setTimeout(resolve, 500));
+  const transformarActivo = (activo) => ({
+    id: activo.id,
+    codigoPatrimonial: activo.codigoPatrimonial || '',
+    nombre: activo.nombreActivo || '',
+    descripcion: activo.descripcionTecnica || '',
+    marca: activo.marca || '',
+    modelo: activo.modelo || '',
+    serie: activo.serie || '',
+    ubicacion: activo.ubicacionCompleta || '',
+    ubicacionId: activo.idUbicacion,
+    estado: activo.nombreEstadoActivo || '',
+    estadoId: activo.idEstadoActivo,
+    responsable: activo.nombreResponsable || '',
+    fechaIngreso: activo.fechaIngreso?.split('T')[0] || '',
+    categoria: activo.nombreCategoria || '',
+    categoriaId: activo.idCategoriaActivo,
+    inventario: activo.nombreInventario || '',
+    inventarioId: activo.idInventario,
+  });
+
+  const transformarConsumible = (consumible) => ({
+    id: consumible.id,
+    nombre: consumible.nombreConsumible || '',
+    descripcion: consumible.descripcionTecnica || '',
+    marca: consumible.marca || '',
+    modelo: consumible.modelo || '',
+    stockActual: consumible.stockActual || 0,
+    stockMinimo: consumible.stockMinimo || 0,
+    ubicacion: consumible.nombreInventario || '',
+    estado: consumible.nombreEstado || '',
+    estadoId: consumible.idEstadoConsumible,
+    categoria: consumible.nombreTipo || '',
+    categoriaId: consumible.idTipoConsumible,
+    fechaIngreso: consumible.fechaCreacion?.split('T')[0] || '',
+    stockBajo: consumible.stockBajo || consumible.stockActual <= consumible.stockMinimo,
+  });
+
+  const transformarComponente = (componente) => ({
+    id: componente.id,
+    nombre: componente.nombreComponente || '',
+    descripcion: componente.descripcion || '',
+    marca: componente.marca || '',
+    modelo: componente.modelo || '',
+    stockActual: componente.stockActual || 0,
+    stockMinimo: componente.stockMinimo || 0,
+    ubicacion: componente.nombreInventario || '',
+    estado: componente.nombreEstado || '',
+    estadoId: componente.idEstadoGeneral,
+    categoria: 'Componente',
+    fechaIngreso: componente.fechaCreacion?.split('T')[0] || '',
+    stockBajo: componente.stockBajo || componente.stockActual <= componente.stockMinimo,
+  });
+
+  const transformarUbicacion = (ubicacion) => ({
+    id: ubicacion.id,
+    nombre: ubicacion.ubicacionCompleta || `${ubicacion.sede} - ${ubicacion.bloque} - ${ubicacion.piso} - ${ubicacion.sala}`,
+    descripcion: ubicacion.descripcion || '',
+  });
+
+  const cargarDatos = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const [
+        activosRes,
+        consumiblesRes,
+        componentesRes,
+        ubicacionesRes,
+        estadosActivoRes,
+        estadosConsumibleRes,
+        categoriasRes,
+        tiposRes
+      ] = await Promise.all([
+        activosService.getAll(),
+        consumiblesService.getAll(),
+        componentesService.getAll(),
+        ubicacionesService.getAll(),
+        estadosActivoService.getAll(),
+        estadosConsumibleService.getAll(),
+        categoriasActivoService.getAll(),
+        tiposConsumibleService.getAll(),
+      ]);
+
+      setActivos((activosRes.data || []).map(transformarActivo));
+      setConsumibles((consumiblesRes.data || []).map(transformarConsumible));
+      setComponentes((componentesRes.data || []).map(transformarComponente));
+      setUbicaciones((ubicacionesRes.data || []).map(transformarUbicacion));
+
+      const estadosActivo = (estadosActivoRes.data || []).map(e => ({
+        id: e.id,
+        nombre: e.nombreEstado,
+        descripcion: e.descripcion,
+        tipo: 'activo'
+      }));
+      const estadosConsumible = (estadosConsumibleRes.data || []).map(e => ({
+        id: e.id,
+        nombre: e.nombreEstado,
+        descripcion: e.descripcion,
+        tipo: 'consumible'
+      }));
+      setEstados([...estadosActivo, ...estadosConsumible]);
+
+      setCategorias((categoriasRes.data || []).map(c => ({
+        id: c.id,
+        nombre: c.nombreCategoria,
+        descripcion: c.descripcion,
+      })));
+
+      setTiposConsumible((tiposRes.data || []).map(t => ({
+        id: t.id,
+        nombre: t.nombreTipo,
+        descripcion: t.descripcion,
+      })));
+
+    } catch (err) {
+      console.error('Error cargando datos de inventario:', err);
+      setError(err.message || 'Error al cargar datos');
       setActivos(mockActivos);
       setConsumibles(mockConsumibles);
+      setUbicaciones(mockUbicaciones);
+      setEstados(mockEstados);
+      setCategorias(mockCategorias);
+    } finally {
       setLoading(false);
-    };
-
-    cargarDatos();
+    }
   }, []);
 
-  // Filtrar activos
+  useEffect(() => {
+    cargarDatos();
+  }, [cargarDatos]);
+
   const activosFiltrados = activos.filter(activo => {
     const cumpleBusqueda = !filtros.busqueda || 
       activo.nombre.toLowerCase().includes(filtros.busqueda.toLowerCase()) ||
@@ -46,7 +178,6 @@ export const useInventory = () => {
     return cumpleBusqueda && cumpleUbicacion && cumpleEstado && cumpleCategoria;
   });
 
-  // Filtrar consumibles
   const consumiblesFiltrados = consumibles.filter(consumible => {
     const cumpleBusqueda = !filtros.busqueda || 
       consumible.nombre.toLowerCase().includes(filtros.busqueda.toLowerCase()) ||
@@ -60,101 +191,143 @@ export const useInventory = () => {
     return cumpleBusqueda && cumpleUbicacion && cumpleEstado && cumpleCategoria;
   });
 
-  // Obtener datos según el tipo seleccionado
+  const componentesFiltrados = componentes.filter(componente => {
+    const cumpleBusqueda = !filtros.busqueda || 
+      componente.nombre.toLowerCase().includes(filtros.busqueda.toLowerCase()) ||
+      componente.marca.toLowerCase().includes(filtros.busqueda.toLowerCase());
+    
+    const cumpleEstado = !filtros.estado || componente.estado === filtros.estado;
+
+    return cumpleBusqueda && cumpleEstado;
+  });
+
   const getDatosActuales = () => {
-    return filtros.tipo === 'activos' ? activosFiltrados : consumiblesFiltrados;
+    if (filtros.tipo === 'activos') return activosFiltrados;
+    if (filtros.tipo === 'consumibles') return consumiblesFiltrados;
+    if (filtros.tipo === 'componentes') return componentesFiltrados;
+    return activosFiltrados;
   };
 
-  // Obtener alertas de stock bajo
   const getAlertasStock = () => {
-    return consumibles.filter(consumible => 
-      consumible.stockActual <= consumible.stockMinimo
-    );
+    const alertasConsumibles = consumibles.filter(c => c.stockActual <= c.stockMinimo);
+    const alertasComponentes = componentes.filter(c => c.stockActual <= c.stockMinimo);
+    return [...alertasConsumibles, ...alertasComponentes];
   };
 
-  // Agregar nuevo activo
-  const agregarActivo = (nuevoActivo) => {
-    const activo = {
-      ...nuevoActivo,
-      id: Math.max(...activos.map(a => a.id)) + 1,
-      fechaIngreso: new Date().toISOString().split('T')[0]
-    };
-    setActivos([...activos, activo]);
+  const agregarActivo = async (nuevoActivo) => {
+    try {
+      await activosService.create(nuevoActivo);
+      await cargarDatos();
+    } catch (err) {
+      throw err;
+    }
   };
 
-  // Agregar nuevo consumible
-  const agregarConsumible = (nuevoConsumible) => {
-    const consumible = {
-      ...nuevoConsumible,
-      id: Math.max(...consumibles.map(c => c.id)) + 1,
-      fechaIngreso: new Date().toISOString().split('T')[0]
-    };
-    setConsumibles([...consumibles, consumible]);
+  const agregarConsumible = async (nuevoConsumible) => {
+    try {
+      await consumiblesService.create(nuevoConsumible);
+      await cargarDatos();
+    } catch (err) {
+      throw err;
+    }
   };
 
-  // Actualizar activo
-  const actualizarActivo = (id, datosActualizados) => {
-    setActivos(activos.map(activo => 
-      activo.id === id ? { ...activo, ...datosActualizados } : activo
-    ));
+  const agregarComponente = async (nuevoComponente) => {
+    try {
+      await componentesService.create(nuevoComponente);
+      await cargarDatos();
+    } catch (err) {
+      throw err;
+    }
   };
 
-  // Actualizar consumible
-  const actualizarConsumible = (id, datosActualizados) => {
-    setConsumibles(consumibles.map(consumible => 
-      consumible.id === id ? { ...consumible, ...datosActualizados } : consumible
-    ));
+  const actualizarActivo = async (id, datosActualizados) => {
+    try {
+      await activosService.update(id, datosActualizados);
+      await cargarDatos();
+    } catch (err) {
+      throw err;
+    }
   };
 
-  // Eliminar activo
+  const actualizarConsumible = async (id, datosActualizados) => {
+    try {
+      await consumiblesService.update(id, datosActualizados);
+      await cargarDatos();
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const actualizarComponente = async (id, datosActualizados) => {
+    try {
+      await componentesService.update(id, datosActualizados);
+      await cargarDatos();
+    } catch (err) {
+      throw err;
+    }
+  };
+
   const eliminarActivo = (id) => {
     setActivos(activos.filter(activo => activo.id !== id));
   };
 
-  // Eliminar consumible
   const eliminarConsumible = (id) => {
     setConsumibles(consumibles.filter(consumible => consumible.id !== id));
   };
 
-  // Obtener estadísticas
+  const eliminarComponente = (id) => {
+    setComponentes(componentes.filter(componente => componente.id !== id));
+  };
+
   const getEstadisticas = () => {
     const totalActivos = activos.length;
-    const activosActivos = activos.filter(a => a.estado === 'Activo').length;
+    const activosActivos = activos.filter(a => 
+      a.estado === 'Operativo' || a.estado === 'Activo'
+    ).length;
     const totalConsumibles = consumibles.length;
+    const totalComponentes = componentes.length;
     const stockBajo = getAlertasStock().length;
 
     return {
       totalActivos,
       activosActivos,
       totalConsumibles,
+      totalComponentes,
       stockBajo,
       ubicaciones: ubicaciones.length,
       categorias: categorias.length
     };
   };
 
+  const refrescar = () => {
+    cargarDatos();
+  };
+
   return {
-    // Datos
     activos: activosFiltrados,
     consumibles: consumiblesFiltrados,
+    componentes: componentesFiltrados,
     ubicaciones,
     estados,
     categorias,
-    
-    // Estado
+    tiposConsumible,
     filtros,
     loading,
-    
-    // Funciones
+    error,
     setFiltros,
     getDatosActuales,
     getAlertasStock,
     agregarActivo,
     agregarConsumible,
+    agregarComponente,
     actualizarActivo,
     actualizarConsumible,
+    actualizarComponente,
     eliminarActivo,
     eliminarConsumible,
-    getEstadisticas
+    eliminarComponente,
+    getEstadisticas,
+    refrescar
   };
 };

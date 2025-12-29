@@ -8,6 +8,10 @@ import MisIncidencias from '../features/incidencias/MisIncidencias';
 import GestionIncidencias from '../features/incidencias/GestionIncidencias';
 import MisCasos from '../features/casos/MisCasos';
 import ConfiguracionSistema from '../features/configuracion/ConfiguracionSistema';
+import GestionUsuarios from '../features/configuracion/GestionUsuarios';
+import GestionRoles from '../features/configuracion/GestionRoles';
+import GestionCatalogos from '../features/configuracion/GestionCatalogos';
+import DetalleCatalogo from '../features/configuracion/DetalleCatalogo';
 import ReportesConfiguracion from '../features/reportes/ReportesConfiguracion';
 import EncuestasCalidad from '../features/reportes/EncuestasCalidad';
 import ReportesCasos from '../features/reportes/ReportesCasos';
@@ -52,6 +56,22 @@ export const router = createBrowserRouter([
         element: <ConfiguracionSistema />
       },
       {
+        path: 'admin/gestion-usuarios',
+        element: <GestionUsuarios />
+      },
+      {
+        path: 'admin/gestion-roles',
+        element: <GestionRoles />
+      },
+      {
+        path: 'admin/gestion-catalogos',
+        element: <GestionCatalogos />
+      },
+      {
+        path: 'admin/catalogo/:tipo',
+        element: <DetalleCatalogo />
+      },
+      {
         path: 'reportes/configuracion',
         element: <ReportesConfiguracion />
       },
@@ -84,6 +104,9 @@ export const menuRoutes = {
   'Mis Casos': '/casos/mis-casos',
   'Gestión de Incidencias': '/admin/gestion-incidencias',
   'Configuración del Sistema': '/admin/configuracion-sistema',
+  'Gestión de Usuarios': '/admin/gestion-usuarios',
+  'Gestión de Roles': '/admin/gestion-roles',
+  'Gestión de Catálogos': '/admin/gestion-catalogos',
   'Reportes de Configuración': '/reportes/configuracion',
   'Encuestas de Calidad': '/reportes/encuestas-calidad',
   'Reportes de Casos': '/reportes/casos',
