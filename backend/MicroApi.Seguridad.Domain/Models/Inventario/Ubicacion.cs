@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MicroApi.Seguridad.Domain.Models.Catalogo;
 
 namespace MicroApi.Seguridad.Domain.Models.Inventario
 {
@@ -10,10 +11,9 @@ namespace MicroApi.Seguridad.Domain.Models.Inventario
         [Column("IdUbicacion")]
         public long Id { get; set; }
 
-        [Column("Sede")]
+        [Column("IdSede")]
         [Required]
-        [StringLength(150)]
-        public string Sede { get; set; } = string.Empty;
+        public long IdSede { get; set; }
 
         [Column("Bloque")]
         [StringLength(100)]
@@ -37,10 +37,8 @@ namespace MicroApi.Seguridad.Domain.Models.Inventario
         [Column("IdUsuarioCreacion")]
         [Required]
         public long IdUsuarioCreacion { get; set; }
+
+        [ForeignKey("IdSede")]
+        public virtual Sede? Sede { get; set; }
     }
 }
-
-
-
-
-

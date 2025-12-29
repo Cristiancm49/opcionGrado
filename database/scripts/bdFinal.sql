@@ -287,7 +287,7 @@ GO
 
 CREATE TABLE inventario.Ubicacion (
     IdUbicacion BIGINT IDENTITY(1,1),
-    Sede VARCHAR(150) NOT NULL,    
+    IdSede BIGINT NOT NULL,    
     Bloque VARCHAR(100) NULL,      
     Piso VARCHAR(50) NULL,         
     Sala VARCHAR(150) NULL,        
@@ -296,6 +296,17 @@ CREATE TABLE inventario.Ubicacion (
     IdUsuarioCreacion BIGINT NOT NULL
 );
 GO
+
+CREATE TABLE catalogo.Sede (
+    IdSede BIGINT IDENTITY(1,1) PRIMARY KEY,
+    NombreSede VARCHAR(150) NOT NULL,
+    Descripcion VARCHAR(MAX) NULL,
+    IdEstadoGeneral BIGINT NOT NULL,
+    FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
+    IdUsuarioCreacion BIGINT NOT NULL
+);
+GO
+
 
 CREATE TABLE catalogo.CategoriaActivo (
     IdCategoriaActivo BIGINT IDENTITY(1,1),
@@ -710,6 +721,13 @@ ALTER TABLE catalogo.AreaTecnica
 ADD CONSTRAINT FKAreaTecnicaEncargado
 FOREIGN KEY (IdEncargado)
 REFERENCES acceso.Usuario(IdUsuario)
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+ALTER TABLE inventario.Ubicacion
+ADD CONSTRAINT FKUbicacionSede
+FOREIGN KEY (IdSede)
+REFERENCES catalogo.Sede(IdSede)
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 

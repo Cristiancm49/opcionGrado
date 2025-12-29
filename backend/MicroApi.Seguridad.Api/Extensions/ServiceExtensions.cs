@@ -14,28 +14,25 @@ namespace MicroApi.Seguridad.Api.Extensions
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             
-            // Repositorios específicos - Catálogo
             services.AddScoped<IAreaTecnicaRepository, AreaTecnicaRepository>();
             services.AddScoped<ICanalIngresoRepository, CanalIngresoRepository>();
             services.AddScoped<IPrioridadRepository, PrioridadRepository>();
             services.AddScoped<ITipoCasoRepository, TipoCasoRepository>();
             services.AddScoped<ITipoTrabajoRepository, TipoTrabajoRepository>();
+            services.AddScoped<ISedeRepository, SedeRepository>();
             
-            // Repositorios específicos - Acceso
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             
-            // Repositorios específicos - Inventario/Catálogo
             services.AddScoped<ICategoriaActivoRepository, CategoriaActivoRepository>();
             services.AddScoped<ITipoConsumibleRepository, TipoConsumibleRepository>();
             
-            // Repositorios específicos - Inventario
+            services.AddScoped<IUbicacionRepository, UbicacionRepository>();
             services.AddScoped<IInventarioRepository, InventarioRepository>();
             services.AddScoped<IComponenteRepository, ComponenteRepository>();
             services.AddScoped<IConsumibleRepository, ConsumibleRepository>();
             services.AddScoped<IActivoRepository, ActivoRepository>();
             services.AddScoped<IHojaDeVidaActivoRepository, HojaDeVidaActivoRepository>();
             
-            // Repositorios específicos - Soporte
             services.AddScoped<ICasoRepository, CasoRepository>();
             services.AddScoped<ITrazabilidadCasoRepository, TrazabilidadCasoRepository>();
             services.AddScoped<IIntervencionTecnicaRepository, IntervencionTecnicaRepository>();
@@ -50,7 +47,6 @@ namespace MicroApi.Seguridad.Api.Extensions
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // Catálogo
             services.AddScoped<IEstadoGeneralService, EstadoGeneralService>();
             services.AddScoped<IAreaTecnicaService, AreaTecnicaService>();
             services.AddScoped<ICanalIngresoService, CanalIngresoService>();
@@ -61,12 +57,11 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IEstadoIntervencionTecnicaService, EstadoIntervencionTecnicaService>();
             services.AddScoped<IPrioridadService, PrioridadService>();
             services.AddScoped<ITipoTrabajoService, TipoTrabajoService>();
+            services.AddScoped<ISedeService, SedeService>();
             
-            // Acceso
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             
-            // Inventario
             services.AddScoped<IUbicacionService, UbicacionService>();
             services.AddScoped<ICategoriaActivoService, CategoriaActivoService>();
             services.AddScoped<ITipoConsumibleService, TipoConsumibleService>();
@@ -76,7 +71,6 @@ namespace MicroApi.Seguridad.Api.Extensions
             services.AddScoped<IActivoService, ActivoService>();
             services.AddScoped<IHojaDeVidaActivoService, HojaDeVidaActivoService>();
             
-            // Soporte
             services.AddScoped<ICasoService, CasoService>();
             services.AddScoped<ITrazabilidadCasoService, TrazabilidadCasoService>();
             services.AddScoped<IIntervencionTecnicaService, IntervencionTecnicaService>();
