@@ -29,12 +29,14 @@ const InventoryList = ({
         <div className="flex flex-col items-center">
           <Package className="h-12 w-12 text-gray-400 mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">
-            No se encontraron {tipo === 'activos' ? 'activos' : 'consumibles'}
+            No se encontraron {tipo === 'activos' ? 'activos' : tipo === 'componentes' ? 'componentes' : 'consumibles'}
           </h3>
           <p className="text-gray-500 mb-4">
-            {tipo === 'activos' 
+            {tipo === 'activos'
               ? 'No hay activos que coincidan con los filtros aplicados.'
-              : 'No hay consumibles que coincidan con los filtros aplicados.'
+              : tipo === 'componentes'
+                ? 'No hay componentes que coincidan con los filtros aplicados.'
+                : 'No hay consumibles que coincidan con los filtros aplicados.'
             }
           </p>
           <div className="flex items-center text-sm text-gray-400">

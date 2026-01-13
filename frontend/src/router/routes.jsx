@@ -4,6 +4,7 @@ import HomePage from '../features/home/HomePage';
 import RegistrarIncidencia from '../features/registrar/RegistrarIncidencia';
 import DisponibilidadSalas from '../features/inventory/DisponibilidadSalas';
 import GestionInventario from '../features/inventory/GestionInventario';
+import Componentes from '../features/inventory/Componentes';
 import MisIncidencias from '../features/incidencias/MisIncidencias';
 import GestionIncidencias from '../features/incidencias/GestionIncidencias';
 import MisCasos from '../features/casos/MisCasos';
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: 'inventory/gestion-inventario',
         element: <GestionInventario />
+      },
+      {
+        path: 'inventory/componentes',
+        element: <Componentes />
       },
       {
         path: 'casos/mis-incidencias',
@@ -99,6 +104,7 @@ export const router = createBrowserRouter([
 export const menuRoutes = {
   'Registrar Incidencia': '/registrar/incidencia',
   'Gestión de Inventario': '/inventory/gestion-inventario',
+  'Componentes': '/inventory/componentes',
   'Disponibilidad de Salas': '/inventory/disponibilidad-salas',
   'Mis Incidencias': '/casos/mis-incidencias',
   'Mis Casos': '/casos/mis-casos',

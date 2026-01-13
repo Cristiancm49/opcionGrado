@@ -20,9 +20,13 @@ export const useInventory = () => {
   const [ubicaciones, setUbicaciones] = useState([]);
   const [estados, setEstados] = useState([]);
   const [categorias, setCategorias] = useState([]);
-  const [tiposConsumible, setTiposConsumible] = useState([]);
+  const [tiposConsumible, setTiposConsumible] = useState([
+    { id: 1, nombre: 'Toner', descripcion: 'Cartuchos de tóner' },
+    { id: 2, nombre: 'Cables', descripcion: 'Cables de red y energía' },
+    { id: 3, nombre: 'Periféricos', descripcion: 'Mouse, teclados, etc.' }
+  ]);
   
-  const [filtros, setFiltros] = useState({
+  const [filtros, _setFiltros] = useState({
     busqueda: '',
     ubicacion: '',
     estado: '',
@@ -32,6 +36,13 @@ export const useInventory = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const setFiltros = (nuevosFiltros) => {
+    _setFiltros((prev) => ({
+      ...prev,
+      ...(nuevosFiltros || {})
+    }));
+  };
 
   const transformarActivo = (activo) => ({
     id: activo.id,
@@ -156,6 +167,11 @@ export const useInventory = () => {
       setUbicaciones(mockUbicaciones);
       setEstados(mockEstados);
       setCategorias(mockCategorias);
+      setTiposConsumible([
+        { id: 1, nombre: 'Toner', descripcion: 'Cartuchos de tóner' },
+        { id: 2, nombre: 'Cables', descripcion: 'Cables de red y energía' },
+        { id: 3, nombre: 'Periféricos', descripcion: 'Mouse, teclados, etc.' }
+      ]);
     } finally {
       setLoading(false);
     }
@@ -215,57 +231,56 @@ export const useInventory = () => {
   };
 
   const agregarActivo = async (nuevoActivo) => {
-    try {
-      await activosService.create(nuevoActivo);
-      await cargarDatos();
-    } catch (err) {
-      throw err;
-    }
+    await activosService.create(nuevoActivo);
+    await cargarDatos();
   };
 
   const agregarConsumible = async (nuevoConsumible) => {
-    try {
-      await consumiblesService.create(nuevoConsumible);
-      await cargarDatos();
-    } catch (err) {
-      throw err;
-    }
+    await consumiblesService.create(nuevoConsumible);
+    await cargarDatos();
   };
 
   const agregarComponente = async (nuevoComponente) => {
+    console.log('🔄 Intentando crear componente en backend:', nuevoComponente);
+    console.log('📡 Endpoint: POST /inventario/componentes');
     try {
-      await componentesService.create(nuevoComponente);
+      const response = await componentesService.create(nuevoComponente);
+      console.log('✅ Componente creado exitosamente en backend:', response);
       await cargarDatos();
-    } catch (err) {
-      throw err;
+      return response;
+    } catch (error) {
+      console.error('❌ Error al crear componente:', error);
+      console.error('Error details:', {
+        status: error.status,
+        message: error.message,
+        stack: error.stack
+      });
+      
+      // Si el backend no está disponible, mostrar error claro
+      if (!error.status || error.status === 0 || error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+        const errorMsg = 'No se pudo conectar con el servidor. Verifica que el backend esté ejecutándose en http://localhost:5181';
+        console.error('🚫 Backend no disponible:', errorMsg);
+        throw new Error(errorMsg);
+      }
+      
+      // Si hay otro error del backend, lanzarlo
+      throw error;
     }
   };
 
   const actualizarActivo = async (id, datosActualizados) => {
-    try {
-      await activosService.update(id, datosActualizados);
-      await cargarDatos();
-    } catch (err) {
-      throw err;
-    }
+    await activosService.update(id, datosActualizados);
+    await cargarDatos();
   };
 
   const actualizarConsumible = async (id, datosActualizados) => {
-    try {
-      await consumiblesService.update(id, datosActualizados);
-      await cargarDatos();
-    } catch (err) {
-      throw err;
-    }
+    await consumiblesService.update(id, datosActualizados);
+    await cargarDatos();
   };
 
   const actualizarComponente = async (id, datosActualizados) => {
-    try {
-      await componentesService.update(id, datosActualizados);
-      await cargarDatos();
-    } catch (err) {
-      throw err;
-    }
+    await componentesService.update(id, datosActualizados);
+    await cargarDatos();
   };
 
   const eliminarActivo = (id) => {

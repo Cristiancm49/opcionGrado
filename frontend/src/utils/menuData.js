@@ -26,6 +26,7 @@ export const menuItems = [
     color: 'bg-green-500',
     subItems: [
       'Gestión de Inventario',
+      'Componentes',
       'Inventario de Salas',
       'Disponibilidad de Salas'
     ]

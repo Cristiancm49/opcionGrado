@@ -1,7 +1,7 @@
 export { default as api } from './api';
 export { default as usuariosService } from './usuariosService';
 export { default as rolesService } from './rolesService';
-export { 
+export {
   default as catalogosService,
   estadosGeneralesService,
   estadosCasoService,

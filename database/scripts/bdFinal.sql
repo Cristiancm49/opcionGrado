@@ -32,7 +32,7 @@ GO
 --   ESTADO GENERAL
 
 CREATE TABLE catalogo.EstadoGeneral (
-    IdEstadoGeneral BIGINT IDENTITY(1,1),
+    IdEstadoGeneral BIGINT IDENTITY(1,1) NOT NULL,
     NombreEstado VARCHAR(100) NOT NULL,   -- Activo / Inactivo
     Descripcion VARCHAR(MAX) NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -46,7 +46,7 @@ GO
 --   MÓDULO ACCESO
 
 CREATE TABLE acceso.Rol (
-    IdRol BIGINT IDENTITY(1,1),
+    IdRol BIGINT IDENTITY(1,1) NOT NULL,
     NombreRol VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -55,7 +55,7 @@ CREATE TABLE acceso.Rol (
 GO
 
 CREATE TABLE acceso.Usuario (
-    IdUsuario BIGINT IDENTITY(1,1),
+    IdUsuario BIGINT IDENTITY(1,1) NOT NULL,
     NombreCompleto VARCHAR(150) NOT NULL,
     Email VARCHAR(150) NOT NULL,
     Telefono VARCHAR(20) NULL,
@@ -70,7 +70,7 @@ GO
 --   MÓDULO CATÁLOGO
 
 CREATE TABLE catalogo.AreaTecnica (
-    IdAreaTecnica BIGINT IDENTITY(1,1),
+    IdAreaTecnica BIGINT IDENTITY(1,1) NOT NULL,
     NombreAreaTecnica VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEncargado BIGINT NOT NULL,
@@ -82,7 +82,7 @@ GO
 
 
 CREATE TABLE catalogo.TipoTrabajo (
-    IdTipoTrabajo BIGINT IDENTITY(1,1),
+    IdTipoTrabajo BIGINT IDENTITY(1,1) NOT NULL,
     NombreTipoTrabajo VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -93,7 +93,7 @@ GO
 
 
 CREATE TABLE catalogo.EstadoIntervencionTecnica (
-    IdEstadoIntervencion BIGINT IDENTITY(1,1),
+    IdEstadoIntervencion BIGINT IDENTITY(1,1) NOT NULL,
     NombreEstado VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -103,7 +103,7 @@ GO
 
 
 CREATE TABLE catalogo.EstadoCaso (
-    IdEstadoCaso BIGINT IDENTITY(1,1),
+    IdEstadoCaso BIGINT IDENTITY(1,1) NOT NULL,
     NombreEstadoCaso VARCHAR(100) NOT NULL,
     DescripcionEstadoCaso VARCHAR(MAX) NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -113,7 +113,7 @@ GO
 
 
 CREATE TABLE catalogo.Prioridad (
-    IdPrioridad BIGINT IDENTITY(1,1),
+    IdPrioridad BIGINT IDENTITY(1,1) NOT NULL,
     NombrePrioridad VARCHAR(100) NOT NULL,
     TiempoRespuestaDias INT NOT NULL,
     TiempoResolucionDias INT NOT NULL,
@@ -125,7 +125,7 @@ GO
 
 
 CREATE TABLE catalogo.TipoCaso (
-    IdTipoCaso BIGINT IDENTITY(1,1),
+    IdTipoCaso BIGINT IDENTITY(1,1) NOT NULL,
     NombreTipoCaso VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -136,7 +136,7 @@ GO
 
 
 CREATE TABLE catalogo.CanalIngreso (
-    IdCanalIngreso BIGINT IDENTITY(1,1),
+    IdCanalIngreso BIGINT IDENTITY(1,1) NOT NULL,
     NombreCanal VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -147,7 +147,7 @@ GO
 
 
 CREATE TABLE catalogo.Pregunta (
-    IdPregunta BIGINT IDENTITY(1,1),
+    IdPregunta BIGINT IDENTITY(1,1) NOT NULL,
     TextoPregunta VARCHAR(100) NOT NULL,
     IdEstadoGeneral BIGINT NOT NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -157,7 +157,7 @@ GO
 
 
 CREATE TABLE catalogo.Respuesta (
-    IdRespuesta BIGINT IDENTITY(1,1),
+    IdRespuesta BIGINT IDENTITY(1,1) NOT NULL,
     TextoRespuesta VARCHAR(50) NOT NULL,
     ValorNumerico INT NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -171,7 +171,7 @@ GO
 --   INVENTARIO 
 
 CREATE TABLE inventario.Componente (
-    IdComponente BIGINT IDENTITY(1,1),
+    IdComponente BIGINT IDENTITY(1,1) NOT NULL,
     NombreComponente VARCHAR(200) NOT NULL,
     Marca VARCHAR(100) NULL,
     Modelo VARCHAR(100) NULL,
@@ -191,7 +191,7 @@ GO
 --   MÓDULO SOPORTE
 
 CREATE TABLE soporte.Caso (
-    IdCaso BIGINT IDENTITY(1,1),
+    IdCaso BIGINT IDENTITY(1,1) NOT NULL,
     Descripcion VARCHAR(MAX) NOT NULL,
     IdUsuarioReporta BIGINT NOT NULL,
     TelefonoContacto VARCHAR(20) NULL,
@@ -199,6 +199,12 @@ CREATE TABLE soporte.Caso (
     IdEstadoCaso BIGINT NOT NULL,
     FechaRegistro DATETIME2 NOT NULL DEFAULT GETDATE(),
     FechaAceptacion DATETIME2 NULL,
+      NumeroCaso AS (
+        'CASO-' +
+        CONVERT(VARCHAR(4), DATEPART(YEAR, FechaRegistro)) +
+        '-' +
+        RIGHT('00000' + CONVERT(VARCHAR(20), IdCaso), 5)
+    ) PERSISTED,
     FechaResolucion DATETIME2 NULL,
     FechaCierre DATETIME2 NULL,
     IdTipoCaso BIGINT NOT NULL,
@@ -214,7 +220,7 @@ GO
 
 
 CREATE TABLE soporte.TrazabilidadCaso (
-    IdTrazabilidadCaso BIGINT IDENTITY(1,1),
+    IdTrazabilidadCaso BIGINT IDENTITY(1,1) NOT NULL,
     IdCaso BIGINT NOT NULL,
     FechaEvento DATETIME2 NOT NULL DEFAULT GETDATE(),
     IdUsuarioAccion BIGINT NOT NULL,
@@ -242,7 +248,7 @@ GO
 
 
 CREATE TABLE soporte.IntervencionTecnica (
-    IdIntervencionTecnica BIGINT IDENTITY(1,1),
+    IdIntervencionTecnica BIGINT IDENTITY(1,1) NOT NULL,
     IdTrazabilidadCaso BIGINT NOT NULL,
     IdTipoTrabajo BIGINT NOT NULL,
     IdEstadoIntervencion BIGINT NOT NULL,
@@ -256,7 +262,7 @@ GO
 
 
 CREATE TABLE soporte.DetalleCambioComponentes (
-    IdCambioComponente BIGINT IDENTITY(1,1),
+    IdCambioComponente BIGINT IDENTITY(1,1) NOT NULL,
     IdIntervencionTecnica BIGINT NOT NULL,
     IdComponente BIGINT NOT NULL,
     Cantidad INT NOT NULL DEFAULT 1,
@@ -275,7 +281,7 @@ GO
 
 
 CREATE TABLE soporte.RevisionAdmi (
-    IdRevisionAdmi BIGINT IDENTITY(1,1),
+    IdRevisionAdmi BIGINT IDENTITY(1,1) NOT NULL,
     IdIntervencionTecnica BIGINT NOT NULL,
     Aprobado BIT NOT NULL DEFAULT 0,
     ObservacionRevision VARCHAR(MAX) NULL,
@@ -286,7 +292,7 @@ GO
 
 
 CREATE TABLE inventario.Ubicacion (
-    IdUbicacion BIGINT IDENTITY(1,1),
+    IdUbicacion BIGINT IDENTITY(1,1) NOT NULL,
     IdSede BIGINT NOT NULL,    
     Bloque VARCHAR(100) NULL,      
     Piso VARCHAR(50) NULL,         
@@ -298,7 +304,7 @@ CREATE TABLE inventario.Ubicacion (
 GO
 
 CREATE TABLE catalogo.Sede (
-    IdSede BIGINT IDENTITY(1,1) PRIMARY KEY,
+    IdSede BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     NombreSede VARCHAR(150) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -309,7 +315,7 @@ GO
 
 
 CREATE TABLE catalogo.CategoriaActivo (
-    IdCategoriaActivo BIGINT IDENTITY(1,1),
+    IdCategoriaActivo BIGINT IDENTITY(1,1) NOT NULL,
     NombreCategoria VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -319,7 +325,7 @@ CREATE TABLE catalogo.CategoriaActivo (
 GO
 
 CREATE TABLE catalogo.EstadoActivo (
-    IdEstadoActivo BIGINT IDENTITY(1,1),
+    IdEstadoActivo BIGINT IDENTITY(1,1) NOT NULL,
     NombreEstado VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -328,7 +334,7 @@ CREATE TABLE catalogo.EstadoActivo (
 GO
 
 CREATE TABLE inventario.Inventario (
-    IdInventario BIGINT IDENTITY(1,1),
+    IdInventario BIGINT IDENTITY(1,1) NOT NULL,
     NombreInventario VARCHAR(200) NOT NULL,  
     Descripcion VARCHAR(MAX) NULL,           
     IdEstadoGeneral BIGINT NOT NULL, 
@@ -339,7 +345,7 @@ CREATE TABLE inventario.Inventario (
 GO
 
 CREATE TABLE inventario.Activo (
-    IdActivo BIGINT IDENTITY(1,1),
+    IdActivo BIGINT IDENTITY(1,1) NOT NULL,
     CodigoPatrimonial VARCHAR(100) NULL,   
     NombreActivo VARCHAR(200) NOT NULL,
     DescripcionTecnica VARCHAR(MAX) NULL,
@@ -360,7 +366,7 @@ GO
 
 
 CREATE TABLE inventario.HojaDeVidaActivo (
-    IdHojaActivo BIGINT IDENTITY(1,1),
+    IdHojaActivo BIGINT IDENTITY(1,1) NOT NULL,
     IdActivo BIGINT NOT NULL,
     FechaRegistro DATETIME2 NOT NULL DEFAULT GETDATE(),
     DetalleRegistro VARCHAR(MAX) NOT NULL,   
@@ -371,7 +377,7 @@ CREATE TABLE inventario.HojaDeVidaActivo (
 GO
 
 CREATE TABLE catalogo.TipoConsumible (
-    IdTipoConsumible BIGINT IDENTITY(1,1),
+    IdTipoConsumible BIGINT IDENTITY(1,1) NOT NULL,
     NombreTipo VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     IdEstadoGeneral BIGINT NOT NULL,
@@ -382,7 +388,7 @@ GO
 
 
 CREATE TABLE catalogo.EstadoConsumible (
-    IdEstadoConsumible BIGINT IDENTITY(1,1),
+    IdEstadoConsumible BIGINT IDENTITY(1,1) NOT NULL,
     NombreEstado VARCHAR(100) NOT NULL,
     Descripcion VARCHAR(MAX) NULL,
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -392,7 +398,7 @@ GO
 
 
 CREATE TABLE inventario.Consumible (
-    IdConsumible BIGINT IDENTITY(1,1),
+    IdConsumible BIGINT IDENTITY(1,1) NOT NULL,
     NombreConsumible VARCHAR(200) NOT NULL,
     Marca VARCHAR(100) NULL,
     Modelo VARCHAR(100) NULL,
@@ -409,7 +415,7 @@ CREATE TABLE inventario.Consumible (
 GO
 
 CREATE TABLE soporte.EncuestaCalidad (
-    IdEncuesta BIGINT IDENTITY(1,1),
+    IdEncuesta BIGINT IDENTITY(1,1) NOT NULL,
     IdCaso BIGINT NOT NULL,
     FechaEncuesta DATETIME2 NOT NULL DEFAULT GETDATE(),
     Observaciones VARCHAR(MAX) NULL,
@@ -418,7 +424,7 @@ CREATE TABLE soporte.EncuestaCalidad (
 GO
 
 CREATE TABLE soporte.DetalleEncuesta (
-    IdDetalleEncuesta BIGINT IDENTITY(1,1),
+    IdDetalleEncuesta BIGINT IDENTITY(1,1) NOT NULL,
     IdEncuesta BIGINT NOT NULL,
     IdPregunta BIGINT NOT NULL,
     IdRespuesta BIGINT NOT NULL,
@@ -428,10 +434,10 @@ CREATE TABLE soporte.DetalleEncuesta (
 GO
 
 CREATE TABLE soporte.DetalleConsumible (
-    IdDetalleConsumible BIGINT IDENTITY(1,1),
+    IdDetalleConsumible BIGINT IDENTITY(1,1) NOT NULL,
     IdIntervencionTecnica BIGINT NOT NULL,
     IdConsumible BIGINT NOT NULL,
-    Cantidad INT NOT NULL CHECK (Cantidad > 0),
+    Cantidad INT NOT NULL,
     DescripcionUso VARCHAR(MAX) NULL,
     FechaRegistro DATETIME2 NOT NULL DEFAULT GETDATE(),
     IdUsuarioCreacion BIGINT NOT NULL
@@ -464,21 +470,21 @@ VALUES ('Activo', 'Estado habilitado', GETDATE(), 1),
 GO
 
 
-INSERT INTO catalogo.EstadoCaso (NombreEstadoCaso, DescripcionEstadoCaso, Orden, FechaCreacion, IdUsuarioCreacion)
+INSERT INTO catalogo.EstadoCaso (NombreEstadoCaso, DescripcionEstadoCaso, FechaCreacion, IdUsuarioCreacion)
 VALUES 
-('Abierto', 'El caso fue creado', 1, GETDATE(), 1),
-('Asignado', 'El caso fue asignado a un técnico', 2, GETDATE(), 1),
-('En Progreso', 'El técnico está trabajando en el caso', 3, GETDATE(), 1),
-('Resuelto', 'Se aplicó solución técnica', 4, GETDATE(), 1),
-('Cerrado', 'El usuario aprobó la solución', 5, GETDATE(), 1);
+('Abierto', 'El caso fue creado',  GETDATE(), 1),
+('Asignado', 'El caso fue asignado a un técnico',  GETDATE(), 1),
+('En Progreso', 'El técnico está trabajando en el caso',  GETDATE(), 1),
+('Resuelto', 'Se aplicó solución técnica',  GETDATE(), 1),
+('Cerrado', 'El usuario aprobó la solución',  GETDATE(), 1);
 GO
 
 
-INSERT INTO catalogo.EstadoIntervencionTecnica (NombreEstado, Descripcion, Orden, FechaCreacion, IdUsuarioCreacion)
+INSERT INTO catalogo.EstadoIntervencionTecnica (NombreEstado, Descripcion, FechaCreacion, IdUsuarioCreacion)
 VALUES
-('Pendiente', 'Trabajo registrado pero no iniciado', 1, GETDATE(), 1),
-('En Progreso', 'Trabajo en ejecución', 2, GETDATE(), 1),
-('Completado', 'Trabajo finalizado', 3, GETDATE(), 1);
+('Pendiente', 'Trabajo registrado pero no iniciado',  GETDATE(), 1),
+('En Progreso', 'Trabajo en ejecución',  GETDATE(), 1),
+('Completado', 'Trabajo finalizado',  GETDATE(), 1);
 GO
 
 
@@ -1006,11 +1012,7 @@ FOREIGN KEY (IdUsuarioAccion)
 REFERENCES acceso.Usuario(IdUsuario)
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE soporte.IntervencionTecnica
-ADD CONSTRAINT CKIntervencionFechas
-CHECK (FechaFin IS NULL OR FechaFin >= FechaInicio);
 
-GO
 
 
    -- DETALLE CAMBIO COMPONENTES
@@ -1097,6 +1099,12 @@ GO
 ALTER TABLE soporte.IntervencionTecnica
 ADD CONSTRAINT   CKFechasIntervencionTecnica
 CHECK (FechaFin IS NULL OR FechaFin >= FechaInicio);
+GO
+
+ALTER TABLE soporte.IntervencionTecnica
+ADD CONSTRAINT CKIntervencionFechas
+CHECK (FechaFin IS NULL OR FechaFin >= FechaInicio);
+
 GO
 
 
@@ -1234,6 +1242,8 @@ GO
 CREATE INDEX IXUsuarioRol ON acceso.Usuario(IdRol);
 GO
 
+CREATE UNIQUE INDEX UXCasoNumeroCaso ON soporte.Caso (NumeroCaso);
+GO
 
   --  ÍNDICES – MÓDULO CATÁLOGO
   

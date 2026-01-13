@@ -124,12 +124,12 @@ export const mockUbicaciones = [
 ];
 
 export const mockEstados = [
-  { id: 1, nombre: 'Activo', descripcion: 'Equipo funcionando correctamente' },
-  { id: 2, nombre: 'Inactivo', descripcion: 'Equipo fuera de servicio' },
-  { id: 3, nombre: 'Mantenimiento', descripcion: 'Equipo en proceso de mantenimiento' },
-  { id: 4, nombre: 'Disponible', descripcion: 'Consumible disponible para uso' },
-  { id: 5, nombre: 'Stock Bajo', descripcion: 'Consumible con stock bajo' },
-  { id: 6, nombre: 'Agotado', descripcion: 'Consumible sin stock' }
+  { id: 1, nombre: 'Operativo', descripcion: 'Equipo funcionando correctamente', tipo: 'activo' },
+  { id: 2, nombre: 'En Mantenimiento', descripcion: 'Equipo en proceso de mantenimiento', tipo: 'activo' },
+  { id: 3, nombre: 'Fuera de Servicio', descripcion: 'Equipo fuera de servicio', tipo: 'activo' },
+  { id: 4, nombre: 'Disponible', descripcion: 'Consumible disponible para uso', tipo: 'consumible' },
+  { id: 5, nombre: 'Bajo Stock', descripcion: 'Consumible con stock bajo', tipo: 'consumible' },
+  { id: 6, nombre: 'Agotado', descripcion: 'Consumible sin stock', tipo: 'consumible' }
 ];
 
 export const mockCategorias = [
