@@ -36,6 +36,7 @@ namespace MicroApi.Seguridad.Application.Services.Soporte
                 Id = caso.Id,
                 Descripcion = caso.Descripcion,
                 IdUsuarioReporta = caso.IdUsuarioReporta,
+                NombreUsuarioReporta = caso.UsuarioReporta?.NombreCompleto,
                 TelefonoContacto = caso.TelefonoContacto,
                 CorreoContacto = caso.CorreoContacto,
                 IdEstadoCaso = caso.IdEstadoCaso,
@@ -55,6 +56,7 @@ namespace MicroApi.Seguridad.Application.Services.Soporte
                 IdCanalIngreso = caso.IdCanalIngreso,
                 NombreCanalIngreso = caso.CanalIngreso?.NombreCanal,
                 IdTecnicoAsignado = caso.IdTecnicoAsignado,
+                NombreTecnicoAsignado = caso.TecnicoAsignado?.NombreCompleto,
                 FechaActualizacion = caso.FechaActualizacion,
                 IdUsuarioCreacion = caso.IdUsuarioCreacion,
                 Trazabilidades = caso.Trazabilidades?.Select(t => new TrazabilidadCasoDto
@@ -156,6 +158,7 @@ namespace MicroApi.Seguridad.Application.Services.Soporte
                 Id = caso.Id,
                 Descripcion = caso.Descripcion,
                 IdUsuarioReporta = caso.IdUsuarioReporta,
+                NombreUsuarioReporta = caso.UsuarioReporta?.NombreCompleto,
                 TelefonoContacto = caso.TelefonoContacto,
                 CorreoContacto = caso.CorreoContacto,
                 IdEstadoCaso = caso.IdEstadoCaso,
@@ -175,6 +178,7 @@ namespace MicroApi.Seguridad.Application.Services.Soporte
                 IdCanalIngreso = caso.IdCanalIngreso,
                 NombreCanalIngreso = caso.CanalIngreso?.NombreCanal,
                 IdTecnicoAsignado = caso.IdTecnicoAsignado,
+                NombreTecnicoAsignado = caso.TecnicoAsignado?.NombreCompleto,
                 FechaActualizacion = caso.FechaActualizacion,
                 IdUsuarioCreacion = caso.IdUsuarioCreacion
             };

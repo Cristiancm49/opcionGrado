@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MicroApi.Seguridad.Domain.DTOs.Inventario;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -8,6 +9,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Inventario
     [Route("api/inventario/componentes")]
     [Produces("application/json")]
     [Tags("Componente")]
+    [Authorize]
     public class ComponenteController : ControllerBase
     {
         private readonly IComponenteService _service;
@@ -54,6 +56,10 @@ namespace MicroApi.Seguridad.Api.Controllers.Inventario
         }
     }
 }
+
+
+
+
 
 
 

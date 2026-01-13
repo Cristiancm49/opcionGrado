@@ -6,6 +6,7 @@ namespace MicroApi.Seguridad.Domain.Interfaces
     {
         Task<IEnumerable<Ubicacion>> GetAllWithSedeAsync();
         Task<Ubicacion?> GetByIdWithSedeAsync(long id);
+        Task<bool> DeleteAsync(long id);
     }
 }
 

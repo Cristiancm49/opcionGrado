@@ -17,6 +17,7 @@ namespace MicroApi.Seguridad.Data.Repositories
                 .Include(a => a.EstadoActivo)
                 .Include(a => a.Inventario)
                 .Include(a => a.Ubicacion)
+                    .ThenInclude(u => u!.Sede)
                 .Include(a => a.Responsable)
                 .ToListAsync();
         }
@@ -28,6 +29,7 @@ namespace MicroApi.Seguridad.Data.Repositories
                 .Include(a => a.EstadoActivo)
                 .Include(a => a.Inventario)
                 .Include(a => a.Ubicacion)
+                    .ThenInclude(u => u!.Sede)
                 .Include(a => a.Responsable)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }

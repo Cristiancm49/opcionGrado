@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MicroApi.Seguridad.Domain.Models.Acceso;
 using MicroApi.Seguridad.Domain.Models.Catalogo;
 using MicroApi.Seguridad.Domain.Models.Inventario;
 
@@ -92,10 +93,20 @@ namespace MicroApi.Seguridad.Domain.Models.Soporte
         [ForeignKey("IdCanalIngreso")]
         public virtual CanalIngreso CanalIngreso { get; set; } = null!;
 
+        [ForeignKey("IdUsuarioReporta")]
+        public virtual Usuario UsuarioReporta { get; set; } = null!;
+
+        [ForeignKey("IdTecnicoAsignado")]
+        public virtual Usuario? TecnicoAsignado { get; set; }
+
         public virtual ICollection<TrazabilidadCaso> Trazabilidades { get; set; } = new List<TrazabilidadCaso>();
         public virtual ICollection<EncuestaCalidad> Encuestas { get; set; } = new List<EncuestaCalidad>();
     }
 }
+
+
+
+
 
 
 

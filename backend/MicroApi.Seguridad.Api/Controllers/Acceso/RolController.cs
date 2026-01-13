@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MicroApi.Seguridad.Domain.DTOs.Acceso;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -8,6 +9,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Acceso
     [Route("api/acceso/roles")]
     [Produces("application/json")]
     [Tags("Rol")]
+    [Authorize]
     public class RolController : ControllerBase
     {
         private readonly IRolService _service;
@@ -54,6 +56,10 @@ namespace MicroApi.Seguridad.Api.Controllers.Acceso
         }
     }
 }
+
+
+
+
 
 
 

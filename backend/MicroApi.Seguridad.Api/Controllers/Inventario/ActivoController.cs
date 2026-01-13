@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MicroApi.Seguridad.Domain.DTOs.Inventario;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -8,6 +9,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Inventario
     [Route("api/inventario/activos")]
     [Produces("application/json")]
     [Tags("Activo")]
+    [Authorize]
     public class ActivoController : ControllerBase
     {
         private readonly IActivoService _service;
@@ -54,6 +56,10 @@ namespace MicroApi.Seguridad.Api.Controllers.Inventario
         }
     }
 }
+
+
+
+
 
 
 

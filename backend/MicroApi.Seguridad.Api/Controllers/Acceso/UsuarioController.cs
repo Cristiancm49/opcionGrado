@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MicroApi.Seguridad.Domain.DTOs.Acceso;
 using MicroApi.Seguridad.Domain.Interfaces.Services;
@@ -8,6 +9,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Acceso
     [Route("api/acceso/usuarios")]
     [Produces("application/json")]
     [Tags("Usuario")]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _service;
@@ -61,6 +63,10 @@ namespace MicroApi.Seguridad.Api.Controllers.Acceso
         }
     }
 }
+
+
+
+
 
 
 

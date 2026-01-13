@@ -1,4 +1,5 @@
 using MicroApi.Seguridad.Application.Services.Acceso;
+using MicroApi.Seguridad.Application.Services.Auth;
 using MicroApi.Seguridad.Application.Services.Catalogo;
 using MicroApi.Seguridad.Application.Services.Inventario;
 using MicroApi.Seguridad.Application.Services.Soporte;
@@ -61,6 +62,7 @@ namespace MicroApi.Seguridad.Api.Extensions
             
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IAuthService, AuthService>();
             
             services.AddScoped<IUbicacionService, UbicacionService>();
             services.AddScoped<ICategoriaActivoService, CategoriaActivoService>();

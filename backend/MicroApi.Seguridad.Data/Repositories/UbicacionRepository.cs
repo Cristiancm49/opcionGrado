@@ -23,6 +23,16 @@ namespace MicroApi.Seguridad.Data.Repositories
                 .Include(u => u.Sede)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            var entity = await _context.Set<Ubicacion>().FindAsync(id);
+            if (entity == null) return false;
+            
+            _context.Set<Ubicacion>().Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
 

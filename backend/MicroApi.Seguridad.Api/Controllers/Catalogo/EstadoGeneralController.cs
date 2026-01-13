@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MicroApi.Seguridad.Domain.DTOs.Catalogo;
 using MicroApi.Seguridad.Domain.DTOs.Common;
@@ -40,6 +41,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Crear([FromBody] EstadoGeneralCreateDto dto)
         {
             var result = await _service.CreateAsync(dto);
@@ -51,6 +53,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Catalogo
         }
 
         [HttpPut("{id:long}")]
+        [Authorize]
         public async Task<IActionResult> Actualizar(long id, [FromBody] EstadoGeneralUpdateDto dto)
         {
             var result = await _service.UpdateAsync(id, dto);

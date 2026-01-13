@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MicroApi.Seguridad.Domain.DTOs.Common;
 using MicroApi.Seguridad.Domain.DTOs.Soporte;
@@ -8,6 +9,7 @@ namespace MicroApi.Seguridad.Api.Controllers.Soporte
     [ApiController]
     [Route("api/trazabilidades")]
     [Tags("TrazabilidadCaso")]
+    [Authorize]
     public class TrazabilidadCasoController : ControllerBase
     {
         private readonly ITrazabilidadCasoService _service;

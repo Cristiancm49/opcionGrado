@@ -19,12 +19,12 @@ namespace MicroApi.Seguridad.Application.Services.Inventario
 
         protected override ActivoDto MapToDto(Activo entity)
         {
-            // Construir ubicación completa
             string? ubicacionCompleta = null;
             if (entity.Ubicacion != null)
             {
                 var partes = new List<string>();
-                if (!string.IsNullOrEmpty(entity.Ubicacion.Sede)) partes.Add(entity.Ubicacion.Sede);
+                if (entity.Ubicacion.Sede != null && !string.IsNullOrEmpty(entity.Ubicacion.Sede.NombreSede)) 
+                    partes.Add(entity.Ubicacion.Sede.NombreSede);
                 if (!string.IsNullOrEmpty(entity.Ubicacion.Bloque)) partes.Add($"Bloque {entity.Ubicacion.Bloque}");
                 if (!string.IsNullOrEmpty(entity.Ubicacion.Piso)) partes.Add($"Piso {entity.Ubicacion.Piso}");
                 if (!string.IsNullOrEmpty(entity.Ubicacion.Sala)) partes.Add(entity.Ubicacion.Sala);
